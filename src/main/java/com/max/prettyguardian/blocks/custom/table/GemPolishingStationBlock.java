@@ -37,7 +37,12 @@ public class GemPolishingStationBlock extends BaseEntityBlock {
     }
 
     @Override
-    public @NotNull VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
+    public @NotNull VoxelShape getShape(
+            @NotNull BlockState blockState,
+            @NotNull BlockGetter blockGetter,
+            @NotNull BlockPos blockPos,
+            @NotNull CollisionContext collisionContext
+    ) {
         return SHAPE;
     }
 
@@ -47,7 +52,13 @@ public class GemPolishingStationBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState blockState1, boolean p_60519_) {
+    public void onRemove(
+            BlockState blockState,
+            @NotNull Level level,
+            @NotNull BlockPos blockPos,
+            BlockState blockState1,
+            boolean b
+    ) {
         if (blockState.getBlock() != blockState1.getBlock()) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof GemPolishingStationBlockEntity) {
@@ -55,11 +66,17 @@ public class GemPolishingStationBlock extends BaseEntityBlock {
             }
         }
 
-        super.onRemove(blockState, level, blockPos, blockState1, p_60519_);
+        super.onRemove(blockState, level, blockPos, blockState1, b);
     }
 
     @Override
-    protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull BlockHitResult blockHitResult) {
+    protected @NotNull InteractionResult useWithoutItem(
+            @NotNull BlockState blockState,
+            Level level,
+            @NotNull BlockPos blockPos,
+            @NotNull Player player,
+            @NotNull BlockHitResult blockHitResult
+    ) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {
@@ -80,10 +97,16 @@ public class GemPolishingStationBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> tBlockEntityType) {
-        if (level.isClientSide()) {
-            return null;
-        }
-        return createTickerHelper(tBlockEntityType, ModBlockEntities.GEM_POLISHING_BE.get(), (pLevel1, pPos, pState, pBlockEntity) -> pBlockEntity.tick(level, pPos, pState, pBlockEntity));
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+            Level level,
+            @NotNull BlockState blockState,
+            @NotNull BlockEntityType<T> tBlockEntityType
+    ) {
+        if (level.isClientSide()) return null;
+        return createTickerHelper(
+                tBlockEntityType,
+                ModBlockEntities.GEM_POLISHING_BE.get(),
+                (pLevel1, pPos, pState, pBlockEntity) -> pBlockEntity.tick(level, pPos, pState)
+        );
     }
 }

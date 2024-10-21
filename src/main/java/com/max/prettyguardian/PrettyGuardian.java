@@ -49,8 +49,6 @@ public class PrettyGuardian
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        PrettyGuardianBlock.init();
-
         PrettyGuardianBlock.register(modEventBus);
         PrettyGuardianItem.register(modEventBus);
 
@@ -95,8 +93,8 @@ public class PrettyGuardian
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents
-    {
+    public static class ClientModEvents {
+        private ClientModEvents() {}
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {

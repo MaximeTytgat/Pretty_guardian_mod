@@ -9,6 +9,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlockEntities {
+    private ModBlockEntities() {
+        throw new IllegalStateException("Register class");
+    }
+
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, PrettyGuardian.MOD_ID);
 
@@ -31,7 +35,6 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("silver_crystal_be", () ->
                     BlockEntityType.Builder.of(SilverCrystalBlockEntity::new,
                             PrettyGuardianBlock.SILVER_CRYSTAL.get()).build(null));
-
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

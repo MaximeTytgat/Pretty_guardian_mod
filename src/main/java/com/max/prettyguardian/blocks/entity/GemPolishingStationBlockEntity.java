@@ -45,7 +45,7 @@ public class GemPolishingStationBlockEntity extends BlockEntity implements MenuP
                 return switch (pIndex) {
                     case 0 -> GemPolishingStationBlockEntity.this.progress;
                     case 1 -> GemPolishingStationBlockEntity.this.maxProgress;
-                    default -> 0;
+                    default -> throw new IllegalArgumentException("Index out of bounds");
                 };
             }
 
@@ -54,6 +54,7 @@ public class GemPolishingStationBlockEntity extends BlockEntity implements MenuP
                 switch (pIndex){
                     case 0 -> GemPolishingStationBlockEntity.this.progress = pValue;
                     case 1 -> GemPolishingStationBlockEntity.this.maxProgress = pValue;
+                    default -> throw new IllegalArgumentException("Index out of bounds");
                 }
             }
 
@@ -85,6 +86,7 @@ public class GemPolishingStationBlockEntity extends BlockEntity implements MenuP
     }
 
     public void drops() {
+        if (level == null) return;
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, itemHandler.getStackInSlot(i));
@@ -93,8 +95,8 @@ public class GemPolishingStationBlockEntity extends BlockEntity implements MenuP
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable("block.prettyguardian.gem_polishing_station");
+    public @NotNull Component getDisplayName() {
+        return Component.translatable("block.prettyGuardian.gem_polishing_station");
     }
 
     @Nullable
@@ -117,7 +119,11 @@ public class GemPolishingStationBlockEntity extends BlockEntity implements MenuP
         itemHandler.deserializeNBT(pTag.getCompound("inventory"));
     }
 
-    public void tick(Level level, BlockPos pPos, BlockState pState, GemPolishingStationBlockEntity pBlockEntity) {
+    public void tick(
+            Level level,
+            BlockPos pPos,
+            BlockState pState
+    ) {
         if (hasRecipe()) {
             increaseCraftingProgress();
             setChanged(level, pPos, pState);
@@ -139,7 +145,13 @@ public class GemPolishingStationBlockEntity extends BlockEntity implements MenuP
         ItemStack result = new ItemStack(PrettyGuardianItem.RUBY.get());
         this.itemHandler.extractItem(INPUT_SLOT, 1, false);
 
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(result.getItem(), this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + result.getCount()));
+        this.itemHandler.setStackInSlot(
+                OUTPUT_SLOT,
+                new ItemStack(
+                        result.getItem(),
+                        this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + result.getCount()
+                )
+        );
     }
 
     private boolean hasRecipe() {

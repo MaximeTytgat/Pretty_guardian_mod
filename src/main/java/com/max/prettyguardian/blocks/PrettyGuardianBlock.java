@@ -38,6 +38,10 @@ import java.util.function.Supplier;
 import static com.max.prettyguardian.item.PrettyGuardianItem.ITEMS;
 
 public class PrettyGuardianBlock {
+    private PrettyGuardianBlock() {
+        throw new IllegalStateException("Register class");
+    }
+
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, PrettyGuardian.MOD_ID);
 
     public static final RegistryObject<Block> CHOCOLATE_CAKE = registryBlock("chocolate_cake", () -> new BaseCake(cakeProperties()));
@@ -166,21 +170,15 @@ public class PrettyGuardianBlock {
     public static final RegistryObject<Block> BONZAI_CHERRY = registryBlock("cherry_bonzai", () -> new JapBonzaiBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.5F, 2.5F)));
     public static final RegistryObject<Block> LUCKY_NEKO = registryBlock("lucky_neko", () -> new LuckyNekoBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<Block> SILVER_CRYSTAL = registryBlock("silver_crystal", () -> new SilverCrystalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).requiresCorrectToolForDrops().strength(5.0F, 6.0F).lightLevel((blockState) -> 8)));
+    public static final RegistryObject<Block> SILVER_CRYSTAL = registryBlock("silver_crystal", () -> new SilverCrystalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).requiresCorrectToolForDrops().strength(5.0F, 6.0F).lightLevel(blockState -> 8)));
 
-    private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
-        return ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     public static <T extends Block> RegistryObject<Block> registryBlock(String name, Supplier<T> block) {
         RegistryObject<Block> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
-        return toReturn;
-    }
-
-    public static <T extends Block> RegistryObject<Block> registryBlockWithItemProperties(String name, Supplier<T> block, Item.Properties properties) {
-        RegistryObject<Block> toReturn = BLOCKS.register(name, block);
-        ITEMS.register(name, () -> new BlockItem(toReturn.get(), properties));
         return toReturn;
     }
 
@@ -190,9 +188,5 @@ public class PrettyGuardianBlock {
 
     public static BlockBehaviour.Properties cakeProperties() {
         return BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE).noLootTable();
-    }
-
-
-    public static void init() {
     }
 }

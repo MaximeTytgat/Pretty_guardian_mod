@@ -16,6 +16,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Random;
+
 public class SeaShell extends Block {
     public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 0, 3);
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -25,17 +27,24 @@ public class SeaShell extends Block {
             Block.box(3, 0, 2, 13, 2, 13),
             Block.box(3, 0, 2, 13, 9, 13)
     };
+    private static final Random random = new Random();
+
     public SeaShell(Properties properties) {
         super(properties);
     }
 
     @Override
-    public @NotNull VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+    public @NotNull VoxelShape getShape(
+            BlockState blockState,
+            @NotNull BlockGetter blockGetter,
+            @NotNull BlockPos blockPos,
+            @NotNull CollisionContext collisionContext
+    ) {
         return SHAPE_BY_VARIANT[blockState.getValue(VARIANT)];
     }
 
     @Override
-    public boolean canSurvive(BlockState blockState, LevelReader level, BlockPos blockPos) {
+    public boolean canSurvive(@NotNull BlockState blockState, LevelReader level, BlockPos blockPos) {
         BlockPos blockpos = blockPos.below();
         BlockState blockstate = level.getBlockState(blockpos);
 
@@ -45,8 +54,10 @@ public class SeaShell extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        int variant = (int) (Math.random() * 4);
-        return this.defaultBlockState().setValue(VARIANT, variant).setValue(FACING, context.getHorizontalDirection().getOpposite());
+        int variant = random.nextInt(4);
+        return this.defaultBlockState()
+                .setValue(VARIANT, variant)
+                .setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override

@@ -15,7 +15,6 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -58,6 +57,7 @@ public class MoonAltarBlockEntity extends RandomizableContainerBlockEntity imple
     }
 
     public void drops() {
+        if (this.level == null) return;
         SimpleContainer inventory = new SimpleContainer(items.size());
         for (int i = 0; i < items.size(); i++) {
             inventory.setItem(i, items.get(i));
@@ -72,30 +72,31 @@ public class MoonAltarBlockEntity extends RandomizableContainerBlockEntity imple
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable("block.prettyguardian.moon_altar");
+    public @NotNull Component getDisplayName() {
+        return Component.translatable("block.prettyGuardian.moon_altar");
     }
 
     @Override
-    protected Component getDefaultName() {
-        return Component.translatable("block.prettyguardian.moon_altar");
+    protected @NotNull Component getDefaultName() {
+        return Component.translatable("block.prettyGuardian.moon_altar");
     }
 
     @Override
-    protected NonNullList<ItemStack> getItems() {
+    protected @NotNull NonNullList<ItemStack> getItems() {
         return this.items;
     }
 
     @Override
-    protected void setItems(NonNullList<ItemStack> itemStacks) {
+    protected void setItems(@NotNull NonNullList<ItemStack> itemStacks) {
         this.items = itemStacks;
     }
 
     @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inventory) {
+    public @NotNull AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory) {
         return new MoonAltarMenu(id, inventory, this);
     }
 
+    @Override
     public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
         super.loadAdditional(tag, provider);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
@@ -125,7 +126,8 @@ public class MoonAltarBlockEntity extends RandomizableContainerBlockEntity imple
         this.setChanged();
     }
 
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    @Override
+    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
         if (!this.trySaveLootTable(tag)) {
             ContainerHelper.saveAllItems(tag, this.items, provider);
         }

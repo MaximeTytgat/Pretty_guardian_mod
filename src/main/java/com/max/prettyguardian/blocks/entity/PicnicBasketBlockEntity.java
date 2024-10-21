@@ -21,18 +21,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.IntStream;
 
 public class  PicnicBasketBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
-
-    public static final int COLUMNS = 2;
-    public static final int ROWS = 2;
-    public static final int CONTAINER_SIZE = 4;
-    public static final int EVENT_SET_OPEN_COUNT = 1;
-    public static final String ITEMS_TAG = "Items";
     private static final int[] SLOTS = IntStream.range(0, 4).toArray();
     private NonNullList<ItemStack> itemStacks = NonNullList.withSize(4, ItemStack.EMPTY);
     private int openCount;
@@ -41,8 +36,11 @@ public class  PicnicBasketBlockEntity extends RandomizableContainerBlockEntity i
         super(ModBlockEntities.PICNIC_BASKET_BE.get(), blockPos, blockState);
     }
 
-    public void startOpen(Player p_59692_) {
-        if (!this.remove && !p_59692_.isSpectator()) {
+    @Override
+    public void startOpen(@NotNull Player player) {
+        if (this.level == null) return;
+
+        if (!this.remove && !player.isSpectator()) {
             if (this.openCount < 0) {
                 this.openCount = 0;
             }
@@ -51,26 +49,30 @@ public class  PicnicBasketBlockEntity extends RandomizableContainerBlockEntity i
             this.level.blockEvent(this.worldPosition, this.getBlockState().getBlock(), 1, this.openCount);
             updateBlockState(this.getBlockState(), true);
             if (this.openCount == 1) {
-                this.level.gameEvent(p_59692_, GameEvent.CONTAINER_OPEN, this.worldPosition);
+                this.level.gameEvent(player, GameEvent.CONTAINER_OPEN, this.worldPosition);
                 this.level.playSound(null, this.worldPosition, SoundEvents.BARREL_OPEN, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
             }
         }
 
     }
 
-    public void stopOpen(Player p_59688_) {
-        if (!this.remove && !p_59688_.isSpectator()) {
+    @Override
+    public void stopOpen(@NotNull Player player) {
+        if (this.level == null) return;
+
+        if (!this.remove && !player.isSpectator()) {
             --this.openCount;
             updateBlockState(this.getBlockState(), false);
             this.level.blockEvent(this.worldPosition, this.getBlockState().getBlock(), 1, this.openCount);
             if (this.openCount <= 0) {
-                this.level.gameEvent(p_59688_, GameEvent.CONTAINER_CLOSE, this.worldPosition);
+                this.level.gameEvent(player, GameEvent.CONTAINER_CLOSE, this.worldPosition);
                 this.level.playSound(null, this.worldPosition, SoundEvents.BARREL_CLOSE, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
             }
         }
     }
 
     void updateBlockState(BlockState blockState, boolean open) {
+        if (this.level == null) return;
         this.level.setBlock(this.getBlockPos(), blockState.setValue(BarrelBlock.OPEN, open), 3);
     }
 
@@ -80,23 +82,23 @@ public class  PicnicBasketBlockEntity extends RandomizableContainerBlockEntity i
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable("block.prettyguardian.picnic_basket");
+    public @NotNull Component getDisplayName() {
+        return Component.translatable("block.prettyGuardian.picnic_basket");
     }
 
     @Override
-    protected Component getDefaultName() {
-        return Component.translatable("block.prettyguardian.picnic_basket");
+    protected @NotNull Component getDefaultName() {
+        return Component.translatable("block.prettyGuardian.picnic_basket");
     }
 
     @Override
-    protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+    protected void loadAdditional(@NotNull CompoundTag compoundTag, HolderLookup.@NotNull Provider provider) {
         super.loadAdditional(compoundTag, provider);
         this.loadFromTag(compoundTag, provider);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+    protected void saveAdditional(@NotNull CompoundTag compoundTag, HolderLookup.@NotNull Provider provider) {
         if (!this.trySaveLootTable(compoundTag)) {
             ContainerHelper.saveAllItems(compoundTag, this.itemStacks, false, provider);
         }
@@ -104,10 +106,10 @@ public class  PicnicBasketBlockEntity extends RandomizableContainerBlockEntity i
         super.saveAdditional(compoundTag, provider);
     }
 
-    public void loadFromTag(CompoundTag p_59694_, HolderLookup.Provider provider) {
+    public void loadFromTag(CompoundTag compoundTag, HolderLookup.Provider provider) {
         this.itemStacks = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        if (!this.tryLoadLootTable(p_59694_) && p_59694_.contains("Items", 9)) {
-            ContainerHelper.loadAllItems(p_59694_, this.itemStacks, provider);
+        if (!this.tryLoadLootTable(compoundTag) && compoundTag.contains("Items", 9)) {
+            ContainerHelper.loadAllItems(compoundTag, this.itemStacks, provider);
         }
     }
 
@@ -126,21 +128,21 @@ public class  PicnicBasketBlockEntity extends RandomizableContainerBlockEntity i
         return SLOTS;
     }
     @Override
-    public boolean canPlaceItemThroughFace(int p_19235_, ItemStack itemStack, @Nullable Direction direction) {
-        return !(Block.byItem(itemStack.getItem()) instanceof PicnicBasketBlock) && itemStack.getItem().canFitInsideContainerItems(); // FORGE: Make shulker boxes respect Item#canFitInsideContainerItems
+    public boolean canPlaceItemThroughFace(int i, ItemStack itemStack, @Nullable Direction direction) {
+        return !(Block.byItem(itemStack.getItem()) instanceof PicnicBasketBlock) && itemStack.getItem().canFitInsideContainerItems();
     }
 
-    public boolean canTakeItemThroughFace(int p_59682_, ItemStack p_59683_, Direction p_59684_) {
+    public boolean canTakeItemThroughFace(int i, @NotNull ItemStack itemStack, @NotNull Direction direction) {
         return true;
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int id, Inventory inventory) {
+    protected @NotNull AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory) {
         return new PicnicBasketMenu(id, inventory, this);
     }
 
     @Override
-    protected net.minecraftforge.items.IItemHandler createUnSidedHandler() {
+    protected @NotNull IItemHandler createUnSidedHandler() {
         return new net.minecraftforge.items.wrapper.SidedInvWrapper(this, Direction.UP);
     }
 }

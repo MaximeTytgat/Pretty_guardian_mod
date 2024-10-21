@@ -28,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MoonAltarBlock extends BaseEntityBlock {
-
     public static final MapCodec<MoonAltarBlock> CODEC = simpleCodec(MoonAltarBlock::new);
 
     private static final VoxelShape SHAPE = Shapes.or(
@@ -69,9 +68,7 @@ public class MoonAltarBlock extends BaseEntityBlock {
             Block.box(15, 9, 3, 15.5, 12, 13),
             Block.box(15, 12, 2, 15.5, 15, 14)
     );
-
     public static final EnumProperty<Direction> FACING = DirectionalBlock.FACING;
-
 
     public MoonAltarBlock(Properties properties) {
         super(properties);
@@ -90,7 +87,12 @@ public class MoonAltarBlock extends BaseEntityBlock {
     }
 
     @Override
-    public @NotNull VoxelShape getShape(BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
+    public @NotNull VoxelShape getShape(
+            BlockState blockState,
+            @NotNull BlockGetter blockGetter,
+            @NotNull BlockPos blockPos,
+            @NotNull CollisionContext collisionContext
+    ) {
         Direction direction = blockState.getValue(FACING);
         return direction.getAxis() == Direction.Axis.X ? SHAPE_EAST : SHAPE;
     }
@@ -100,7 +102,13 @@ public class MoonAltarBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState blockState1, boolean p_60519_) {
+    public void onRemove(
+            BlockState blockState,
+            @NotNull Level level,
+            @NotNull BlockPos blockPos,
+            BlockState blockState1,
+            boolean b
+    ) {
         if (blockState.getBlock() != blockState1.getBlock()) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof MoonAltarBlockEntity) {
@@ -108,11 +116,17 @@ public class MoonAltarBlock extends BaseEntityBlock {
             }
         }
 
-        super.onRemove(blockState, level, blockPos, blockState1, p_60519_);
+        super.onRemove(blockState, level, blockPos, blockState1, b);
     }
 
     @Override
-    protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState p_60503_, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull BlockHitResult blockHitResult) {
+    protected @NotNull InteractionResult useWithoutItem(
+            @NotNull BlockState blockState,
+            Level level,
+            @NotNull BlockPos blockPos,
+            @NotNull Player player,
+            @NotNull BlockHitResult blockHitResult
+    ) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {
@@ -127,11 +141,19 @@ public class MoonAltarBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> tBlockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+            Level level,
+            @NotNull BlockState blockState,
+            @NotNull BlockEntityType<T> tBlockEntityType
+    ) {
         if (level.isClientSide()) {
             return null;
         }
-        return createTickerHelper(tBlockEntityType, ModBlockEntities.MOON_ALTAR_BE.get(), (pLevel1, pPos, pState, pBlockEntity) -> pBlockEntity.tick(level, pPos, pState));
+        return createTickerHelper(
+                tBlockEntityType,
+                ModBlockEntities.MOON_ALTAR_BE.get(),
+                (pLevel1, pPos, pState, pBlockEntity) -> pBlockEntity.tick(level, pPos, pState)
+        );
     }
 
     @Override
