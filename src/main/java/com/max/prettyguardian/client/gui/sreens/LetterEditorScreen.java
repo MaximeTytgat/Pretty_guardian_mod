@@ -5,24 +5,23 @@ import com.max.prettyguardian.client.gui.components.CustomFittingMultiLineTextWi
 import com.max.prettyguardian.client.gui.components.CustomMultiLineEditBox;
 import com.max.prettyguardian.client.gui.components.CustomStringWidget;
 import com.max.prettyguardian.client.gui.sreens.inventory.FakeLoveLetterMenu;
+import com.max.prettyguardian.data.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -30,18 +29,14 @@ import java.util.Objects;
 public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMenu> {
     private static final ResourceLocation LOVE_LETTER_LOCATION = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/gui/love_letter.png");
     private static final ResourceLocation LOVE_LETTER_LAYER_LOCATIION = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/gui/love_letter_layer.png");
-    private TextField textField;
     private CustomMultiLineEditBox output;
-    private CustomFittingMultiLineTextWidget writtenOutput;
     private final ItemStack stack;
-    private MutableComponent msg;
     private final List<FormattedCharSequence> cachedPageComponents;
 
     public LetterEditorScreen(FakeLoveLetterMenu fakeMenu, Inventory inventory, Component component) {
         super(fakeMenu, inventory, Component.empty());
         this.cachedPageComponents = Collections.emptyList();
         this.stack = inventory.getSelected();
-
     }
 
     @Override
@@ -51,47 +46,48 @@ public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMe
 
         net.minecraft.client.gui.components.Button.Builder doneButton = net.minecraft.client.gui.components.Button.builder(
                 CommonComponents.GUI_DONE,
-                (button) -> this.onClose()
+                button -> this.onClose()
         ).bounds((this.width / 2) + 5, 196, 100, 20);
 
         net.minecraft.client.gui.components.Button.Builder signButton = net.minecraft.client.gui.components.Button.builder(
                 Component.translatable("gui.sign_and_close"),
-                (button) -> this.onClose("sign")
+                button -> this.onClose("sign")
         ).bounds((this.width / 2) - 105, 196, 100, 20);
 
 
         this.output = new CustomMultiLineEditBox(
                 this.font, bookX + 30, bookY + 18, 105, 115,
-                Component.translatable("screen.prettyguardian.love_letter.placeholder").withStyle(Style.EMPTY.withColor(11828699)),
+                Component.translatable("screen.prettyGuardian.love_letter.placeholder").withStyle(Style.EMPTY.withColor(11828699)),
                 Component.empty()
         );
 
-        this.output.setMessage(Component.translatable("screen.prettyguardian.love_letter.placeholder").withStyle(Style.EMPTY.withColor(11828699)));
+        this.output.setMessage(Component.translatable("screen.prettyGuardian.love_letter.placeholder").withStyle(Style.EMPTY.withColor(11828699)));
 
-        if (this.stack.hasTag()) {
-            CompoundTag tag = this.stack.getTag();
 
-            if (tag != null && tag.contains("author")) {
-                this.writtenOutput = new CustomFittingMultiLineTextWidget(
+        if (this.stack.has(ModDataComponents.LOVE_LETTER_TEXT) || this.stack.has(ModDataComponents.LOVE_LETTER_AUTHOR)) {
+            String text = this.stack.get(ModDataComponents.LOVE_LETTER_TEXT);
+            String author = this.stack.get(ModDataComponents.LOVE_LETTER_AUTHOR);
+            if (text != null && author != null) {
+                CustomFittingMultiLineTextWidget writtenOutput = new CustomFittingMultiLineTextWidget(
                         bookX + 30, bookY + 18, 105, 115,
-                        Component.literal(tag.getString("msg")).withStyle(Style.EMPTY.withColor(11828699)),
+                        Component.literal(text).withStyle(Style.EMPTY.withColor(11828699)),
                         this.font
                 );
 
                 this.addRenderableWidget(new CustomStringWidget(bookX + 22, 160, 100, 20,
-                        Component.translatable("screen.prettyguardian.love_letter.send_by").withStyle(Style.EMPTY.withColor(10455011).applyFormats(ChatFormatting.BOLD))
+                        Component.translatable("screen.prettyGuardian.love_letter.send_by").withStyle(Style.EMPTY.withColor(10455011).applyFormats(ChatFormatting.BOLD))
                                 .append(" ")
-                                .append(tag.getString("author")),
+                                .append(author),
                         this.font));
 
-                this.addRenderableWidget(this.writtenOutput);
+                this.addRenderableWidget(writtenOutput);
                 this.addRenderableWidget(Button.builder(
                         CommonComponents.GUI_DONE,
-                        (button) -> this.onClose()
+                        button -> this.onClose()
                 ).bounds((this.width / 2) - 100, 196, 200, 20).build());
             } else {
-                if (tag != null && tag.contains("msg")) {
-                    this.output.setValue(tag.getString("msg"));
+                if (text != null) {
+                    this.output.setValue(text);
                 }
                 this.addRenderableWidget(this.output);
                 this.addRenderableWidget(doneButton.build());
@@ -106,8 +102,8 @@ public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMe
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(graphics);
+    public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(graphics, mouseX, mouseY, partialTicks);
         int bookX = (this.width - 170) / 2;
         int bookY = 20;
         graphics.blit(LOVE_LETTER_LOCATION, bookX, bookY, 0, 0, 192, 192);
@@ -129,71 +125,48 @@ public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMe
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
-//        this.renderBackground(guiGraphics);
-    }
+    protected void renderBg(@NotNull GuiGraphics guiGraphics, float v, int i, int i1) { /* TODO document why this method is empty */ }
 
     @Nullable
-    public Style getClickedComponentStyleAt(double p_98269_, double p_98270_) {
-        int $$2 = Mth.floor(p_98269_ - (double)((this.width - 192) / 2) - 36.0);
-        int $$3 = Mth.floor(p_98270_ - 2.0 - 30.0);
-        if ($$2 >= 0 && $$3 >= 0) {
+    public Style getClickedComponentStyleAt(double v, double v1) {
+        int floor = Mth.floor(v - ((double) (this.width - 192) / 2) - 36.0);
+        int floor1 = Mth.floor(v1 - 2.0 - 30.0);
+        if (floor >= 0 && floor1 >= 0) {
             Objects.requireNonNull(this.font);
-            int $$4 = Math.min(128 / 9, this.cachedPageComponents.size());
-            if ($$2 <= 114) {
+            int min = Math.min(128 / 9, this.cachedPageComponents.size());
+            if (floor <= 114) {
+                assert this.minecraft != null;
                 Objects.requireNonNull(this.minecraft.font);
-                if ($$3 < 9 * $$4 + $$4) {
+                if (floor1 < 9 * min + min) {
                     Objects.requireNonNull(this.minecraft.font);
-                    int $$5 = $$3 / 9;
-                    if ($$5 >= 0 && $$5 < this.cachedPageComponents.size()) {
-                        FormattedCharSequence $$6 = this.cachedPageComponents.get($$5);
-                        return this.minecraft.font.getSplitter().componentStyleAtWidth($$6, $$2);
+                    int i = floor1 / 9;
+                    if (i < this.cachedPageComponents.size()) {
+                        FormattedCharSequence formattedCharSequence = this.cachedPageComponents.get(i);
+                        return this.minecraft.font.getSplitter().componentStyleAtWidth(formattedCharSequence, floor);
                     }
 
                     return null;
                 }
             }
 
-            return null;
-        } else {
-            return null;
         }
+        return null;
     }
 
     @Override
     public void onClose() {
-        if (this.stack.hasTag()) {
-            CompoundTag tag = this.stack.getTag();
-            if (tag != null && !tag.contains("author")) {
-                tag.putString("msg", this.output.getValue());
-            }
-        } else {
-            CompoundTag tag = new CompoundTag();
-            tag.putString("msg", this.output.getValue());
-            this.stack.setTag(tag);
-        }
-
+        String text = this.output.getValue();
+        this.stack.set(ModDataComponents.LOVE_LETTER_TEXT, text);
         super.onClose();
     }
 
     public void onClose(String action) {
+        assert Minecraft.getInstance().player != null;
         String playerName = Minecraft.getInstance().player.getName().getString();
 
         if (Objects.equals(action, "sign")) {
-            if (this.stack.hasTag()) {
-                CompoundTag tag = this.stack.getTag();
-                if (tag != null) {
-                    tag.putString("msg", this.output.getValue());
-                    tag.putString("author", playerName);
-                    tag.putString("Sign", "true");
-                }
-            } else {
-                CompoundTag tag = new CompoundTag();
-                tag.putString("msg", this.output.getValue());
-                tag.putString("author", playerName);
-                tag.putString("Sign", "true");
-                this.stack.setTag(tag);
-            }
+            this.stack.set(ModDataComponents.LOVE_LETTER_TEXT, this.output.getValue());
+            this.stack.set(ModDataComponents.LOVE_LETTER_AUTHOR, playerName);
         }
 
         super.onClose();

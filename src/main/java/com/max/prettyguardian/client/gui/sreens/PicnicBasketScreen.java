@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import org.jetbrains.annotations.NotNull;
 
 public class PicnicBasketScreen extends AbstractContainerScreen<PicnicBasketMenu> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/gui/container/picnic_basket.png");
@@ -38,8 +39,8 @@ public class PicnicBasketScreen extends AbstractContainerScreen<PicnicBasketMenu
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        renderBackground(guiGraphics);
+    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        renderBackground(guiGraphics, mouseX, mouseY, delta);
         super.render(guiGraphics, mouseX, mouseY, delta);
         renderTooltip(guiGraphics, mouseX, mouseY);
     }

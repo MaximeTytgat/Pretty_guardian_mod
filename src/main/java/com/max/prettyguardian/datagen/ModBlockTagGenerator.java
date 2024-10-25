@@ -8,7 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.fml.common.Mod;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -19,17 +19,13 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider p_256380_) {
+    protected void addTags(@NotNull HolderLookup.Provider provider) {
         this.tag(ModTags.Blocks.CAKE).add(
                 PrettyGuardianBlock.CHOCOLATE_CAKE.get(),
                 PrettyGuardianBlock.THREE_CHOCO_CAKE.get(),
                 PrettyGuardianBlock.THREE_STRAWBERRY_CAKE.get(),
                 PrettyGuardianBlock.THREE_STRAWBERRY_CHOCO_CAKE.get()
         );
-
-//
-//        this.tag(ModTags.Blocks.NEEDS_PINK_SAPPHIRE_TOOL).add(
-//        );
 
         this.tag(ModTags.Blocks.JAP_TABLE).add(
                 PrettyGuardianBlock.TABLE_JAPANESE_OAK.get(),

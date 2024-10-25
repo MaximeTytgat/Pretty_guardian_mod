@@ -84,6 +84,6 @@ public class GiftBoxItem extends Item {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
         super.appendHoverText(itemStack, level, components, tooltipFlag);
-        components.add(Component.translatable("container.giftBox.hoverText", 1).withStyle(ChatFormatting.LIGHT_PURPLE));
+        components.add(Component.translatable("prettyGuardian.container.giftBox.hoverText", 1).withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 }

@@ -9,12 +9,13 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import org.jetbrains.annotations.NotNull;
 
 public class GemPolishingStationScreen extends AbstractContainerScreen<GemPolishingStationMenu> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/gui/gem_polishing_station_gui.png");
 
-    public GemPolishingStationScreen(GemPolishingStationMenu p_97741_, Inventory p_97742_, Component p_97743_) {
-        super(p_97741_, p_97742_, p_97743_);
+    public GemPolishingStationScreen(GemPolishingStationMenu gemPolishingStationMenu, Inventory inventory, Component component) {
+        super(gemPolishingStationMenu, inventory, component);
     }
 
     @Override
@@ -45,8 +46,8 @@ public class GemPolishingStationScreen extends AbstractContainerScreen<GemPolish
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        renderBackground(guiGraphics);
+    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        renderBackground(guiGraphics, mouseX, mouseY, delta);
         super.render(guiGraphics, mouseX, mouseY, delta);
         renderTooltip(guiGraphics, mouseX, mouseY);
     }

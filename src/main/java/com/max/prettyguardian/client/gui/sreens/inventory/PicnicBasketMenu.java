@@ -1,5 +1,6 @@
 package com.max.prettyguardian.client.gui.sreens.inventory;
 
+import com.max.prettyguardian.PrettyGuardian;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -7,6 +8,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class PicnicBasketMenu extends AbstractContainerMenu {
     private static final int CONTAINER_SIZE = 4;
@@ -47,9 +49,9 @@ public class PicnicBasketMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
     private static final int TE_INVENTORY_SLOT_COUNT = 4;
     @Override
-    public ItemStack quickMoveStack(Player playerIn, int pIndex) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);
-        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;  //EMPTY_ITEM
+        if (!sourceSlot.hasItem()) return ItemStack.EMPTY;  //EMPTY_ITEM
         ItemStack sourceStack = sourceSlot.getItem();
         ItemStack copyOfSourceStack = sourceStack.copy();
 
@@ -66,7 +68,7 @@ public class PicnicBasketMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            System.out.println("Invalid slotIndex:" + pIndex);
+            PrettyGuardian.LOGGER.info("Invalid slotIndex: {}", pIndex);
             return ItemStack.EMPTY;
         }
         // If stack size == 0 (the entire stack was moved) set slot contents to null
@@ -80,7 +82,7 @@ public class PicnicBasketMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@NotNull Player player) {
         return this.container.stillValid(player);
     }
 
@@ -98,7 +100,8 @@ public class PicnicBasketMenu extends AbstractContainerMenu {
         }
     }
 
-    public void removed(Player player) {
+    @Override
+    public void removed(@NotNull Player player) {
         super.removed(player);
         this.container.stopOpen(player);
     }

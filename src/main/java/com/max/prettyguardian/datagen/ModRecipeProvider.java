@@ -15,7 +15,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends RecipeProvider {
@@ -42,7 +41,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(PrettyGuardianBlock.DEEPSLATE_PINK_SAPPHIRE_ORE.get()), has(PrettyGuardianBlock.DEEPSLATE_PINK_SAPPHIRE_ORE.get()))
                 .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "pink_sapphire_from_deepsalte_ore"));
 
-        BlockIngotRecipes(recipeOutput,
+        blockIngotRecipes(recipeOutput,
                 PrettyGuardianBlock.PINK_SAPPHIRE_BLOCK.get(),
                 PrettyGuardianItem.PINK_SAPPHIRE.get()
         );
@@ -64,7 +63,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 PrettyGuardianItem.PINK_SAPPHIRE.get()
         );
 
-        BlockIngotRecipes(recipeOutput,
+        blockIngotRecipes(recipeOutput,
                 PrettyGuardianBlock.RUBY_BLOCK.get(),
                 PrettyGuardianItem.RUBY.get()
         );
@@ -95,12 +94,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(Items.COCOA_BEANS), has(Items.COCOA_BEANS))
                 .save(recipeOutput);
 
-        BlockIngotRecipes(recipeOutput,
+        blockIngotRecipes(recipeOutput,
                 PrettyGuardianBlock.CHOCOLATE_BLOCK.get(),
                 PrettyGuardianItem.CHOCOLATE.get()
         );
 
-        simpleShapeless(recipeOutput, RecipeCategory.FOOD, PrettyGuardianItem.AGARAGAR.get(), 2, Items.KELP, 1);
+        simpleShapeless(recipeOutput, RecipeCategory.FOOD, PrettyGuardianItem.AGARAGAR.get(), 2, Items.KELP);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, PrettyGuardianItem.CREAM.get(), 3)
                 .pattern("A")
@@ -123,16 +122,18 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(PrettyGuardianItem.AGARAGAR.get()), has(PrettyGuardianItem.AGARAGAR.get()))
                 .save(recipeOutput);
 
-        doubleSimpleShapeless(recipeOutput, RecipeCategory.FOOD, PrettyGuardianItem.MARSHMALLOW_STICK.get(), 1,
+        doubleSimpleShapeless(recipeOutput, PrettyGuardianItem.MARSHMALLOW_STICK.get(), 1,
                 PrettyGuardianItem.MARSHMALLOW.get(), Items.STICK);
+
+        String roastedMarshmallowStick = "roasted_marshmallow_stick";
 
         SimpleCookingRecipeBuilder.generic(
                 Ingredient.of(PrettyGuardianItem.MARSHMALLOW_STICK.get()), RecipeCategory.FOOD, PrettyGuardianItem.ROASTED_MARSHMALLOW_STICK.get(), 0.35F, 200, RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new)
-                .group("roasted_marshmallow_stick")
+                .group(roastedMarshmallowStick)
                 .unlockedBy(getHasName(PrettyGuardianItem.MARSHMALLOW_STICK.get()), has(PrettyGuardianItem.MARSHMALLOW_STICK.get()))
                 .save(recipeOutput);
 
-        BlockIngotRecipes(recipeOutput,
+        blockIngotRecipes(recipeOutput,
                 PrettyGuardianBlock.MARSHMELLO_BLOCK.get(),
                 PrettyGuardianItem.MARSHMALLOW.get()
         );
@@ -156,9 +157,9 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(Items.EGG), has(Items.EGG))
                 .save(recipeOutput);
 
-        doubleSimpleShapeless(recipeOutput, RecipeCategory.FOOD, PrettyGuardianItem.CHOCOLATE_DONUT.get(), 1,
+        doubleSimpleShapeless(recipeOutput, PrettyGuardianItem.CHOCOLATE_DONUT.get(), 1,
                 PrettyGuardianItem.DONUT.get(), PrettyGuardianItem.CHOCOLATE.get());
-        doubleSimpleShapeless(recipeOutput, RecipeCategory.FOOD, PrettyGuardianItem.STRAWBERRY_DONUT.get(), 1,
+        doubleSimpleShapeless(recipeOutput, PrettyGuardianItem.STRAWBERRY_DONUT.get(), 1,
                 PrettyGuardianItem.DONUT.get(), PrettyGuardianItem.STRAWBERRY.get());
 
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, PrettyGuardianItem.MOCHI_DONUT.get())
@@ -171,11 +172,11 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(PrettyGuardianItem.AGARAGAR.get()), has(PrettyGuardianItem.AGARAGAR.get()))
                 .save(recipeOutput);
 
-        doubleSimpleShapeless(recipeOutput, RecipeCategory.FOOD, PrettyGuardianItem.CHOCOLATE_MOCHI_DONUT.get(), 1,
+        doubleSimpleShapeless(recipeOutput, PrettyGuardianItem.CHOCOLATE_MOCHI_DONUT.get(), 1,
                 PrettyGuardianItem.MOCHI_DONUT.get(), PrettyGuardianItem.CHOCOLATE.get());
-        doubleSimpleShapeless(recipeOutput, RecipeCategory.FOOD, PrettyGuardianItem.STRAWBERRY_MOCHI_DONUT.get(), 1,
+        doubleSimpleShapeless(recipeOutput, PrettyGuardianItem.STRAWBERRY_MOCHI_DONUT.get(), 1,
                 PrettyGuardianItem.MOCHI_DONUT.get(), PrettyGuardianItem.STRAWBERRY.get());
-        doubleSimpleShapeless(recipeOutput, RecipeCategory.FOOD, PrettyGuardianItem.CHOCOLATE_STRAWBERRY.get(), 1,
+        doubleSimpleShapeless(recipeOutput, PrettyGuardianItem.CHOCOLATE_STRAWBERRY.get(), 1,
                 PrettyGuardianItem.CHOCOLATE.get(), PrettyGuardianItem.STRAWBERRY.get());
 
         simpleMilkBucket(recipeOutput, PrettyGuardianItem.VANILLA.get(), PrettyGuardianItem.VANILLA_MILK_BUCKET.get());
@@ -276,10 +277,10 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(Items.EGG), has(Items.EGG))
                 .save(recipeOutput);
 
-        doubleSimpleShapeless(recipeOutput, RecipeCategory.FOOD, PrettyGuardianItem.CHOCOLATE_WAFFLE.get(), 1,
+        doubleSimpleShapeless(recipeOutput, PrettyGuardianItem.CHOCOLATE_WAFFLE.get(), 1,
                 PrettyGuardianItem.WAFFLE.get(), PrettyGuardianItem.CHOCOLATE.get());
 
-        doubleSimpleShapeless(recipeOutput, RecipeCategory.FOOD, PrettyGuardianItem.CHOCOLATE_POCKY.get(), 4,
+        doubleSimpleShapeless(recipeOutput, PrettyGuardianItem.CHOCOLATE_POCKY.get(), 4,
                 PrettyGuardianItem.CHOCOLATE.get(), Items.WHEAT);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, PrettyGuardianItem.STRAWBERRY_POCKY.get(), 4)
@@ -498,9 +499,9 @@ public class ModRecipeProvider extends RecipeProvider {
         simpleLantern(recipeOutput, PrettyGuardianBlock.LANTERN_JAPANESE.get(), Items.PAPER);
         simpleLantern(recipeOutput, PrettyGuardianBlock.LANTERN_JAPANESE_SAKURA.get(), Items.PINK_DYE);
         simpleLantern(recipeOutput, PrettyGuardianBlock.LANTERN_JAPANESE_FESTIVAL.get(), Items.RED_DYE);
-        doubleSimpleShapelessOneUnlockedBy(recipeOutput, RecipeCategory.MISC, PrettyGuardianBlock.LANTERN_JAPANESE_BIG.get(), 1, PrettyGuardianBlock.LANTERN_JAPANESE.get(), PrettyGuardianBlock.LANTERN_JAPANESE.get());
-        doubleSimpleShapelessOneUnlockedBy(recipeOutput, RecipeCategory.MISC, PrettyGuardianBlock.LANTERN_JAPANESE_SAKURA_BIG.get(), 1, PrettyGuardianBlock.LANTERN_JAPANESE_SAKURA.get(), PrettyGuardianBlock.LANTERN_JAPANESE_SAKURA.get());
-        doubleSimpleShapelessOneUnlockedBy(recipeOutput, RecipeCategory.MISC, PrettyGuardianBlock.LANTERN_JAPANESE_FESTIVAL_BIG.get(), 1, PrettyGuardianBlock.LANTERN_JAPANESE_FESTIVAL.get(), PrettyGuardianBlock.LANTERN_JAPANESE_FESTIVAL.get());
+        doubleSimpleShapelessOneUnlockedBy(recipeOutput, PrettyGuardianBlock.LANTERN_JAPANESE_BIG.get(), PrettyGuardianBlock.LANTERN_JAPANESE.get(), PrettyGuardianBlock.LANTERN_JAPANESE.get());
+        doubleSimpleShapelessOneUnlockedBy(recipeOutput, PrettyGuardianBlock.LANTERN_JAPANESE_SAKURA_BIG.get(), PrettyGuardianBlock.LANTERN_JAPANESE_SAKURA.get(), PrettyGuardianBlock.LANTERN_JAPANESE_SAKURA.get());
+        doubleSimpleShapelessOneUnlockedBy(recipeOutput, PrettyGuardianBlock.LANTERN_JAPANESE_FESTIVAL_BIG.get(), PrettyGuardianBlock.LANTERN_JAPANESE_FESTIVAL.get(), PrettyGuardianBlock.LANTERN_JAPANESE_FESTIVAL.get());
         simpleThreeCake(recipeOutput, PrettyGuardianBlock.LANTERN_HUGE_JAPANESE.get(), PrettyGuardianBlock.LANTERN_JAPANESE.get());
         simpleThreeCake(recipeOutput, PrettyGuardianBlock.LANTERN_SAKURA_HUGE_JAPANESE.get(), PrettyGuardianBlock.LANTERN_JAPANESE_SAKURA.get());
         simpleThreeCake(recipeOutput, PrettyGuardianBlock.LANTERN_FESTIVAL_HUGE_JAPANESE.get(), PrettyGuardianBlock.LANTERN_JAPANESE_FESTIVAL.get());
@@ -578,14 +579,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(recipeOutput);
 
         SimpleCookingRecipeBuilder.generic(Ingredient.of(PrettyGuardianItem.RAW_BOBA.get()), RecipeCategory.FOOD, PrettyGuardianItem.BOBA.get(), 0.35F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new)
-                .group("roasted_marshmallow_stick")
+                .group(roastedMarshmallowStick)
                 .unlockedBy(getHasName(PrettyGuardianItem.RAW_BOBA.get()), has(PrettyGuardianItem.RAW_BOBA.get()))
                 .save(recipeOutput);
 
-        doubleSimpleShapeless(recipeOutput, RecipeCategory.FOOD, PrettyGuardianItem.SQUID_STICK.get(), 1, PrettyGuardianItem.RAW_SQUID.get(), Items.STICK);
+        doubleSimpleShapeless(recipeOutput, PrettyGuardianItem.SQUID_STICK.get(), 1, PrettyGuardianItem.RAW_SQUID.get(), Items.STICK);
 
         SimpleCookingRecipeBuilder.generic(Ingredient.of(PrettyGuardianItem.SQUID_STICK.get()), RecipeCategory.FOOD, PrettyGuardianItem.SQUID_COOKED.get(), 0.35F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new)
-                .group("roasted_marshmallow_stick")
+                .group(roastedMarshmallowStick)
                 .unlockedBy(getHasName(PrettyGuardianItem.SQUID_STICK.get()), has(PrettyGuardianItem.SQUID_STICK.get()))
                 .unlockedBy(getHasName(PrettyGuardianItem.RAW_SQUID.get()), has(PrettyGuardianItem.RAW_SQUID.get()))
                 .save(recipeOutput);
@@ -715,30 +716,6 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlocks(getHasName(PrettyGuardianItem.PINK_SAPPHIRE_LEGGINGS.get()), has(PrettyGuardianItem.PINK_SAPPHIRE_LEGGINGS.get()))
                 .unlocks(getHasName(PrettyGuardianItem.RUBY.get()), has(PrettyGuardianItem.RUBY.get()))
                 .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "ruby_leggings_from_pink_sapphire_leggings"));
-    }
-
-    protected static void oreSmelting(@NotNull RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, @NotNull RecipeCategory pCategory, @NotNull ItemLike pResult, float pExperience, int pCookingTime, @NotNull String pGroup) {
-        oreCooking(pRecipeOutput, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, pIngredients, pCategory, pResult, pExperience, pCookingTime, pGroup, "_from_smelting");
-    }
-
-    protected static void oreBlasting(@NotNull RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, @NotNull RecipeCategory pCategory, @NotNull ItemLike pResult, float pExperience, int pCookingTime, @NotNull String pGroup) {
-        oreCooking(pRecipeOutput, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, pIngredients, pCategory, pResult, pExperience, pCookingTime, pGroup, "_from_blasting");
-    }
-
-    protected static void oreSmoking(@NotNull RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, @NotNull RecipeCategory pCategory, @NotNull ItemLike pResult, float pExperience, int pCookingTime, @NotNull String pGroup) {
-        oreCooking(pRecipeOutput, RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, pIngredients, pCategory, pResult, pExperience, pCookingTime, pGroup, "_from_smoking");
-    }
-
-    protected static void oreCampfireCooking(@NotNull RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, @NotNull RecipeCategory pCategory, @NotNull ItemLike pResult, float pExperience, int pCookingTime, @NotNull String pGroup) {
-        oreCooking(pRecipeOutput, RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, pIngredients, pCategory, pResult, pExperience, pCookingTime, pGroup, "_from_campfire_cooking");
-    }
-
-    private static <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput pRecipeOutput, RecipeSerializer<T> pSerializer, AbstractCookingRecipe.Factory<T> pRecipeFactory, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup, String pSuffix) {
-
-        for (ItemLike itemlike : pIngredients) {
-            SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), pCategory, pResult, pExperience, pCookingTime, pSerializer, pRecipeFactory).group(pGroup).unlockedBy(getHasName(itemlike), has(itemlike)).save(pRecipeOutput, getItemName(pResult) + pSuffix + "_" + getItemName(itemlike));
-        }
-
     }
 
     protected static void simpleMoonStick(RecipeOutput finishedRecipeConsumer, ItemLike stick) {
@@ -985,36 +962,25 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     protected static void simpleShapeless(RecipeOutput finishedRecipeConsumer, RecipeCategory category, ItemLike result, int resultCount, ItemLike ingredient1) {
-        simpleShapeless(finishedRecipeConsumer, category, result, resultCount, ingredient1, 1);
-    }
-    protected static void simpleShapeless(RecipeOutput finishedRecipeConsumer, RecipeCategory category, ItemLike result, int resultCount, ItemLike ingredient1, int ingredientCount) {
         ShapelessRecipeBuilder.shapeless(category, result, resultCount)
-                .requires(ingredient1, ingredientCount)
+                .requires(ingredient1, 1)
                 .unlockedBy(getHasName(ingredient1), has(ingredient1))
                 .save(finishedRecipeConsumer);
     }
 
-    protected static void doubleSimpleShapeless(RecipeOutput finishedRecipeConsumer, RecipeCategory category, ItemLike result, int resultCount, ItemLike ingredient1, ItemLike ingredient2) {
-        doubleSimpleShapeless(finishedRecipeConsumer, category, result, resultCount, ingredient1, 1, ingredient2, 1);
-    }
-
-    protected static void doubleSimpleShapeless(RecipeOutput finishedRecipeConsumer, RecipeCategory category, ItemLike result, int resultCount, ItemLike ingredient1, int ingredient1Count, ItemLike ingredient2, int ingredient2Count) {
-        ShapelessRecipeBuilder.shapeless(category, result, resultCount)
-                .requires(ingredient1, ingredient1Count)
-                .requires(ingredient2, ingredient2Count)
+    protected static void doubleSimpleShapeless(RecipeOutput finishedRecipeConsumer, ItemLike result, int resultCount, ItemLike ingredient1, ItemLike ingredient2) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, result, resultCount)
+                .requires(ingredient1, 1)
+                .requires(ingredient2, 1)
                 .unlockedBy(getHasName(ingredient1), has(ingredient1))
                 .unlockedBy(getHasName(ingredient2), has(ingredient2))
                 .save(finishedRecipeConsumer);
     }
 
-    protected static void doubleSimpleShapelessOneUnlockedBy(RecipeOutput finishedRecipeConsumer, RecipeCategory category, ItemLike result, int resultCount, ItemLike ingredient1, ItemLike ingredient2) {
-        doubleSimpleShapelessOneUnlockedBy(finishedRecipeConsumer, category, result, resultCount, ingredient1, 1, ingredient2, 1);
-    }
-
-    protected static void doubleSimpleShapelessOneUnlockedBy(RecipeOutput finishedRecipeConsumer, RecipeCategory category, ItemLike result, int resultCount, ItemLike ingredient1, int ingredient1Count, ItemLike ingredient2, int ingredient2Count) {
-        ShapelessRecipeBuilder.shapeless(category, result, resultCount)
-                .requires(ingredient1, ingredient1Count)
-                .requires(ingredient2, ingredient2Count)
+    protected static void doubleSimpleShapelessOneUnlockedBy(RecipeOutput finishedRecipeConsumer, ItemLike result, ItemLike ingredient1, ItemLike ingredient2) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result, 1)
+                .requires(ingredient1, 1)
+                .requires(ingredient2, 1)
                 .unlockedBy(getHasName(ingredient1), has(ingredient1))
                 .save(finishedRecipeConsumer);
     }
@@ -1077,7 +1043,7 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
 
-    protected static void BlockIngotRecipes(RecipeOutput finishedRecipeConsumer, ItemLike block, ItemLike ingot) {
+    protected static void blockIngotRecipes(RecipeOutput finishedRecipeConsumer, ItemLike block, ItemLike ingot) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block)
                 .pattern("AAA")
                 .pattern("AAA")

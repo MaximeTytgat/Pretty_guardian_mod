@@ -8,53 +8,53 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class CustomAbstractScrollWidget extends AbstractWidget implements Renderable, GuiEventListener {
-    private static final int BORDER_COLOR_FOCUSED = -1;
-    private static final int BORDER_COLOR = -6845336;
-    private static final int BACKGROUND_COLOR = 1;
-    private static final int INNER_PADDING = 4;
     private double scrollAmount;
     private boolean scrolling;
 
-    public CustomAbstractScrollWidget(int p_240025_, int p_240026_, int p_240027_, int p_240028_, Component p_240029_) {
-        super(p_240025_, p_240026_, p_240027_, p_240028_, p_240029_);
+    protected CustomAbstractScrollWidget(int i, int i1, int i2, int i3, Component component) {
+        super(i, i1, i2, i3, component);
     }
 
-    public boolean mouseClicked(double p_240170_, double p_240171_, int p_240172_) {
+    @Override
+    public boolean mouseClicked(double v, double v1, int i) {
         if (!this.visible) {
             return false;
         } else {
-            boolean $$3 = this.withinContentAreaPoint(p_240170_, p_240171_);
-            boolean $$4 = this.scrollbarVisible() && p_240170_ >= (double)(this.getX() + this.width) && p_240170_ <= (double)(this.getX() + this.width + 8) && p_240171_ >= (double)this.getY() && p_240171_ < (double)(this.getY() + this.height);
-            if ($$4 && p_240172_ == 0) {
+            boolean b = this.withinContentAreaPoint(v, v1);
+            boolean b1 = this.scrollbarVisible() && v >= (this.getX() + this.width) && v <= (this.getX() + this.width + 8) && v1 >= this.getY() && v1 < (this.getY() + this.height);
+            if (b1 && i == 0) {
                 this.scrolling = true;
                 return true;
             } else {
-                return $$3 || $$4;
+                return b || b1;
             }
         }
     }
 
-    public boolean mouseReleased(double p_239063_, double p_239064_, int p_239065_) {
-        if (p_239065_ == 0) {
+    @Override
+    public boolean mouseReleased(double v, double v1, int i) {
+        if (i == 0) {
             this.scrolling = false;
         }
 
-        return super.mouseReleased(p_239063_, p_239064_, p_239065_);
+        return super.mouseReleased(v, v1, i);
     }
 
-    public boolean mouseDragged(double p_239639_, double p_239640_, int p_239641_, double p_239642_, double p_239643_) {
+    @Override
+    public boolean mouseDragged(double v, double v1, int i, double v2, double v3) {
         if (this.visible && this.isFocused() && this.scrolling) {
-            if (p_239640_ < (double)this.getY()) {
+            if (v1 < this.getY()) {
                 this.setScrollAmount(0.0);
-            } else if (p_239640_ > (double)(this.getY() + this.height)) {
+            } else if (v1 > (this.getY() + this.height)) {
                 this.setScrollAmount(this.getMaxScrollAmount());
             } else {
-                int $$5 = this.getScrollBarHeight();
-                double $$6 = Math.max(1, this.getMaxScrollAmount() / (this.height - $$5));
-                this.setScrollAmount(this.scrollAmount + p_239643_ * $$6);
+                int scrollBarHeight = this.getScrollBarHeight();
+                double max = Math.max(1, this.getMaxScrollAmount() / (this.height - scrollBarHeight));
+                this.setScrollAmount(this.scrollAmount + v3 * max);
             }
 
             return true;
@@ -63,39 +63,30 @@ public abstract class CustomAbstractScrollWidget extends AbstractWidget implemen
         }
     }
 
-    public boolean mouseScrolled(double p_239308_, double p_239309_, double p_239310_) {
-        if (!this.visible) {
-            return false;
-        } else {
-            this.setScrollAmount(this.scrollAmount - p_239310_ * this.scrollRate());
-            return true;
-        }
-    }
-
-    public boolean keyPressed(int p_276060_, int p_276046_, int p_276030_) {
-        boolean $$3 = p_276060_ == 265;
-        boolean $$4 = p_276060_ == 264;
-        if ($$3 || $$4) {
-            double $$5 = this.scrollAmount;
-            this.setScrollAmount(this.scrollAmount + (double)($$3 ? -1 : 1) * this.scrollRate());
-            if ($$5 != this.scrollAmount) {
+    @Override
+    public boolean keyPressed(int i, int i1, int i2) {
+        boolean b = i == 265;
+        boolean b1 = i == 264;
+        if (b || b1) {
+            double scrollAmount1 = this.scrollAmount;
+            this.setScrollAmount(this.scrollAmount + (b ? -1 : 1) * this.scrollRate());
+            if (scrollAmount1 != this.scrollAmount) {
                 return true;
             }
         }
 
-        return super.keyPressed(p_276060_, p_276046_, p_276030_);
+        return super.keyPressed(i, i1, i2);
     }
 
-    public void renderWidget(GuiGraphics p_282213_, int p_282468_, int p_282209_, float p_283300_) {
+    public void renderWidget(@NotNull GuiGraphics guiGraphics, int i, int i1, float v) {
         if (this.visible) {
-            this.renderBackground(p_282213_);
-            p_282213_.enableScissor(this.getX() + 1, this.getY() + 1, this.getX() + this.width - 1, this.getY() + this.height - 1);
-            p_282213_.pose().pushPose();
-            p_282213_.pose().translate(0.0, -this.scrollAmount, 0.0);
-            this.renderContents(p_282213_, p_282468_, p_282209_, p_283300_);
-            p_282213_.pose().popPose();
-            p_282213_.disableScissor();
-            this.renderDecorations(p_282213_);
+            guiGraphics.enableScissor(this.getX() + 1, this.getY() + 1, this.getX() + this.width - 1, this.getY() + this.height - 1);
+            guiGraphics.pose().pushPose();
+            guiGraphics.pose().translate(0.0, -this.scrollAmount, 0.0);
+            this.renderContents(guiGraphics, i, i1, v);
+            guiGraphics.pose().popPose();
+            guiGraphics.disableScissor();
+            this.renderDecorations(guiGraphics);
         }
     }
 
@@ -103,9 +94,9 @@ public abstract class CustomAbstractScrollWidget extends AbstractWidget implemen
         return Mth.clamp((int)((float)(this.height * this.height) / (float)this.getContentHeight()), 32, this.height);
     }
 
-    protected void renderDecorations(GuiGraphics p_283178_) {
+    protected void renderDecorations(GuiGraphics guiGraphics) {
         if (this.scrollbarVisible()) {
-            this.renderScrollBar(p_283178_);
+            this.renderScrollBar(guiGraphics);
         }
 
     }
@@ -122,8 +113,8 @@ public abstract class CustomAbstractScrollWidget extends AbstractWidget implemen
         return this.scrollAmount;
     }
 
-    protected void setScrollAmount(double p_240207_) {
-        this.scrollAmount = Mth.clamp(p_240207_, 0.0, this.getMaxScrollAmount());
+    protected void setScrollAmount(double v) {
+        this.scrollAmount = Mth.clamp(v, 0.0, this.getMaxScrollAmount());
     }
 
     protected int getMaxScrollAmount() {
@@ -134,32 +125,22 @@ public abstract class CustomAbstractScrollWidget extends AbstractWidget implemen
         return this.getInnerHeight() + 4;
     }
 
-    protected void renderBackground(GuiGraphics p_282207_) {
-        this.renderBorder(p_282207_, this.getX(), this.getY(), this.getWidth(), this.getHeight());
+    private void renderScrollBar(GuiGraphics guiGraphics) {
+        int scrollBarHeight = this.getScrollBarHeight();
+        int i = this.getX() + this.width;
+        int i1 = this.getX() + this.width + 8;
+        int max = Math.max(this.getY(), (int)this.scrollAmount * (this.height - scrollBarHeight) / this.getMaxScrollAmount() + this.getY());
+        int i2 = max + scrollBarHeight;
+        guiGraphics.fill(i, max, i1, i2, -8355712);
+        guiGraphics.fill(i, max, i1 - 1, i2 - 1, -4144960);
     }
 
-    protected void renderBorder(GuiGraphics p_289776_, int p_289792_, int p_289795_, int p_289775_, int p_289762_) {
-//        int $$5 = this.isFocused() ? BORDER_COLOR_FOCUSED : BORDER_COLOR;
-//        p_289776_.fill(p_289792_, p_289795_, p_289792_ + p_289775_, p_289795_ + p_289762_, $$5);
-//        p_289776_.fill(p_289792_ + 1, p_289795_ + 1, p_289792_ + p_289775_ - 1, p_289795_ + p_289762_ - 1, BACKGROUND_COLOR);
+    protected boolean withinContentAreaTopBottom(int i, int i1) {
+        return i1 - this.scrollAmount >= this.getY() && i - this.scrollAmount <= (this.getY() + this.height);
     }
 
-    private void renderScrollBar(GuiGraphics p_282305_) {
-        int $$1 = this.getScrollBarHeight();
-        int $$2 = this.getX() + this.width;
-        int $$3 = this.getX() + this.width + 8;
-        int $$4 = Math.max(this.getY(), (int)this.scrollAmount * (this.height - $$1) / this.getMaxScrollAmount() + this.getY());
-        int $$5 = $$4 + $$1;
-        p_282305_.fill($$2, $$4, $$3, $$5, -8355712);
-        p_282305_.fill($$2, $$4, $$3 - 1, $$5 - 1, -4144960);
-    }
-
-    protected boolean withinContentAreaTopBottom(int p_239943_, int p_239944_) {
-        return (double)p_239944_ - this.scrollAmount >= (double)this.getY() && (double)p_239943_ - this.scrollAmount <= (double)(this.getY() + this.height);
-    }
-
-    protected boolean withinContentAreaPoint(double p_239607_, double p_239608_) {
-        return p_239607_ >= (double)this.getX() && p_239607_ < (double)(this.getX() + this.width) && p_239608_ >= (double)this.getY() && p_239608_ < (double)(this.getY() + this.height);
+    protected boolean withinContentAreaPoint(double v, double v1) {
+        return v >= this.getX() && v < (this.getX() + this.width) && v1 >= this.getY() && v1 < (this.getY() + this.height);
     }
 
     protected boolean scrollbarVisible() {

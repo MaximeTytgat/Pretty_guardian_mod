@@ -1,7 +1,6 @@
 package com.max.prettyguardian.datagen;
 
 import com.max.prettyguardian.PrettyGuardian;
-import com.max.prettyguardian.world.entity.ai.poi.ModPoiTypes;
 import com.max.prettyguardian.worldgen.ModBiomeModifiers;
 import com.max.prettyguardian.worldgen.ModConfiguredFeatures;
 import com.max.prettyguardian.worldgen.ModPlacedFeatures;

@@ -1,13 +1,13 @@
 package com.max.prettyguardian.datagen;
 
 import com.max.prettyguardian.PrettyGuardian;
-import com.max.prettyguardian.item.PrettyGuardianItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.PaintingVariantTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.PaintingVariantTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -18,7 +18,7 @@ public class ModPaintingVariantTagProvider extends PaintingVariantTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(@NotNull HolderLookup.Provider provider) {
         this.tag(PaintingVariantTags.PLACEABLE)
                 .addOptional(new ResourceLocation(PrettyGuardian.MOD_ID, "rainbow"))
                 .addOptional(new ResourceLocation(PrettyGuardian.MOD_ID, "small_pusheen"))
