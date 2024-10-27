@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class CelestialRabbitRenderer extends MobRenderer<CelestialRabbitEntity, CelestialRabbitModel<CelestialRabbitEntity>> {
     private static final ResourceLocation CELESTIAL_RABBIT_LOCATION = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/celestial_rabbit.png");
@@ -22,17 +23,16 @@ public class CelestialRabbitRenderer extends MobRenderer<CelestialRabbitEntity, 
     }
 
     @Override
-    public ResourceLocation getTextureLocation(CelestialRabbitEntity celestialRabbitEntity) {
+    public @NotNull ResourceLocation getTextureLocation(CelestialRabbitEntity celestialRabbitEntity) {
         return celestialRabbitEntity.isAngry() ? CELESTIAL_RABBIT_ANGRY_LOCATION : CELESTIAL_RABBIT_LOCATION;
     }
 
     @Override
-    public void render(CelestialRabbitEntity celestialRabbit, float p_115456_, float p_115457_, PoseStack poseStack, MultiBufferSource multiBufferSource, int p_115460_) {
+    public void render(CelestialRabbitEntity celestialRabbit, float v, float v1, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int i) {
         if ( celestialRabbit.isBaby() ) {
             poseStack.scale(0.6f, 0.6f, 0.6f);
         }
 
-
-        super.render(celestialRabbit, p_115456_, p_115457_, poseStack, multiBufferSource, p_115460_);
+        super.render(celestialRabbit, v, v1, poseStack, bufferSource, i);
     }
 }

@@ -8,11 +8,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModEnchantments {
+    private ModEnchantments() {}
     public static final DeferredRegister<Enchantment> ENCHANTMENTS =
             DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, PrettyGuardian.MOD_ID);
 
-    public static RegistryObject<Enchantment> SLOW = ENCHANTMENTS.register("slow",
-            SlowEnchantment::new);
+    public static final RegistryObject<Enchantment> SLOW = ENCHANTMENTS.register("slow",  SlowEnchantment::new);
 
     public static void register(IEventBus eventBus) {
         ENCHANTMENTS.register(eventBus);

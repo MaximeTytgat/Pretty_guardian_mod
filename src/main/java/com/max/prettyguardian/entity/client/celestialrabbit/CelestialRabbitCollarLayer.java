@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class CelestialRabbitCollarLayer<T extends CelestialRabbitEntity, M extends CelestialRabbitModel<T>> extends RenderLayer<T, M> {
     private static final RenderType CELESTIAL_RABBIT_COLLAR_LOCATION = RenderType.entityCutoutNoCull(new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/celestial_rabbit_collar.png"));
@@ -19,10 +20,10 @@ public class CelestialRabbitCollarLayer<T extends CelestialRabbitEntity, M exten
         super(layerParent);
     }
 
-    public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int p_117722_, CelestialRabbitEntity celestialRabbitEntity, float p_117724_, float p_117725_, float p_117726_, float p_117727_, float p_117728_, float p_117729_) {
+    public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int i, CelestialRabbitEntity celestialRabbitEntity, float v, float v1, float v2, float v3, float v4, float v5) {
         if (celestialRabbitEntity.isTame() && !celestialRabbitEntity.isInvisible()) {
             VertexConsumer vertexconsumer = multiBufferSource.getBuffer(this.renderType());
-            this.getParentModel().renderToBuffer(poseStack, vertexconsumer, p_117722_, LivingEntityRenderer.getOverlayCoords(celestialRabbitEntity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+            this.getParentModel().renderToBuffer(poseStack, vertexconsumer, i, LivingEntityRenderer.getOverlayCoords(celestialRabbitEntity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
         }
     }
 

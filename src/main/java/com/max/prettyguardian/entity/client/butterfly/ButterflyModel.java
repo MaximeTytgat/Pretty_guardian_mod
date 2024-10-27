@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 
 public class ButterflyModel<T extends Entity> extends HierarchicalModel<T> {
 	private final ModelPart butterfly;
@@ -24,27 +25,27 @@ public class ButterflyModel<T extends Entity> extends HierarchicalModel<T> {
 
 		PartDefinition antennas = body.addOrReplaceChild("antennas", CubeListBuilder.create(), PartPose.offset(0.0F, -0.5F, -1.5F));
 
-		PartDefinition antenna_left = antennas.addOrReplaceChild("antenna_left", CubeListBuilder.create().texOffs(2, 30).addBox(-0.5F, 0.005F, -2.0F, 2.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 0.0F, 0.0F));
+		antennas.addOrReplaceChild("antenna_left", CubeListBuilder.create().texOffs(2, 30).addBox(-0.5F, 0.005F, -2.0F, 2.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 0.0F, 0.0F));
 
-		PartDefinition antenna_right = antennas.addOrReplaceChild("antenna_right", CubeListBuilder.create().texOffs(-2, 30).addBox(-1.5F, 0.005F, -2.0F, 2.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, 0.0F, 0.0F));
+		antennas.addOrReplaceChild("antenna_right", CubeListBuilder.create().texOffs(-2, 30).addBox(-1.5F, 0.005F, -2.0F, 2.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, 0.0F, 0.0F));
 
 		PartDefinition wings = body.addOrReplaceChild("wings", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition wing_left = wings.addOrReplaceChild("wing_left", CubeListBuilder.create().texOffs(-1, 23).addBox(0.0F, 0.0F, -4.5F, 6.0F, 0.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 0.0F, 0.0F));
+		wings.addOrReplaceChild("wing_left", CubeListBuilder.create().texOffs(-1, 23).addBox(0.0F, 0.0F, -4.5F, 6.0F, 0.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 0.0F, 0.0F));
 
-		PartDefinition wing_right = wings.addOrReplaceChild("wing_right", CubeListBuilder.create().texOffs(-1, 0).addBox(-6.0F, 0.0F, -4.5F, 6.0F, 0.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, 0.0F, 0.0F));
+		wings.addOrReplaceChild("wing_right", CubeListBuilder.create().texOffs(-1, 0).addBox(-6.0F, 0.0F, -4.5F, 6.0F, 0.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, 0.0F, 0.0F));
 
 		PartDefinition foots = body.addOrReplaceChild("foots", CubeListBuilder.create(), PartPose.offset(0.0F, 0.5F, 0.0F));
 
-		PartDefinition foots_left = foots.addOrReplaceChild("foots_left", CubeListBuilder.create().texOffs(4, 9).addBox(0.0F, -0.5F, -2.0F, 0.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 0.0F, 0.0F));
+		foots.addOrReplaceChild("foots_left", CubeListBuilder.create().texOffs(4, 9).addBox(0.0F, -0.5F, -2.0F, 0.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 0.0F, 0.0F));
 
-		PartDefinition foots_right = foots.addOrReplaceChild("foots_right", CubeListBuilder.create().texOffs(4, 9).addBox(0.0F, -0.5F, -2.0F, 0.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, 0.0F, 0.0F));
+		foots.addOrReplaceChild("foots_right", CubeListBuilder.create().texOffs(4, 9).addBox(0.0F, -0.5F, -2.0F, 0.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, 0.0F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.animateWalk(ModAnimationDefinitions.BUTTERFLY_FLY, limbSwing, limbSwingAmount, 2f, 2.5f);
@@ -52,12 +53,12 @@ public class ButterflyModel<T extends Entity> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		butterfly.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
-	public ModelPart root() {
+	public @NotNull ModelPart root() {
 		return this.butterfly;
 	}
 }

@@ -13,6 +13,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = PrettyGuardian.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientModEventSubscriber {
+    private ClientModEventSubscriber() {}
     @SubscribeEvent
     public static void doSetup(EntityRenderersEvent.RegisterRenderers event) {
         EntityRenderers.register(ModEntityType.HEART_ARROW.get(), CuteArrowRenderer::new);

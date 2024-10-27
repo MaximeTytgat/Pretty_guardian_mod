@@ -10,15 +10,16 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class CelestialRabbitGlowLayer<T extends CelestialRabbitEntity, M extends CelestialRabbitModel<T>> extends RenderLayer<T, M> {
     private static final RenderType RABBIT_LIGHT_TEXTURE = RenderType.entityTranslucentEmissive(new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/celestial_rabbit_glow.png"));
-    public CelestialRabbitGlowLayer(RenderLayerParent<T, M> p_116981_) {
-        super(p_116981_);
+    public CelestialRabbitGlowLayer(RenderLayerParent<T, M> tmRenderLayerParent) {
+        super(tmRenderLayerParent);
     }
 
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int p_117258_, T p_117259_, float p_117260_, float p_117261_, float p_117262_, float p_117263_, float p_117264_, float p_117265_) {
+    public void render(@NotNull PoseStack poseStack, MultiBufferSource multiBufferSource, int i, @NotNull T t, float v, float v1, float v2, float v3, float v4, float v5) {
         VertexConsumer vertexconsumer = multiBufferSource.getBuffer(this.renderType());
         this.getParentModel().renderToBuffer(poseStack, vertexconsumer, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }

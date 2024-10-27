@@ -10,14 +10,15 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 import java.util.Map;
 
 public class ButterflyRenderer extends MobRenderer<ButterflyEntity, ButterflyModel<ButterflyEntity>> {
-    private static final Map<ButterflyEntity.Variant, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), (p_242076_) -> {
+    private static final Map<ButterflyEntity.Variant, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), variantResourceLocationHashMap -> {
         for(ButterflyEntity.Variant butterfly$variant : ButterflyEntity.Variant.values()) {
-            p_242076_.put(butterfly$variant, new ResourceLocation(PrettyGuardian.MOD_ID, String.format(Locale.ROOT, "textures/entity/butterfly/%s_butterfly.png", butterfly$variant.getName())));
+            variantResourceLocationHashMap.put(butterfly$variant, new ResourceLocation(PrettyGuardian.MOD_ID, String.format(Locale.ROOT, "textures/entity/butterfly/%s_butterfly.png", butterfly$variant.getName())));
         }
 
     });
@@ -27,16 +28,16 @@ public class ButterflyRenderer extends MobRenderer<ButterflyEntity, ButterflyMod
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ButterflyEntity butterflyEntity) {
+    public @NotNull ResourceLocation getTextureLocation(ButterflyEntity butterflyEntity) {
         return TEXTURE_BY_TYPE.get(butterflyEntity.getVariant());
     }
 
     @Override
-    public void render(ButterflyEntity butterflyEntity, float p_115456_, float p_115457_, PoseStack poseStack, MultiBufferSource multiBufferSource, int p_115460_) {
+    public void render(ButterflyEntity butterflyEntity, float v, float v1, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int i) {
         if (butterflyEntity.isBaby()) {
             poseStack.scale(0.6f, 0.6f, 0.6f);
         }
 
-        super.render(butterflyEntity, p_115456_, p_115457_, poseStack, multiBufferSource, p_115460_);
+        super.render(butterflyEntity, v, v1, poseStack, multiBufferSource, i);
     }
 }

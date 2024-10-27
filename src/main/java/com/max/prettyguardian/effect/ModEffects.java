@@ -9,10 +9,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModEffects {
+    private ModEffects() {}
     public static final DeferredRegister<MobEffect> EFFECTS =
             DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, PrettyGuardian.MOD_ID);
 
-    public static RegistryObject<MobEffect> LOVE = EFFECTS.register("love",
+    public static final RegistryObject<MobEffect> LOVE = EFFECTS.register("love",
             () -> new LoveEffect(
                     MobEffectCategory.NEUTRAL,
                     50293172

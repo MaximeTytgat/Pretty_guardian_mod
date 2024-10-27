@@ -6,7 +6,19 @@ import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
 public class ModAnimationDefinitions {
+    private static final String SMALL_EAR_LEFT = "small_ear_left";
+    private static final String SMALL_EAR_RIGHT = "small_ear_right";
+    private static final String EAR_RIGHT = "ear_right";
+    private static final String EAR_RIGHT2 = "ear_right2";
+    private static final String EAR_LEFT = "ear_left";
+    private static final String EAR_LEFT2 = "ear_left2";
+    private static final String LEG_FRONT = "leg_front";
+    private static final String LEG_BACK = "leg_back";
+    private static final String TAIL2 = "tail2";
+    private static final String TAIL3 = "tail3";
+    private static final String TAIL4 = "tail4";
 
+    private ModAnimationDefinitions() {}
 
     public static final AnimationDefinition CELESTIAL_RABBIT_IDLE = AnimationDefinition.Builder.withLength(3f).looping()
             .addAnimation("body",
@@ -45,7 +57,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(62.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("small_ear_left",
+            .addAnimation(SMALL_EAR_LEFT,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, -0.3f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -53,7 +65,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.posVec(0f, -0.3f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("small_ear_left",
+            .addAnimation(SMALL_EAR_LEFT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(15f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -63,7 +75,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(15f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("small_ear_right",
+            .addAnimation(SMALL_EAR_RIGHT,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, -0.3f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -71,7 +83,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.posVec(0f, -0.3f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("small_ear_right",
+            .addAnimation(SMALL_EAR_RIGHT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(15f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -79,7 +91,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(15f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("ear_left",
+            .addAnimation(EAR_LEFT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, -5f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -91,7 +103,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, -5f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("ear_left2",
+            .addAnimation(EAR_LEFT2,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -109,7 +121,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("ear_right",
+            .addAnimation(EAR_RIGHT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 5f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -117,7 +129,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 5f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("ear_right2",
+            .addAnimation(EAR_RIGHT2,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -129,7 +141,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("leg_front",
+            .addAnimation(LEG_FRONT,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -137,7 +149,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("leg_front",
+            .addAnimation(LEG_FRONT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(47.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -145,7 +157,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(47.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("leg_back",
+            .addAnimation(LEG_BACK,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -153,7 +165,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("leg_back",
+            .addAnimation(LEG_BACK,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(60f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -177,7 +189,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 15f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("tail2",
+            .addAnimation(TAIL2,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -189,7 +201,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("tail3",
+            .addAnimation(TAIL3,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 15f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -201,7 +213,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 15f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("tail4",
+            .addAnimation(TAIL4,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 15f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -250,11 +262,11 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(-32.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("small_ear_left",
+            .addAnimation(SMALL_EAR_LEFT,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("small_ear_left",
+            .addAnimation(SMALL_EAR_LEFT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(-22.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -266,11 +278,11 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(-22.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("small_ear_right",
+            .addAnimation(SMALL_EAR_RIGHT,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("small_ear_right",
+            .addAnimation(SMALL_EAR_RIGHT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(-22.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -282,7 +294,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(-22.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("ear_left",
+            .addAnimation(EAR_LEFT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(10f, 0f, -15f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -294,7 +306,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(10f, 0f, -15f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("ear_left2",
+            .addAnimation(EAR_LEFT2,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(10f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -312,7 +324,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(10f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("ear_right",
+            .addAnimation(EAR_RIGHT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(10f, 0f, 15f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -324,7 +336,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(10f, 0f, 15f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("ear_right2",
+            .addAnimation(EAR_RIGHT2,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(10f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -342,7 +354,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(10f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("leg_front",
+            .addAnimation(LEG_FRONT,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -350,7 +362,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("leg_front",
+            .addAnimation(LEG_FRONT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(-12.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -362,7 +374,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(-12.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("leg_back",
+            .addAnimation(LEG_BACK,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -370,7 +382,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("leg_back",
+            .addAnimation(LEG_BACK,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(-15f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -419,7 +431,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(70f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("leg_front",
+            .addAnimation(LEG_FRONT,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 3.5f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -427,7 +439,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.posVec(0f, 0f, 3.5f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("leg_front",
+            .addAnimation(LEG_FRONT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(40f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -435,11 +447,11 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(40f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("leg_back",
+            .addAnimation(LEG_BACK,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 3f, 2.5f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("leg_back",
+            .addAnimation(LEG_BACK,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(-15f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -463,7 +475,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(90f, 15f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("small_ear_left",
+            .addAnimation(SMALL_EAR_LEFT,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, -0.3f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -471,7 +483,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.posVec(0f, -0.3f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("small_ear_left",
+            .addAnimation(SMALL_EAR_LEFT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(15f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -481,7 +493,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(15f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("small_ear_right",
+            .addAnimation(SMALL_EAR_RIGHT,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, -0.3f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -489,7 +501,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.posVec(0f, -0.3f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("small_ear_right",
+            .addAnimation(SMALL_EAR_RIGHT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(15f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -499,7 +511,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(15f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("ear_left",
+            .addAnimation(EAR_LEFT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, -2.5f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -511,7 +523,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, -2.5f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("ear_left2",
+            .addAnimation(EAR_LEFT2,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -525,7 +537,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("ear_right",
+            .addAnimation(EAR_RIGHT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 2.5f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -537,7 +549,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 2.5f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("ear_right2",
+            .addAnimation(EAR_RIGHT2,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -551,7 +563,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("tail2",
+            .addAnimation(TAIL2,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -563,7 +575,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("tail3",
+            .addAnimation(TAIL3,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 15f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -575,7 +587,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 15f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
-            .addAnimation("tail4",
+            .addAnimation(TAIL4,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 15f),
                                     AnimationChannel.Interpolations.CATMULLROM),
@@ -624,7 +636,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(30f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("small_ear_left",
+            .addAnimation(SMALL_EAR_LEFT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(-7.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR),
@@ -636,7 +648,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(-7.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("small_ear_right",
+            .addAnimation(SMALL_EAR_RIGHT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(-7.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR),
@@ -648,7 +660,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(-7.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("ear_left",
+            .addAnimation(EAR_LEFT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(10f, 0f, -25f),
                                     AnimationChannel.Interpolations.LINEAR),
@@ -660,7 +672,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(10f, 0f, -25f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("ear_left2",
+            .addAnimation(EAR_LEFT2,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(10f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR),
@@ -672,7 +684,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(10f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("ear_right",
+            .addAnimation(EAR_RIGHT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(10f, 0f, 25f),
                                     AnimationChannel.Interpolations.LINEAR),
@@ -684,7 +696,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(10f, 0f, 25f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("ear_right2",
+            .addAnimation(EAR_RIGHT2,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(10f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR),
@@ -696,11 +708,11 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(10f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("leg_front",
+            .addAnimation(LEG_FRONT,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("leg_front",
+            .addAnimation(LEG_FRONT,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(35f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR),
@@ -712,11 +724,11 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(35f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("leg_back",
+            .addAnimation(LEG_BACK,
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("leg_back",
+            .addAnimation(LEG_BACK,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(45f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR),
@@ -744,7 +756,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(7.5f, 15f, 0f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("tail2",
+            .addAnimation(TAIL2,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR),
@@ -756,7 +768,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("tail3",
+            .addAnimation(TAIL3,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 15f),
                                     AnimationChannel.Interpolations.LINEAR),
@@ -768,7 +780,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 15f),
                                     AnimationChannel.Interpolations.LINEAR)))
-            .addAnimation("tail4",
+            .addAnimation(TAIL4,
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 15f),
                                     AnimationChannel.Interpolations.LINEAR),

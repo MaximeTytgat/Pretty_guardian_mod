@@ -9,7 +9,7 @@ import com.max.prettyguardian.entity.ModEntities;
 import com.max.prettyguardian.entity.client.butterfly.ButterflyRenderer;
 import com.max.prettyguardian.entity.client.celestialrabbit.CelestialRabbitRenderer;
 import com.max.prettyguardian.entity.client.fairy.FairyRenderer;
-import com.max.prettyguardian.entity.client.strawberryCow.StrawberryCowRenderer;
+import com.max.prettyguardian.entity.client.strawberrycow.StrawberryCowRenderer;
 import com.max.prettyguardian.event.custom.JapChairEvent;
 import com.max.prettyguardian.item.PrettyGuardianItem;
 import com.max.prettyguardian.loot.ModLootModifiers;

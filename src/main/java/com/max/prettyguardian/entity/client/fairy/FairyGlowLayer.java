@@ -12,22 +12,23 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 import java.util.Map;
 
 public class FairyGlowLayer<T extends FairyEntity, M extends FairyModel<T>> extends RenderLayer<T, M> {
-    private static final Map<FairyEntity.Variant, RenderType> RENDER_BY_TYPE = Util.make(Maps.newHashMap(), (p_242076_) -> {
+    private static final Map<FairyEntity.Variant, RenderType> RENDER_BY_TYPE = Util.make(Maps.newHashMap(), variantRenderTypeHashMap -> {
         for(FairyEntity.Variant fairy$variant : FairyEntity.Variant.values()) {
-            p_242076_.put(fairy$variant, RenderType.entityTranslucentEmissive(new ResourceLocation(PrettyGuardian.MOD_ID, String.format(Locale.ROOT, "textures/entity/fairy/fairy_%s.png", fairy$variant.getName()))));
+            variantRenderTypeHashMap.put(fairy$variant, RenderType.entityTranslucentEmissive(new ResourceLocation(PrettyGuardian.MOD_ID, String.format(Locale.ROOT, "textures/entity/fairy/fairy_%s.png", fairy$variant.getName()))));
         }
     });
-    public FairyGlowLayer(RenderLayerParent<T, M> p_116981_) {
-        super(p_116981_);
+    public FairyGlowLayer(RenderLayerParent<T, M> tmRenderLayerParent) {
+        super(tmRenderLayerParent);
     }
 
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int p_117258_, T fairyEntity, float p_117260_, float p_117261_, float p_117262_, float p_117263_, float p_117264_, float p_117265_) {
+    public void render(@NotNull PoseStack poseStack, MultiBufferSource multiBufferSource, int i, @NotNull T fairyEntity, float v, float v1, float v2, float v3, float v4, float v5) {
         VertexConsumer vertexconsumer = multiBufferSource.getBuffer(this.renderType(fairyEntity));
         if (fairyEntity.hasDust()) {
             this.getParentModel().renderToBuffer(poseStack, vertexconsumer, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);

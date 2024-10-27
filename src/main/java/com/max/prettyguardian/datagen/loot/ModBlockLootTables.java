@@ -24,6 +24,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
@@ -152,31 +153,31 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.add(PrettyGuardianBlock.RUBY_ORE.get(), createOreDrop(PrettyGuardianBlock.RUBY_ORE.get(), PrettyGuardianItem.RUBY.get()));
         this.add(PrettyGuardianBlock.DEEPSLATE_RUBY_ORE.get(), createOreDrop(PrettyGuardianBlock.DEEPSLATE_RUBY_ORE.get(), PrettyGuardianItem.RUBY.get()));
 
-        LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition
+        LootItemCondition.Builder builder = LootItemBlockStatePropertyCondition
                 .hasBlockStateProperties(PrettyGuardianBlock.STRAWBERRY_CROP.get())
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(StrawberryCropBlock.AGE, 4));
 
         this.add(PrettyGuardianBlock.STRAWBERRY_CROP.get(),
                 this.applyExplosionDecay(PrettyGuardianBlock.STRAWBERRY_CROP.get(),
                         LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(PrettyGuardianItem.STRAWBERRY_SEEDS.get())))
-                                .withPool(LootPool.lootPool().when(lootitemcondition$builder).add(LootItem.lootTableItem(PrettyGuardianItem.STRAWBERRY.get())
-                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 2))))
-                                .withPool(LootPool.lootPool().when(lootitemcondition$builder).add(LootItem.lootTableItem(PrettyGuardianItem.STRAWBERRY_SEEDS.get())
+                                .withPool(LootPool.lootPool().when(builder).add(LootItem.lootTableItem(PrettyGuardianItem.STRAWBERRY.get())
+                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.FORTUNE, 0.5714286F, 2))))
+                                .withPool(LootPool.lootPool().when(builder).add(LootItem.lootTableItem(PrettyGuardianItem.STRAWBERRY_SEEDS.get())
                                         .when(LootItemRandomChanceCondition.randomChance(0.1F))))));
 
-        LootItemCondition.Builder lootitemcondition$builder2 = LootItemBlockStatePropertyCondition
+        LootItemCondition.Builder builder1 = LootItemBlockStatePropertyCondition
                 .hasBlockStateProperties(PrettyGuardianBlock.MINT_CROP.get())
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(StrawberryCropBlock.AGE, 4));
 
         this.add(PrettyGuardianBlock.MINT_CROP.get(), createCropDrops(PrettyGuardianBlock.MINT_CROP.get(), PrettyGuardianItem.MINT.get(),
-                PrettyGuardianItem.MINT_SEEDS.get(), lootitemcondition$builder2));
+                PrettyGuardianItem.MINT_SEEDS.get(), builder1));
 
-        LootItemCondition.Builder lootitemcondition$builder3 = LootItemBlockStatePropertyCondition
+        LootItemCondition.Builder builder2 = LootItemBlockStatePropertyCondition
                 .hasBlockStateProperties(PrettyGuardianBlock.VANILLA_CROP.get())
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(StrawberryCropBlock.AGE, 7));
 
         this.add(PrettyGuardianBlock.VANILLA_CROP.get(), createCropDrops(PrettyGuardianBlock.VANILLA_CROP.get(), PrettyGuardianItem.VANILLA.get(),
-                PrettyGuardianItem.VANILLA_SEEDS.get(), lootitemcondition$builder3));
+                PrettyGuardianItem.VANILLA_SEEDS.get(), builder2));
 
         this.add(PrettyGuardianBlock.PICNIC_BASKET.get(), this::createShulkerBoxDrop);
     }
@@ -222,16 +223,16 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     }
 
     @Override
-    protected LootTable.Builder createLapisOreDrops(Block p_251511_) {
-        return createSilkTouchDispatchTable(p_251511_,
-                this.applyExplosionDecay(p_251511_,
+    protected LootTable.@NotNull Builder createLapisOreDrops(@NotNull Block block) {
+        return createSilkTouchDispatchTable(block,
+                this.applyExplosionDecay(block,
                         LootItem.lootTableItem(PrettyGuardianItem.STRAWBERRY_SEEDS.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 9.0F)))
-                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.FORTUNE))));
     }
 
     @Override
-    protected Iterable<Block> getKnownBlocks() {
+    protected @NotNull Iterable<Block> getKnownBlocks() {
         return PrettyGuardianBlock.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
     }
 }

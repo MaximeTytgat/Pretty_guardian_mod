@@ -2,7 +2,6 @@ package com.max.prettyguardian.entity.client.celestialrabbit;
 
 import com.max.prettyguardian.PrettyGuardian;
 import com.max.prettyguardian.entity.custom.CelestialRabbitEntity;
-import com.max.prettyguardian.item.PrettyGuardianItem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -14,20 +13,16 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
+import org.jetbrains.annotations.NotNull;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.function.BiFunction;
 
 public class CelestialRabbitFlameLayer<T extends CelestialRabbitEntity, M extends CelestialRabbitModel<T>> extends RenderLayer<T, M> {
-//    private static final ResourceLocation ANIMATED_TEXTURE = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/celestial_rabbit_flame.png");
-
     protected static final RenderStateShard.TransparencyStateShard TRANSLUCENT_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("translucent_transparency", () -> {
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
@@ -39,16 +34,16 @@ public class CelestialRabbitFlameLayer<T extends CelestialRabbitEntity, M extend
     protected static final RenderStateShard.CullStateShard NO_CULL = new RenderStateShard.CullStateShard(false);
     protected static final RenderStateShard.WriteMaskStateShard COLOR_WRITE = new RenderStateShard.WriteMaskStateShard(true, false);
     protected static final RenderStateShard.ShaderStateShard RENDERTYPE_ENTITY_TRANSLUCENT_EMISSIVE_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeEntityTranslucentEmissiveShader);
-    private static final BiFunction<ResourceLocation, Boolean, RenderType>  ENTITY_TRANSLUCENT_EMISSIVE = Util.memoize((p_286163_, p_286164_) -> {
-        RenderType.CompositeState rendertype$compositestate = RenderType.CompositeState.builder().setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_EMISSIVE_SHADER).setTextureState(new RenderStateShard.TextureStateShard(p_286163_, false, false)).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setCullState(NO_CULL).setWriteMaskState(COLOR_WRITE).setOverlayState(OVERLAY).createCompositeState(p_286164_);
-        return RenderType.create("entity_translucent_emissive", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, rendertype$compositestate);
+    private static final BiFunction<ResourceLocation, Boolean, RenderType>  ENTITY_TRANSLUCENT_EMISSIVE = Util.memoize((resourceLocation, b) -> {
+        RenderType.CompositeState compositeState = RenderType.CompositeState.builder().setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_EMISSIVE_SHADER).setTextureState(new RenderStateShard.TextureStateShard(resourceLocation, false, false)).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setCullState(NO_CULL).setWriteMaskState(COLOR_WRITE).setOverlayState(OVERLAY).createCompositeState(b);
+        return RenderType.create("entity_translucent_emissive", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, compositeState);
     });
     public CelestialRabbitFlameLayer(RenderLayerParent<T, M> renderLayerParent) {
         super(renderLayerParent);
     }
 
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, T celestialRabbitEntity, float p_117260_, float p_117261_, float p_117262_, float p_117263_, float p_117264_, float p_117265_) {
+    public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int i, T celestialRabbitEntity, float v, float v1, float v2, float v3, float v4, float v5) {
         if (!celestialRabbitEntity.isBaby() && !celestialRabbitEntity.isInvisible() && celestialRabbitEntity.level().isClientSide) {
             int animationTicks = celestialRabbitEntity.tickCount;
 
@@ -83,8 +78,8 @@ public class CelestialRabbitFlameLayer<T extends CelestialRabbitEntity, M extend
     private static ResourceLocation[] getFlameFrames(DyeColor color) {
         ResourceLocation[] frames = new ResourceLocation[8];
         for (int frame = 0; frame < 8; frame++) {
-            ResourceLocation frame_result = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/" + color.getName() + "_flame_" + frame + ".png");
-            frames[frame] = frame_result;
+            ResourceLocation resourceLocation = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/" + color.getName() + "_flame_" + frame + ".png");
+            frames[frame] = resourceLocation;
         }
         return  frames;
     }

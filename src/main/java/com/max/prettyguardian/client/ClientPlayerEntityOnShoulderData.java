@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientPlayerEntityOnShoulderData {
+    private ClientPlayerEntityOnShoulderData() {}
     private static final List<String> playerIds = new ArrayList<>();
 
     public static void setEntityOnShoulder(String playerId) {

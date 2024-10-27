@@ -93,8 +93,8 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
             return spawnGroupData;
         } else {
             RandomSource randomsource = serverLevelAccessor.getRandom();
-            if (spawnGroupData instanceof ButterflyGroupData) {
-                if (((ButterflyGroupData)spawnGroupData).getGroupSize() >= 2) {
+            if (spawnGroupData instanceof ButterflyGroupData butterflyGroupData) {
+                if (butterflyGroupData.getGroupSize() >= 2) {
                     flag = true;
                 }
             } else {
@@ -129,10 +129,10 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
     }
 
     @Override
-    protected void updateWalkAnimation(float p_268283_) {
+    protected void updateWalkAnimation(float v) {
         float f;
         if (this.getPose() == Pose.STANDING) {
-            f = Math.min(p_268283_ * 6, 1f);
+            f = Math.min(v * 6, 1f);
         } else {
             f = 0;
         }
@@ -141,12 +141,14 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
     }
 
     @Override
-    protected PathNavigation createNavigation(Level p_21480_) {
-        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, p_21480_) {
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, level) {
+            @Override
             public boolean isStableDestination(BlockPos below) {
                 return !this.level.getBlockState(below.below()).isAir();
             }
 
+            @Override
             public void tick() {
                 super.tick();
             }
@@ -158,16 +160,18 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
     }
 
 
+    @Override
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromButterflyNet();
     }
 
-    public boolean removeWhenFarAway(double p_149183_) {
+    @Override
+    public boolean removeWhenFarAway(double v) {
         return !this.fromButterflyNet() && !this.hasCustomName();
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand interactionHand) {
         ItemStack itemstack = player.getItemInHand(interactionHand);
 
         if (itemstack.getItem() instanceof ButterflyNetItem butterflyNet && !this.isBaby() ){
@@ -177,53 +181,29 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
                 this.discard();
 
                 Variant v = this.getVariant();
-                ItemStack butterflyEgg = null;
+                ItemStack butterflyEgg = switch (v) {
+                    case ADMIRAL -> new ItemStack(PrettyGuardianItem.ADMIRAL_BUTTERFLY_EGG.get());
+                    case APOLLO -> new ItemStack(PrettyGuardianItem.APOLLO_BUTTERFLY_EGG.get());
+                    case DUSK -> new ItemStack(PrettyGuardianItem.DUSK_BUTTERFLY_EGG.get());
+                    case LEMON -> new ItemStack(PrettyGuardianItem.LEMON_BUTTERFLY_EGG.get());
+                    case MORPHO -> new ItemStack(PrettyGuardianItem.MORPHO_BUTTERFLY_EGG.get());
+                    case ORCHID -> new ItemStack(PrettyGuardianItem.ORCHID_BUTTERFLY_EGG.get());
+                    case PEACOCK -> new ItemStack(PrettyGuardianItem.PEACOCK_BUTTERFLY_EGG.get());
+                    case PINK -> new ItemStack(PrettyGuardianItem.PINK_BUTTERFLY_EGG.get());
+                    case SKIPPER -> new ItemStack(PrettyGuardianItem.SKIPPER_BUTTERFLY_EGG.get());
+                    case VIOLETTE -> new ItemStack(PrettyGuardianItem.VIOLETTE_BUTTERFLY_EGG.get());
+                };
 
-                switch (v) {
-                    case ADMIRAL:
-                        butterflyEgg = new ItemStack(PrettyGuardianItem.ADMIRAL_BUTTERFLY_EGG.get());
-                        break;
-                    case APOLLO:
-                        butterflyEgg = new ItemStack(PrettyGuardianItem.APOLLO_BUTTERFLY_EGG.get());
-                        break;
-                    case DUSK:
-                        butterflyEgg = new ItemStack(PrettyGuardianItem.DUSK_BUTTERFLY_EGG.get());
-                        break;
-                    case LEMON:
-                        butterflyEgg = new ItemStack(PrettyGuardianItem.LEMON_BUTTERFLY_EGG.get());
-                        break;
-                    case MORPHO:
-                        butterflyEgg = new ItemStack(PrettyGuardianItem.MORPHO_BUTTERFLY_EGG.get());
-                        break;
-                    case ORCHID:
-                        butterflyEgg = new ItemStack(PrettyGuardianItem.ORCHID_BUTTERFLY_EGG.get());
-                        break;
-                    case PEACOCK:
-                        butterflyEgg = new ItemStack(PrettyGuardianItem.PEACOCK_BUTTERFLY_EGG.get());
-                        break;
-                    case PINK:
-                        butterflyEgg = new ItemStack(PrettyGuardianItem.PINK_BUTTERFLY_EGG.get());
-                        break;
-                    case SKIPPER:
-                        butterflyEgg = new ItemStack(PrettyGuardianItem.SKIPPER_BUTTERFLY_EGG.get());
-                        break;
-                    case VIOLETTE:
-                        butterflyEgg = new ItemStack(PrettyGuardianItem.VIOLETTE_BUTTERFLY_EGG.get());
-                        break;
-                }
-
-                if (butterflyEgg != null) {
-                    if (!player.isCreative()) {
+                if (!player.isCreative()) {
+                    player.addItem(butterflyEgg);
+                    butterflyNet.setDamage(itemstack, butterflyNet.getDamage(itemstack) + 1);
+                } else {
+                    if (!player.getInventory().contains(butterflyEgg)) {
                         player.addItem(butterflyEgg);
-                        butterflyNet.setDamage(itemstack, butterflyNet.getDamage(itemstack) + 1);
-                    } else {
-                        if (!player.getInventory().contains(butterflyEgg)) {
-                            player.addItem(butterflyEgg);
-                        }
                     }
-
-                    return InteractionResult.sidedSuccess(this.level().isClientSide);
                 }
+
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
         }
 
