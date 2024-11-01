@@ -1,5 +1,6 @@
 package com.max.prettyguardian.entityOnShoulder;
 
+import com.max.prettyguardian.entity.custom.CelestialRabbitEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
@@ -7,13 +8,16 @@ import net.minecraft.world.item.DyeColor;
 
 public class PlayerEntityOnShoulder {
 
-    private final String id = null;
+    private static final String ID = null;
+    public static final String ENTITY_ON_SHOULDER = "entity_on_shoulder";
+    public static final String COLLAR_COLOR = "collar_color";
+    public static final String IS_IN_SITTING_POSE = "is_in_sitting_pose";
     private EntityType<?> entityType = null;
     private DyeColor collarColor = null;
     private Component name = null;
     private boolean isInSittingPose = false;
 
-    public void setEntityOnShoulder(String id, EntityType<?> entityType, DyeColor collarColor, Component name, boolean isInSittingPose) {
+    public void setEntityOnShoulder(EntityType<?> entityType, DyeColor collarColor, Component name, boolean isInSittingPose) {
         this.entityType = entityType;
         this.collarColor = collarColor;
         this.name = name;
@@ -28,7 +32,7 @@ public class PlayerEntityOnShoulder {
     }
 
     public String getId() {
-        return id;
+        return ID;
     }
     public EntityType<?> getEntityType() {
         return entityType;
@@ -51,16 +55,16 @@ public class PlayerEntityOnShoulder {
     }
 
     public void saveNBTData(CompoundTag tag) {
-        if (entityType != null) tag.putString("entity_on_shoulder", EntityType.getKey(entityType).toString());
-        if (collarColor != null) tag.putString("collar_color", collarColor.getName());
+        if (entityType != null) tag.putString(ENTITY_ON_SHOULDER, EntityType.getKey(entityType).toString());
+        if (collarColor != null) tag.putString(COLLAR_COLOR, collarColor.getName());
         if (name != null) tag.putString("name", Component.Serializer.toJson(name));
-        tag.putBoolean("is_in_sitting_pose", isInSittingPose);
+        tag.putBoolean(IS_IN_SITTING_POSE, isInSittingPose);
     }
 
     public void loadNBTData(CompoundTag tag) {
-        if (tag.contains("entity_on_shoulder")) entityType = EntityType.byString(tag.getString("entity_on_shoulder")).orElse(null);
-        if (tag.contains("collar_color")) collarColor = DyeColor.byName(tag.getString("collar_color"), null);
+        if (tag.contains(ENTITY_ON_SHOULDER)) entityType = EntityType.byString(tag.getString(ENTITY_ON_SHOULDER)).orElse(null);
+        if (tag.contains(COLLAR_COLOR)) collarColor = DyeColor.byName(tag.getString(COLLAR_COLOR), null);
         if (tag.contains("name")) name = Component.Serializer.fromJson(tag.getString("name"));
-        if (tag.contains("is_in_sitting_pose")) isInSittingPose = tag.getBoolean("is_in_sitting_pose");
+        if (tag.contains(IS_IN_SITTING_POSE)) isInSittingPose = tag.getBoolean(IS_IN_SITTING_POSE);
     }
 }

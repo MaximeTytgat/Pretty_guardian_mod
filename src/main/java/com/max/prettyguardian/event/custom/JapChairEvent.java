@@ -7,21 +7,23 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = PrettyGuardian.MOD_ID)
 public class JapChairEvent {
+    private JapChairEvent() {}
     @SubscribeEvent
     public static void onIteractWithBlock(PlayerInteractEvent.RightClickBlock event) {
         if (!event.getSide().isClient()) {
@@ -74,21 +76,21 @@ public class JapChairEvent {
             }
 
             for (Entity entity: passengers) {
-                if (entity instanceof Player player) {
-                    if (player.isShiftKeyDown()) {
-                        this.discard();
-                        player.setPos(player.getX(), player.getY() + 1D, player.getZ());
-                    }
+                if (entity instanceof Player player && player.isShiftKeyDown()) {
+                    this.discard();
+                    player.setPos(player.getX(), player.getY() + 1D, player.getZ());
                 }
             }
         }
 
         @Override
-        protected void defineSynchedData() {}
+        protected void defineSynchedData(@NotNull SynchedEntityData.Builder builder) {}
+
         @Override
-        protected void readAdditionalSaveData(CompoundTag compoundTag) {}
+        protected void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {}
+
         @Override
-        protected void addAdditionalSaveData(CompoundTag compoundTag) {}
+        protected void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {}
     }
 
     public static class SeatJapChairRenderer extends EntityRenderer<SeatJapChairEntity> {
@@ -98,8 +100,6 @@ public class JapChairEvent {
         }
 
         @Override
-        public ResourceLocation getTextureLocation(SeatJapChairEntity entity) {
-            return null; // Return the resource location of your texture if you have one
-        }
+        public @NotNull ResourceLocation getTextureLocation(@NotNull SeatJapChairEntity entity) {return null;}
     }
 }

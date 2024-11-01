@@ -1,24 +1,18 @@
 package com.max.prettyguardian.entity.custom;
 
-import com.max.prettyguardian.blocks.custom.table.MoonAltarBlock;
 import com.max.prettyguardian.entity.ModEntities;
 import com.max.prettyguardian.item.PrettyGuardianItem;
 import com.max.prettyguardian.item.custom.tool.ButterflyNetItem;
+import com.max.prettyguardian.particle.ModParticles;
 import com.max.prettyguardian.sound.ModSounds;
-import com.max.prettyguardian.util.ModTags;
-import com.max.prettyguardian.world.entity.ai.poi.ModPoiTypes;
 import net.minecraft.Util;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.PoiTypeTags;
 import net.minecraft.util.*;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
@@ -31,67 +25,54 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.village.poi.PoiManager;
-import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.animal.FlyingAnimal;
-import net.minecraft.world.entity.monster.Strider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.EnumSet;
-import java.util.List;
 import java.util.function.IntFunction;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<FairyEntity.Variant> {
     private static final EntityDataAccessor<Integer> DATA_VARIANT = SynchedEntityData.defineId(FairyEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> DATA_REMAINING_TIME_BEFORE_DUST = SynchedEntityData.defineId(Strider.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_TIME_BEFORE_DUST = SynchedEntityData.defineId(FairyEntity.class, EntityDataSerializers.INT);
     private static final UniformInt DUST_TIME = TimeUtil.rangeOfSeconds(40, 60);
 
 
     public FairyEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(5.0F);
         this.moveControl = new FairyEntity.FairyMoveControl(this);
     }
 
-    public static AnimationState idleAnimationState = new AnimationState();
+    public static final AnimationState idleAnimationState = new AnimationState();
 
+    @Override
     public boolean isPushable() { return false; }
-    protected void doPush(Entity p_27415_) {}
+
+    @Override
+    protected void doPush(@NotNull Entity entity) {}
+
+    @Override
     protected void pushEntities() {}
+
     @Override
-    protected void checkFallDamage(double p_27754_, boolean p_27755_, BlockState p_27756_, BlockPos p_27757_) {}
-    @Override
-    public float getWalkTargetValue(BlockPos p_21693_) {
+    public float getWalkTargetValue(@NotNull BlockPos blockPos) {
         return 0.0F;
     }
 
     @Override
     protected void registerGoals() {
-//        this.goalSelector.addGoal(5, new FlyAroundStructureGoal(this, 1.0));
-        this.goalSelector.addGoal(5, new FairyEntity.RandomFloatAroundGoal(this)); // Priorité arbitraire
+        this.goalSelector.addGoal(5, new FairyEntity.RandomFloatAroundGoal(this));
         this.goalSelector.addGoal(5, new FairyEntity.GhastLookGoal(this));
-
-        // ???
-        // this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-        // this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 12.0F));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -104,14 +85,14 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
 
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @javax.annotation.Nullable SpawnGroupData spawnGroupData, @javax.annotation.Nullable CompoundTag tag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor serverLevelAccessor, @NotNull DifficultyInstance difficultyInstance, @NotNull MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
         boolean flag = false;
         if (mobSpawnType == MobSpawnType.BUCKET) {
             return spawnGroupData;
         } else {
             RandomSource randomsource = serverLevelAccessor.getRandom();
-            if (spawnGroupData instanceof FairyGroupData) {
-                if (((FairyGroupData)spawnGroupData).getGroupSize() >= 2) {
+            if (spawnGroupData instanceof FairyGroupData fairyGroupData) {
+                if (fairyGroupData.getGroupSize() >= 2) {
                     flag = true;
                 }
             } else {
@@ -124,7 +105,7 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
             }
             ((FairyGroupData) spawnGroupData).getVariant(randomsource);
 
-            return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, tag);
+            return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
         }
     }
 
@@ -135,29 +116,37 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
     @Override
     public void tick() {
         super.tick();
-        if (!this.level().isClientSide) {
-            if (this.getRemainingTimeBeforeDust() > 0) {
-                this.setRemainingTimeBeforeDust(this.getRemainingTimeBeforeDust() - 1);
-            }
+        if (!this.level().isClientSide && this.getRemainingTimeBeforeDust() > 0) {
+            this.setRemainingTimeBeforeDust(this.getRemainingTimeBeforeDust() - 1);
         }
+
         if (this.level().isClientSide) {
             setupAnimationStates();
         }
 
         if (this.hasDust()) {
+            FairyEntity.Variant variant = this.getVariant();
+            ParticleOptions particleOptions;
+            if (variant == FairyEntity.Variant.PINK) {
+                particleOptions = ModParticles.PINK_FAIRY_PARTICLES.get();
+            } else {
+                particleOptions = ModParticles.BLUE_FAIRY_PARTICLES.get();
+            }
+
             if (this.random.nextFloat() < 0.05F) {
                 for(int i = 0; i < this.random.nextInt(2) + 1; ++i) {
-                    this.spawnFluidParticle(this.level(), this.getX() - 0.30000001192092896, this.getX() + 0.30000001192092896, this.getZ() - 0.30000001192092896, this.getZ() + 0.30000001192092896, this.getY(0.5), ParticleTypes.FALLING_NECTAR);
+                    this.spawnFluidParticle(this.level(), this.getX() - 0.30000001192092896, this.getX() + 0.30000001192092896, this.getZ() - 0.30000001192092896, this.getZ() + 0.30000001192092896, this.getY(0.5), particleOptions);
                 }
             }
+
             if (this.level().getDayTime() % 100 == 0 && this.random.nextFloat() < 0.7F) {
                 this.level().playSound(this, this.blockPosition(), ModSounds.FAIRY.get(), this.getSoundSource(), 0.35F, 1F);
             }
         }
     }
 
-    private void spawnFluidParticle(Level level, double p_27781_, double p_27782_, double p_27783_, double p_27784_, double p_27785_, ParticleOptions particleOptions) {
-        level.addParticle(particleOptions, Mth.lerp(level.random.nextDouble(), p_27781_, p_27782_), p_27785_, Mth.lerp(level.random.nextDouble(), p_27783_, p_27784_), 0.0, 0.0, 0.0);
+    private void spawnFluidParticle(Level level, double v, double v1, double v2, double v3, double v4, ParticleOptions particleOptions) {
+        level.addParticle(particleOptions, Mth.lerp(level.random.nextDouble(), v, v1), v4, Mth.lerp(level.random.nextDouble(), v2, v3), 0.0, 0.0, 0.0);
     }
 
 
@@ -170,10 +159,10 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
     }
 
     @Override
-    protected void updateWalkAnimation(float p_268283_) {
+    protected void updateWalkAnimation(float v) {
         float f;
         if (this.getPose() == Pose.STANDING) {
-            f = Math.min(p_268283_ * 6, 1f);
+            f = Math.min(v * 6, 1f);
         } else {
             f = 0;
         }
@@ -182,14 +171,11 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
     }
 
     @Override
-    protected PathNavigation createNavigation(Level p_21480_) {
-        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, p_21480_) {
-            public boolean isStableDestination(BlockPos p_27947_) {
-                return !this.level.getBlockState(p_27947_.below()).isAir();
-            }
-
-            public void tick() {
-                super.tick();
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, level) {
+            @Override
+            public boolean isStableDestination(BlockPos blockPos) {
+                return !this.level.getBlockState(blockPos.below()).isAir();
             }
         };
         flyingpathnavigation.setCanOpenDoors(false);
@@ -199,20 +185,16 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand interactionHand) {
         ItemStack itemstack = player.getItemInHand(interactionHand);
 
-        if (itemstack.getItem() instanceof ButterflyNetItem butterflyNet && !this.isBaby() ){
-            if (!this.level().isClientSide) {
-                if (this.hasDust()) {
-                    this.startDustTime();
-                    ItemStack fairyDust = new ItemStack(PrettyGuardianItem.FAIRY_DUST.get());
-                    player.addItem(fairyDust);
-                    butterflyNet.setDamage(itemstack, butterflyNet.getDamage(itemstack) + 1);
-                    return InteractionResult.sidedSuccess(this.level().isClientSide);
-                }
-            }
+        if (itemstack.getItem() instanceof ButterflyNetItem && !this.isBaby() && !this.level().isClientSide && this.hasDust()) {
+            this.startDustTime();
+            ItemStack fairyDust = new ItemStack(PrettyGuardianItem.FAIRY_DUST.get());
+            player.addItem(fairyDust);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
+
 
         return super.mobInteract(player, interactionHand);
     }
@@ -222,26 +204,35 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return ModEntities.FAIRY.get().create(serverLevel);
     }
+
     @Override
     public boolean isFlying() {
         return !this.onGround();
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_VARIANT, 0);
-        this.entityData.define(DATA_REMAINING_TIME_BEFORE_DUST, DUST_TIME.sample(this.random));
+    @Override
+    protected void defineSynchedData(@NotNull SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_VARIANT, 0);
+        builder.define(DATA_REMAINING_TIME_BEFORE_DUST, DUST_TIME.sample(this.random));
     }
 
-    public void addAdditionalSaveData(CompoundTag tag) {
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("Variant", this.getVariant().getId());
 
     }
 
-    public void readAdditionalSaveData(CompoundTag tag) {
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.setVariant(Variant.byId(tag.getInt("Variant")));
+    }
+
+    @Override
+    public boolean isFood(@NotNull ItemStack itemStack) {
+        return false;
     }
 
 
@@ -258,25 +249,25 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
     }
 
     @Override
-    public void setVariant(Variant p_149118_) {
-        this.entityData.set(DATA_VARIANT, p_149118_.getId());
+    public void setVariant(Variant variant) {
+        this.entityData.set(DATA_VARIANT, variant.getId());
     }
 
     @Override
-    public Variant getVariant() {
+    public @NotNull Variant getVariant() {
         return Variant.byId(this.entityData.get(DATA_VARIANT));
     }
 
     public static class FairyGroupData extends AgeableMobGroupData {
         public final Variant[] types;
 
-        public FairyGroupData(Variant... p_149204_) {
+        public FairyGroupData(Variant... variants) {
             super(false);
-            this.types = p_149204_;
+            this.types = variants;
         }
 
-        public Variant getVariant(RandomSource p_218447_) {
-            return this.types[p_218447_.nextInt(this.types.length)];
+        public Variant getVariant(RandomSource randomSource) {
+            return this.types[randomSource.nextInt(this.types.length)];
         }
     }
 
@@ -289,28 +280,26 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
             this.fairy = fairy;
         }
 
+        @Override
         public void tick() {
-            if (this.operation == MoveControl.Operation.MOVE_TO) {
-                if (this.floatDuration-- <= 0) {
-                    this.floatDuration += this.fairy.getRandom().nextInt(5) + 2;
-                    Vec3 vec3 = new Vec3(this.wantedX - this.fairy.getX(), this.wantedY - this.fairy.getY(), this.wantedZ - this.fairy.getZ());
-                    double d0 = vec3.length();
-                    vec3 = vec3.normalize();
-                    if (this.canReach(vec3, Mth.ceil(d0))) {
-                        this.fairy.setDeltaMovement(this.fairy.getDeltaMovement().add(vec3.scale(0.1D)));
-                    } else {
-                        this.operation = MoveControl.Operation.WAIT;
-                    }
+            if (this.operation == MoveControl.Operation.MOVE_TO && this.floatDuration-- <= 0) {
+                this.floatDuration += this.fairy.getRandom().nextInt(5) + 2;
+                Vec3 vec3 = new Vec3(this.wantedX - this.fairy.getX(), this.wantedY - this.fairy.getY(), this.wantedZ - this.fairy.getZ());
+                double d0 = vec3.length();
+                vec3 = vec3.normalize();
+                if (this.canReach(vec3, Mth.ceil(d0))) {
+                    this.fairy.setDeltaMovement(this.fairy.getDeltaMovement().add(vec3.scale(0.1D)));
+                } else {
+                    this.operation = MoveControl.Operation.WAIT;
                 }
-
             }
         }
 
-        private boolean canReach(Vec3 p_32771_, int p_32772_) {
+        private boolean canReach(Vec3 vec3, int i1) {
             AABB aabb = this.fairy.getBoundingBox();
 
-            for(int i = 1; i < p_32772_; ++i) {
-                aabb = aabb.move(p_32771_);
+            for(int i = 1; i < i1; ++i) {
+                aabb = aabb.move(vec3);
                 if (!this.fairy.level().noCollision(this.fairy, aabb)) {
                     return false;
                 }
@@ -320,14 +309,15 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
         }
     }
 
-    public void travel(Vec3 p_20818_) {
+    @Override
+    public void travel(@NotNull Vec3 vec3) {
         if (this.isControlledByLocalInstance()) {
             if (this.isInWater()) {
-                this.moveRelative(0.02F, p_20818_);
+                this.moveRelative(0.02F, vec3);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.8F));
             } else if (this.isInLava()) {
-                this.moveRelative(0.02F, p_20818_);
+                this.moveRelative(0.02F, vec3);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
             } else {
@@ -343,7 +333,7 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
                     f = this.level().getBlockState(ground).getFriction(this.level(), ground, this) * 0.91F;
                 }
 
-                this.moveRelative(this.onGround() ? 0.1F * f1 : 0.02F, p_20818_);
+                this.moveRelative(this.onGround() ? 0.1F * f1 : 0.02F, vec3);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale(f));
             }
@@ -352,6 +342,7 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
         this.calculateEntityAnimation(false);
     }
 
+    @Override
     public boolean onClimbable() {
         return false;
     }
@@ -377,16 +368,18 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
             }
         }
 
+        @Override
         public boolean canContinueToUse() {
             return false;
         }
 
+        @Override
         public void start() {
             RandomSource randomsource = this.fairy.getRandom();
 
-            double d0 = this.fairy.getX() + (double)((randomsource.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            double d1 = this.fairy.getY() + (double)((randomsource.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            double d2 = this.fairy.getZ() + (double)((randomsource.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            double d0 = this.fairy.getX() + ((randomsource.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            double d1 = this.fairy.getY() + ((randomsource.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            double d2 = this.fairy.getZ() + ((randomsource.nextFloat() * 2.0F - 1.0F) * 16.0F);
 
             BlockPos targetPos = new BlockPos((int) d0, (int) d1, (int) d2);
             BlockState blockState = this.fairy.level().getBlockState(targetPos.below(10));
@@ -412,10 +405,12 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
             return true;
         }
 
+        @Override
         public boolean requiresUpdateEveryTick() {
             return true;
         }
 
+        @Override
         public void tick() {
             if (this.fairy.getTarget() == null) {
                 Vec3 vec3 = this.fairy.getDeltaMovement();
@@ -423,7 +418,6 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
                 this.fairy.yBodyRot = this.fairy.getYRot();
             } else {
                 LivingEntity livingentity = this.fairy.getTarget();
-                double d0 = 64.0D;
                 if (livingentity.distanceToSqr(this.fairy) < 4096.0D) {
                     double d1 = livingentity.getX() - this.fairy.getX();
                     double d2 = livingentity.getZ() - this.fairy.getZ();
@@ -434,72 +428,6 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
 
         }
     }
-
-    public class FlyAroundStructureGoal extends Goal {
-        private final FairyEntity fairy;
-        private final double speed;
-        private Path path;
-
-        public FlyAroundStructureGoal(FairyEntity fairy, double speed) {
-            this.fairy = fairy;
-            this.speed = speed;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-        }
-
-        @Override
-        public boolean canUse() {
-            return true; // Toujours utiliser ce goal
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.findNewTarget();
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return this.fairy.isAlive() && !this.fairy.getNavigation().isDone();
-        }
-
-        @Override
-        public void tick() {
-            if (this.path != null && !this.path.isDone()) {
-                FlyingPathNavigation flyingNavigation = (FlyingPathNavigation) this.fairy.getNavigation();
-                flyingNavigation.moveTo(this.path, this.speed);
-            }
-        }
-
-        private void findNewTarget() {
-            List<BlockPos> templePositions = findMoonTempleWithSpace();
-            if (!templePositions.isEmpty()) {
-                BlockPos structurePos = templePositions.get(0); // Prendre la première position trouvée
-                BlockPos target = getTargetAroundStructure(structurePos);
-
-                this.path = this.fairy.getNavigation().createPath(target, 1); // Tolerance de 1
-            }
-        }
-
-        private List<BlockPos> findMoonTempleWithSpace() {
-            BlockPos fairyPos = this.fairy.blockPosition();
-            PoiManager poimanager = ((ServerLevel) this.fairy.level()).getPoiManager();
-            Stream<PoiRecord> stream = poimanager.getInRange(
-                    (p_218130_) -> p_218130_.is(ModTags.PoiTypeTags.MOON_TEMPLE), fairyPos, 20, PoiManager.Occupancy.ANY);
-            return stream.map(PoiRecord::getPos)
-                    .sorted(Comparator.comparingDouble((blockPos) -> blockPos.distSqr(fairyPos)))
-                    .collect(Collectors.toList());
-        }
-
-        private BlockPos getTargetAroundStructure(BlockPos structurePos) {
-            double distance = 10; // Distance maximale autour de la structure
-            double angle = this.fairy.level().random.nextDouble() * 2 * Math.PI; // Angle aléatoire
-            double x = structurePos.getX() + distance * Math.cos(angle);
-            double z = structurePos.getZ() + distance * Math.sin(angle);
-            double y = this.fairy.level().getHeight() + 10; // Altitude maximale
-            return new BlockPos((int) x, (int) y, (int) z);
-        }
-    }
-
 
     public enum Variant implements StringRepresentable {
         BLUE(0, "blue"),
@@ -522,7 +450,7 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
         }
 
         @Override
-        public String getSerializedName() {
+        public @NotNull String getSerializedName() {
             return this.name;
         }
 
@@ -531,8 +459,8 @@ public class FairyEntity extends Animal implements FlyingAnimal, VariantHolder<F
         }
 
         private static Variant getSpawnVariant(RandomSource randomSource) {
-            Variant[] fairy$variant = Arrays.stream(values()).toArray(Variant[]::new);
-            return Util.getRandom(fairy$variant, randomSource);
+            Variant[] variants = Arrays.stream(values()).toArray(Variant[]::new);
+            return Util.getRandom(variants, randomSource);
         }
     }
 }

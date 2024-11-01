@@ -4,7 +4,6 @@ import com.max.prettyguardian.entity.ModEntities;
 import com.max.prettyguardian.item.PrettyGuardianItem;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -16,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class StrawberryCowEntity extends MushroomCow {
@@ -27,36 +26,26 @@ public class StrawberryCowEntity extends MushroomCow {
 
     @Nullable
     @Override
-    public MushroomCow getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public MushroomCow getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return ModEntities.STRAWBERRY_COW.get().create(serverLevel);
     }
 
     @Override
-    public MushroomType getVariant() {
+    public @NotNull MushroomType getVariant() {
         return super.getVariant();
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand interactionHand) {
         ItemStack itemstack = player.getItemInHand(interactionHand);
         if (itemstack.is(Items.BOWL) && !this.isBaby()) {
             return InteractionResult.sidedSuccess(this.level().isClientSide);
-        } else if (false) { //Forge: Moved to onSheared
-            this.shear(SoundSource.PLAYERS);
-            this.gameEvent(GameEvent.SHEAR, player);
-            if (!this.level().isClientSide) {
-                itemstack.hurtAndBreak(1, player, (p_28927_) -> {
-                    p_28927_.broadcastBreakEvent(interactionHand);
-                });
-            }
-
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
-        } else if (this.getVariant() == MushroomCow.MushroomType.BROWN && itemstack.is(ItemTags.SMALL_FLOWERS)) {
+        } else if (this.getVariant() == MushroomType.BROWN && itemstack.is(ItemTags.SMALL_FLOWERS)) {
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else if (itemstack.is(Items.BUCKET) && !this.isBaby()) {
             player.playSound(SoundEvents.COW_MILK, 1.0F, 1.0F);
-            ItemStack itemstack1 = ItemUtils.createFilledResult(itemstack, player, PrettyGuardianItem.STRAWBERRY_MILK_BUCKET.get().getDefaultInstance());
-            player.setItemInHand(interactionHand, itemstack1);
+            ItemStack filledResult = ItemUtils.createFilledResult(itemstack, player, PrettyGuardianItem.STRAWBERRY_MILK_BUCKET.get().getDefaultInstance());
+            player.setItemInHand(interactionHand, filledResult);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else {
             return super.mobInteract(player, interactionHand);

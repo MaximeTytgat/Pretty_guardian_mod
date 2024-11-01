@@ -8,11 +8,12 @@ import java.util.EnumSet;
 
 public class StopMoveWhenOrderedToGoal extends Goal {
     private final TamableAnimal mob;
-    public StopMoveWhenOrderedToGoal(TamableAnimal p_25898_) {
-        this.mob = p_25898_;
+    public StopMoveWhenOrderedToGoal(TamableAnimal tamableAnimal) {
+        this.mob = tamableAnimal;
         this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
     }
 
+    @Override
     public boolean canContinueToUse() {
         return this.mob.isOrderedToSit();
     }
@@ -27,16 +28,18 @@ public class StopMoveWhenOrderedToGoal extends Goal {
             if (livingentity == null) {
                 return true;
             } else {
-                return (!(this.mob.distanceToSqr(livingentity) < 144.0D) || livingentity.getLastHurtByMob() == null) && this.mob.isOrderedToSit();
+                return (this.mob.distanceToSqr(livingentity) >= 144.0D || livingentity.getLastHurtByMob() == null) && this.mob.isOrderedToSit();
             }
         }
     }
 
+    @Override
     public void start() {
         this.mob.getNavigation().stop();
         this.mob.setInSittingPose(true);
     }
 
+    @Override
     public void stop() {
         this.mob.setInSittingPose(false);
     }

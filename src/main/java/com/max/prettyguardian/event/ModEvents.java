@@ -2,7 +2,6 @@ package com.max.prettyguardian.event;
 
 import com.max.prettyguardian.PrettyGuardian;
 import com.max.prettyguardian.blocks.PrettyGuardianBlock;
-import com.max.prettyguardian.client.ClientPlayerEntityOnShoulderData;
 import com.max.prettyguardian.entity.ModEntities;
 import com.max.prettyguardian.entity.custom.CelestialRabbitEntity;
 import com.max.prettyguardian.entityOnShoulder.PlayerEntityOnShoulder;
@@ -10,9 +9,7 @@ import com.max.prettyguardian.entityOnShoulder.PlayerEntityOnShoulderProvider;
 import com.max.prettyguardian.item.PrettyGuardianItem;
 import com.max.prettyguardian.networking.ModMessages;
 import com.max.prettyguardian.networking.packet.PlayerEntityOnShoulderDataSCPacket;
-import com.max.prettyguardian.particle.ModParticles;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -27,10 +24,8 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -42,7 +37,6 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = PrettyGuardian.MOD_ID)
 public class ModEvents {
@@ -146,7 +140,7 @@ public class ModEvents {
                                 Component name = celestialRabbit.hasCustomName() ? celestialRabbit.getCustomName() : null;
                                 boolean isInSittingPose = celestialRabbit.isInSittingPose();
 
-                                entityOnShoulder.setEntityOnShoulder(id, ModEntities.CELESTIAL_RABBIT.get(), collarColor, name, isInSittingPose);
+                                entityOnShoulder.setEntityOnShoulder(ModEntities.CELESTIAL_RABBIT.get(), collarColor, name, isInSittingPose);
 
                                 livingEntity.discard();
 

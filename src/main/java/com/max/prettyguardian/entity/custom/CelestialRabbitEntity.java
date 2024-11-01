@@ -7,6 +7,7 @@ import com.max.prettyguardian.particle.ModParticles;
 import com.max.prettyguardian.sound.ModSounds;
 import com.max.prettyguardian.util.ModTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -21,7 +22,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -33,31 +33,28 @@ import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal, NeutralMob {
     private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(CelestialRabbitEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(CelestialRabbitEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_PEARL_COLOR = SynchedEntityData.defineId(CelestialRabbitEntity.class, EntityDataSerializers.INT);
-    public static final Predicate<LivingEntity> PREY_SELECTOR = (p_289448_) -> {
-        EntityType<?> entitytype = p_289448_.getType();
-        return entitytype == EntityType.ZOMBIE || entitytype == EntityType.SKELETON || entitytype == EntityType.SPIDER || entitytype == EntityType.CAVE_SPIDER || entitytype == EntityType.CREEPER || entitytype == EntityType.SILVERFISH;
-    };
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    public static final String COLLAR_COLOR = "CollarColor";
     @javax.annotation.Nullable
     private UUID persistentAngerTarget;
 
@@ -68,28 +65,30 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState sitAnimationState = new AnimationState();
-    private final int idleAnimationTimeout = 0;
 
-
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_INTERESTED_ID, false);
-        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
-        this.entityData.define(DATA_PEARL_COLOR, DyeColor.LIGHT_BLUE.getId());
+    @Override
+    protected void defineSynchedData(@NotNull SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_INTERESTED_ID, false);
+        builder.define(DATA_REMAINING_ANGER_TIME, 0);
+        builder.define(DATA_PEARL_COLOR, DyeColor.LIGHT_BLUE.getId());
     }
 
-    public void addAdditionalSaveData(CompoundTag p_30418_) {
-        super.addAdditionalSaveData(p_30418_);
-        p_30418_.putByte("CollarColor", (byte)this.getCollarColor().getId());
-        this.addPersistentAngerSaveData(p_30418_);
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putByte(COLLAR_COLOR, (byte)this.getCollarColor().getId());
+        this.addPersistentAngerSaveData(compoundTag);
     }
-    public void readAdditionalSaveData(CompoundTag p_30402_) {
-        super.readAdditionalSaveData(p_30402_);
-        if (p_30402_.contains("CollarColor", 99)) {
-            this.setCollarColor(DyeColor.byId(p_30402_.getInt("CollarColor")));
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        if (compoundTag.contains(COLLAR_COLOR, 99)) {
+            this.setCollarColor(DyeColor.byId(compoundTag.getInt(COLLAR_COLOR)));
         }
 
-        this.readPersistentAngerSaveData(this.level(), p_30402_);
+        this.readPersistentAngerSaveData(this.level(), compoundTag);
     }
 
     @Nullable
@@ -100,7 +99,6 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
 
         if (!this.walkAnimation.isMoving()) {
             return switch (random) {
-                case 0 -> ModSounds.CELESTIAL_RABBIT_AMBIENT_SOUND_0.get();
                 case 1 -> ModSounds.CELESTIAL_RABBIT_AMBIENT_SOUND_1.get();
                 case 2 -> ModSounds.CELESTIAL_RABBIT_AMBIENT_SOUND_2.get();
                 case 3 -> ModSounds.CELESTIAL_RABBIT_AMBIENT_SOUND_3.get();
@@ -144,10 +142,10 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
     }
 
     @Override
-    protected void updateWalkAnimation(float p_268283_) {
+    protected void updateWalkAnimation(float v) {
         float f;
         if (this.getPose() == Pose.STANDING) {
-            f = Math.min(p_268283_ * 6F, 1f);
+            f = Math.min(v * 6F, 1f);
         } else {
             f = 0;
         }
@@ -158,11 +156,7 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-//        this.goalSelector.addGoal(1, new PanicGoal(this, 1.5));
-//        this.goalSelector.addGoal(1, new CelestialRabbitEntity.CelestialRabbitPanicGoal(1.5D));
         this.goalSelector.addGoal(2, new StopMoveWhenOrderedToGoal(this));
-
-//        this.goalSelector.addGoal(3, new Cat.CatRelaxOnOwnerGoal(this));
 
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.2D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.3D, Ingredient.of(PrettyGuardianItem.FISH_WAFFLE.get()), false));
@@ -181,14 +175,13 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
-//        this.targetSelector.addGoal(5, new NonTameRandomTargetGoal<>(this, Animal.class, false, PREY_SELECTOR));
         this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Phantom.class, false));
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, Skeleton.class, false));
         this.targetSelector.addGoal(7, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Animal.createLivingAttributes()
+        return LivingEntity.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 80.0D)
                 .add(Attributes.ARMOR_TOUGHNESS, 10.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
@@ -200,14 +193,11 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
     }
 
     @Override
-    protected PathNavigation createNavigation(Level p_21480_) {
-        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, p_21480_) {
-            public boolean isStableDestination(BlockPos p_27947_) {
-                return !this.level.getBlockState(p_27947_.below()).isAir();
-            }
-
-            public void tick() {
-                super.tick();
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, level) {
+            @Override
+            public boolean isStableDestination(BlockPos blockPos) {
+                return !this.level.getBlockState(blockPos.below()).isAir();
             }
         };
         flyingpathnavigation.setCanOpenDoors(false);
@@ -216,12 +206,9 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
         return flyingpathnavigation;
     }
 
-    @Override
-    protected void checkFallDamage(double p_27754_, boolean p_27755_, BlockState p_27756_, BlockPos p_27757_) {}
-
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return ModEntities.CELESTIAL_RABBIT.get().create(serverLevel);
     }
 
@@ -237,7 +224,7 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand interactionHand) {
         ItemStack itemstack = player.getItemInHand(interactionHand);
         Item item = itemstack.getItem();
         if (this.level().isClientSide) {
@@ -245,7 +232,9 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
             return flag ? InteractionResult.CONSUME : InteractionResult.PASS;
         } else if (this.isTame()) {
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-                this.heal((float)itemstack.getFoodProperties(this).getNutrition());
+                FoodProperties foodproperties = itemstack.get(DataComponents.FOOD);
+                float f = foodproperties != null ? (float)foodproperties.nutrition() : 1.0F;
+                this.heal(2.0F * f);
                 if (!player.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }
@@ -253,20 +242,18 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
                 this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
             } else {
-                if (item instanceof DyeItem dyeitem) {
-                    if (this.isOwnedBy(player)) {
-                        DyeColor dyecolor = dyeitem.getDyeColor();
-                        if (dyecolor != this.getCollarColor()) {
-                            this.setCollarColor(dyecolor);
-                            if (!player.getAbilities().instabuild) {
-                                itemstack.shrink(1);
-                            }
-
-                            return InteractionResult.SUCCESS;
+                if (item instanceof DyeItem dyeitem && this.isOwnedBy(player)) {
+                    DyeColor dyecolor = dyeitem.getDyeColor();
+                    if (dyecolor != this.getCollarColor()) {
+                        this.setCollarColor(dyecolor);
+                        if (!player.getAbilities().instabuild) {
+                            itemstack.shrink(1);
                         }
 
-                        return super.mobInteract(player, interactionHand);
+                        return InteractionResult.SUCCESS;
                     }
+
+                    return super.mobInteract(player, interactionHand);
                 }
 
                 InteractionResult interactionresult = super.mobInteract(player, interactionHand);
@@ -285,7 +272,7 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
                 itemstack.shrink(1);
             }
 
-            if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
+            if (this.random.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
                 this.tame(player);
                 this.navigation.stop();
                 this.setTarget(null);
@@ -302,8 +289,8 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
     }
 
     @Override
-    public boolean canBeLeashed(Player p_30396_) {
-        return !this.isAngry() && super.canBeLeashed(p_30396_);
+    public boolean canBeLeashed(@NotNull Player player) {
+        return !this.isAngry() && super.canBeLeashed(player);
     }
 
     @Override
@@ -312,16 +299,16 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
     }
 
     @Override
-    public void setRemainingPersistentAngerTime(int p_21673_) {
-        this.entityData.set(DATA_REMAINING_ANGER_TIME, p_21673_);
+    public void setRemainingPersistentAngerTime(int i) {
+        this.entityData.set(DATA_REMAINING_ANGER_TIME, i);
     }
 
     public DyeColor getCollarColor() {
         return DyeColor.byId(this.entityData.get(DATA_PEARL_COLOR));
     }
 
-    public void setCollarColor(DyeColor p_30398_) {
-        this.entityData.set(DATA_PEARL_COLOR, p_30398_.getId());
+    public void setCollarColor(DyeColor dyeColor) {
+        this.entityData.set(DATA_PEARL_COLOR, dyeColor.getId());
     }
 
     @Nullable
@@ -331,8 +318,8 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
     }
 
     @Override
-    public void setPersistentAngerTarget(@javax.annotation.Nullable UUID p_30400_) {
-        this.persistentAngerTarget = p_30400_;
+    public void setPersistentAngerTarget(@Nullable UUID uuid) {
+        this.persistentAngerTarget = uuid;
     }
 
     @Override
@@ -356,82 +343,83 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
             }
         }
 
+        @Override
         public void start() {
             this.attackTime = 60;
         }
 
-        public void stop() {
-        }
-
+        @Override
         public boolean requiresUpdateEveryTick() {
             return true;
         }
 
+        @Override
         public void tick() {
-            if (CelestialRabbitEntity.this.level().getDifficulty() != Difficulty.PEACEFUL) {
-                --this.attackTime;
-                LivingEntity livingentity = CelestialRabbitEntity.this.getTarget();
-                if (livingentity != null) {
-                    CelestialRabbitEntity.this.getLookControl().setLookAt(livingentity, 180.0F, 180.0F);
-//                    CelestialRabbitEntity. this.getMoveControl().setWantedPosition(livingentity.getX(), livingentity.getY()+1, livingentity.getZ(), 1.0D);
+            CelestialRabbitEntity celestialRabbitEntity = CelestialRabbitEntity.this;
+            Level level = CelestialRabbitEntity.this.level();
+            if (level.getDifficulty() == Difficulty.PEACEFUL) return;
 
-                    double d0 = CelestialRabbitEntity.this.distanceToSqr(livingentity);
-                    if (d0 < 1000.0D) {
-                        if (this.attackTime <= 0) {
-                            this.attackTime = 60 + CelestialRabbitEntity.this.random.nextInt(10) * 20 / 2;
+            --this.attackTime;
+            LivingEntity livingentity = celestialRabbitEntity.getTarget();
+            if (livingentity == null) return;
 
-                            if (CelestialRabbitEntity.this.level() instanceof ServerLevel serverLevel) {
-                                CelestialRabbitEntity.this.level().playSound(null, CelestialRabbitEntity.this.getX(), CelestialRabbitEntity.this.getY(), CelestialRabbitEntity.this.getZ(), ModSounds.CELESTIAL_RABBIT_SHOOT.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+            celestialRabbitEntity.getLookControl().setLookAt(livingentity, 180.0F, 180.0F);
 
-                                Vec3 $$3 = CelestialRabbitEntity.this.position();
-                                Vec3 $$4 = livingentity.getEyePosition().subtract($$3);
+            double d0 = celestialRabbitEntity.distanceToSqr(livingentity);
+            if (d0 > 1000.0D) {
+                celestialRabbitEntity.setTarget(null);
+                super.tick();
+                return;
+            }
 
-                                Vec3 $$5 = $$4.normalize();
+            if (this.attackTime > 0) {
+                super.tick();
+                return;
+            }
 
-                                for(int $$6 = 1; $$6 < Mth.floor($$4.length()) + 7; ++$$6) {
-                                    Vec3 $$7 = $$3.add($$5.scale($$6));
-                                    serverLevel.sendParticles(ModParticles.PINK_SONIC_BOOM_PARTICLES.get(), $$7.x, $$7.y, $$7.z, 1, 0.0, 0.0, 0.0, 0.0);
-                                }
+            attack(celestialRabbitEntity, level, livingentity);
 
-                                if (livingentity instanceof Player player && (player.getName().getString().equals("___Max__________") || player.getName().getString().equals("Dev"))) {
-                                    player.heal(9999);
-                                    level().playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.FIREWORK_ROCKET_LARGE_BLAST_FAR, SoundSource.NEUTRAL, 1.0F, 1.0F);
-                                } else {
-                                    if (livingentity instanceof Phantom) {
-                                        livingentity.hurt(CelestialRabbitEntity.this.damageSources().mobAttack(CelestialRabbitEntity.this), 10.0F);
-                                    } else {
-                                        livingentity.hurt(CelestialRabbitEntity.this.damageSources().mobAttack(CelestialRabbitEntity.this), 1.0F);
-                                    }
+            super.tick();
+        }
 
-                                    livingentity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200, 1));
-                                    livingentity.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 1));
-                                    livingentity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200, 1));
-                                    livingentity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 200, 1));
-                                    livingentity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 1));
+        private void attack(CelestialRabbitEntity celestialRabbitEntity, Level level, LivingEntity livingentity) {
+            this.attackTime = 60 + celestialRabbitEntity.random.nextInt(10) * 20 / 2;
 
-                                    double $$8 = 0.5 * (0.8 - livingentity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-                                    double $$9 = 2.5 * (0.8 - livingentity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-                                    livingentity.push($$5.x() * $$9, $$5.y() * $$8, $$5.z() * $$9);
-                                }
-                            }
-                        }
+            if (level instanceof ServerLevel serverLevel) {
+                level.playSound(null, celestialRabbitEntity.getX(), celestialRabbitEntity.getY(), celestialRabbitEntity.getZ(), ModSounds.CELESTIAL_RABBIT_SHOOT.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+
+                Vec3 position = celestialRabbitEntity.position();
+                Vec3 subtract = livingentity.getEyePosition().subtract(position);
+
+                Vec3 normalize = subtract.normalize();
+
+                for(int i = 1; i < Mth.floor(subtract.length()) + 7; ++i) {
+                    Vec3 add = position.add(normalize.scale(i));
+                    serverLevel.sendParticles(ModParticles.PINK_SONIC_BOOM_PARTICLES.get(), add.x, add.y, add.z, 1, 0.0, 0.0, 0.0, 0.0);
+                }
+
+                if (livingentity instanceof Player player && (player.getName().getString().equals("___Max__________") || player.getName().getString().equals("Dev"))) {
+                    player.heal(9999);
+                    level().playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.FIREWORK_ROCKET_LARGE_BLAST_FAR, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                } else {
+                    if (livingentity instanceof Phantom) {
+                        livingentity.hurt(celestialRabbitEntity.damageSources().mobAttack(celestialRabbitEntity), 10.0F);
                     } else {
-                        CelestialRabbitEntity.this.setTarget(null);
+                        livingentity.hurt(celestialRabbitEntity.damageSources().mobAttack(celestialRabbitEntity), 1.0F);
                     }
 
-                    super.tick();
+                    livingentity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200, 1));
+                    livingentity.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 1));
+                    livingentity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200, 1));
+                    livingentity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 200, 1));
+                    livingentity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 1));
+
+                    double v = 0.5 * (0.8 - livingentity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+                    double v1 = 2.5 * (0.8 - livingentity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+                    livingentity.push(normalize.x() * v1, normalize.y() * v, normalize.z() * v1);
                 }
             }
         }
     }
 
-    public class CelestialRabbitPanicGoal extends PanicGoal {
-        public CelestialRabbitPanicGoal(double p_203124_) {
-            super(CelestialRabbitEntity.this, p_203124_);
-        }
-
-//        protected boolean shouldPanic() {
-//            return this.mob.isFreezing() || this.mob.isOnFire() || super.shouldPanic();
-//        }
-    }
 }

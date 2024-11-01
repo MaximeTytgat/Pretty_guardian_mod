@@ -111,8 +111,8 @@ public class CelestialRabbitModel<T extends Entity> extends HierarchicalModel<T>
 		this.setupAnim(getState((CelestialRabbitEntity) entity), (CelestialRabbitEntity) entity, limbSwing, limbSwingAmount, ageInTicks);
 	}
 
-	public void renderOnShoulder(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int i1, float v, float v1, float v2, float v3, int i2) {
-		this.setupAnim(i2, v, v1, 0.0F, v2, v3);
+	public void renderOnShoulder(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int i1, float v2, float v3) {
+		this.setupAnim(v2, v3);
 		celestialRabbit.render(poseStack, vertexConsumer, i, i1);
 	}
 
@@ -131,7 +131,7 @@ public class CelestialRabbitModel<T extends Entity> extends HierarchicalModel<T>
 
 	}
 
-	private void setupAnim(int tickCount, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	private void setupAnim(float netHeadYaw, float headPitch) {
         this.head.xRot = headPitch * 0.017453292F;
         this.head.yRot = netHeadYaw * 0.017453292F;
 

@@ -21,6 +21,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -36,32 +37,32 @@ public class ButterflyEggItem extends Item {
         this.type = type;
         this.variant = variant;
     }
-    public InteractionResult useOn(UseOnContext useOnContext) {
+
+    @Override
+    public @NotNull InteractionResult useOn(UseOnContext useOnContext) {
         Level level = useOnContext.getLevel();
-        if (!(level instanceof ServerLevel)) {
-            return InteractionResult.SUCCESS;
+        if (!(level instanceof ServerLevel)) return InteractionResult.SUCCESS;
+
+        ItemStack itemstack = useOnContext.getItemInHand();
+        BlockPos blockpos = useOnContext.getClickedPos();
+        Direction direction = useOnContext.getClickedFace();
+        BlockState blockstate = level.getBlockState(blockpos);
+
+        BlockPos blockpos1;
+        if (blockstate.getCollisionShape(level, blockpos).isEmpty()) {
+            blockpos1 = blockpos;
         } else {
-            ItemStack itemstack = useOnContext.getItemInHand();
-            BlockPos blockpos = useOnContext.getClickedPos();
-            Direction direction = useOnContext.getClickedFace();
-            BlockState blockstate = level.getBlockState(blockpos);
-
-            BlockPos blockpos1;
-            if (blockstate.getCollisionShape(level, blockpos).isEmpty()) {
-                blockpos1 = blockpos;
-            } else {
-                blockpos1 = blockpos.relative(direction);
-            }
-
-            EntityType<?> entitytype = this.type.get();
-
-            if (this.spawn((ServerLevel)level, itemstack, useOnContext.getPlayer(), blockpos1, MobSpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP) != null) {
-                itemstack.shrink(1);
-                level.gameEvent(useOnContext.getPlayer(), GameEvent.ENTITY_PLACE, blockpos);
-            }
-
-            return InteractionResult.CONSUME;
+            blockpos1 = blockpos.relative(direction);
         }
+
+        this.type.get();
+
+        if (this.spawn((ServerLevel)level, itemstack, useOnContext.getPlayer(), blockpos1, MobSpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP) != null) {
+            itemstack.shrink(1);
+            level.gameEvent(useOnContext.getPlayer(), GameEvent.ENTITY_PLACE, blockpos);
+        }
+
+        return InteractionResult.CONSUME;
     }
 
     @Nullable
@@ -118,51 +119,50 @@ public class ButterflyEggItem extends Item {
 
 
     @Nullable
-    public ButterflyEntity spawn(ServerLevel p_262704_, @Nullable CompoundTag p_262603_, @Nullable Consumer<ButterflyEntity> p_262621_, BlockPos p_262672_, MobSpawnType p_262644_, boolean p_262690_, boolean p_262590_) {
-        ButterflyEntity t = this.create(p_262704_, p_262603_, p_262621_, p_262672_, p_262644_, p_262690_, p_262590_);
+    public ButterflyEntity spawn(ServerLevel serverLevel, @Nullable CompoundTag compoundTag, @Nullable Consumer<ButterflyEntity> butterflyEntityConsumer, BlockPos blockPos, MobSpawnType mobSpawnType, boolean b, boolean b1) {
+        ButterflyEntity t = this.create(serverLevel, compoundTag, butterflyEntityConsumer, blockPos, mobSpawnType, b, b1);
         if (t != null) {
-            p_262704_.addFreshEntityWithPassengers(t);
+            serverLevel.addFreshEntityWithPassengers(t);
         }
 
         return t;
     }
 
-    protected static double getYOffset(LevelReader p_20626_, BlockPos p_20627_, boolean p_20628_, AABB p_20629_) {
-        AABB aabb = new AABB(p_20627_);
-        if (p_20628_) {
+    protected static double getYOffset(LevelReader levelReader, BlockPos blockPos, boolean b, AABB aabb1) {
+        AABB aabb = new AABB(blockPos);
+        if (b) {
             aabb = aabb.expandTowards(0.0D, -1.0D, 0.0D);
         }
 
-        Iterable<VoxelShape> iterable = p_20626_.getCollisions(null, aabb);
-        return 1.0D + Shapes.collide(Direction.Axis.Y, p_20629_, iterable, p_20628_ ? -2.0D : -1.0D);
+        Iterable<VoxelShape> iterable = levelReader.getCollisions(null, aabb);
+        return 1.0D + Shapes.collide(Direction.Axis.Y, aabb1, iterable, b ? -2.0D : -1.0D);
     }
 
     @Nullable
-    public ButterflyEntity create(ServerLevel p_262637_, @Nullable CompoundTag p_262687_, @Nullable Consumer<ButterflyEntity> p_262629_, BlockPos p_262595_, MobSpawnType p_262666_, boolean p_262685_, boolean p_262588_) {
-        ButterflyEntity t = this.create(p_262637_);
+    public ButterflyEntity create(ServerLevel serverLevel, @Nullable CompoundTag compoundTag, @Nullable Consumer<ButterflyEntity> butterflyEntityConsumer, BlockPos p_262595_, MobSpawnType p_262666_, boolean p_262685_, boolean p_262588_) {
+        ButterflyEntity t = this.create(serverLevel);
         if (t == null) {
             return null;
         } else {
             double d0;
             if (p_262685_) {
-                t.setPos((double)p_262595_.getX() + 0.5D, p_262595_.getY() + 1, (double)p_262595_.getZ() + 0.5D);
-                d0 = getYOffset(p_262637_, p_262595_, p_262588_, t.getBoundingBox());
+                t.setPos(p_262595_.getX() + 0.5D, p_262595_.getY() + 1, p_262595_.getZ() + 0.5D);
+                d0 = getYOffset(serverLevel, p_262595_, p_262588_, t.getBoundingBox());
             } else {
                 d0 = 0.0D;
             }
 
-            t.moveTo((double)p_262595_.getX() + 0.5D, (double)p_262595_.getY() + d0, (double)p_262595_.getZ() + 0.5D, Mth.wrapDegrees(p_262637_.random.nextFloat() * 360.0F), 0.0F);
+            t.moveTo(p_262595_.getX() + 0.5D, p_262595_.getY() + d0, p_262595_.getZ() + 0.5D, Mth.wrapDegrees(serverLevel.random.nextFloat() * 360.0F), 0.0F);
             if (t instanceof ButterflyEntity) {
-                ButterflyEntity mob = t;
-                mob.yHeadRot = mob.getYRot();
-                mob.yBodyRot = mob.getYRot();
+                t.yHeadRot = t.getYRot();
+                t.yBodyRot = t.getYRot();
                 ButterflyEntity.ButterflyGroupData mobgroupdata = new ButterflyEntity.ButterflyGroupData(this.variant);
-                mob.finalizeSpawn(p_262637_, p_262637_.getCurrentDifficultyAt(mob.blockPosition()), p_262666_, mobgroupdata, p_262687_);
-                mob.playAmbientSound();
+                t.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(t.blockPosition()), p_262666_, mobgroupdata);
+                t.playAmbientSound();
             }
 
-            if (p_262629_ != null) {
-                p_262629_.accept(t);
+            if (butterflyEntityConsumer != null) {
+                butterflyEntityConsumer.accept(t);
             }
 
             return t;
@@ -170,8 +170,8 @@ public class ButterflyEggItem extends Item {
     }
 
     @Nullable
-    public ButterflyEntity create(Level p_20616_) {
-        return !this.isEnabled(p_20616_.enabledFeatures()) ? null : ModEntities.BUTTERFLY.get().create(p_20616_);
+    public ButterflyEntity create(Level level) {
+        return !this.isEnabled(level.enabledFeatures()) ? null : ModEntities.BUTTERFLY.get().create(level);
     }
 
 

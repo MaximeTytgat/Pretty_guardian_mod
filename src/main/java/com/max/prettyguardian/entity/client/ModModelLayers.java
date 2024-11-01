@@ -5,6 +5,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
 
 public class ModModelLayers {
+    private ModModelLayers() {}
     public static final ModelLayerLocation STRAWBERRY_COW_LAYER = new ModelLayerLocation(
             new ResourceLocation(PrettyGuardian.MOD_ID, "strawberry_cow_layer"), "main");
 

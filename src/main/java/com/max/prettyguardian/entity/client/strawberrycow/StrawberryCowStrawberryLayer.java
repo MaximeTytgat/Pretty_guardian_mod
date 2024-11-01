@@ -4,6 +4,7 @@ import com.max.prettyguardian.blocks.PrettyGuardianBlock;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class StrawberryCowStrawberryLayer<T extends MushroomCow> extends MushroomCowMushroomLayer<T> {
     private final BlockRenderDispatcher blockRenderer;
-    public StrawberryCowStrawberryLayer(RenderLayerParent renderLayerParent, BlockRenderDispatcher blockRenderDispatcher) {
+    public StrawberryCowStrawberryLayer(RenderLayerParent<T, CowModel<T>> renderLayerParent, BlockRenderDispatcher blockRenderDispatcher) {
         super(renderLayerParent, blockRenderDispatcher);
         this.blockRenderer = blockRenderDispatcher;
     }

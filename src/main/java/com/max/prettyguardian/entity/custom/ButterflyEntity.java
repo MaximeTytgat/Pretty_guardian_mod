@@ -3,7 +3,6 @@ package com.max.prettyguardian.entity.custom;
 import com.max.prettyguardian.entity.ModEntities;
 import com.max.prettyguardian.item.PrettyGuardianItem;
 import com.max.prettyguardian.item.custom.tool.ButterflyNetItem;
-import com.mojang.serialization.Codec;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -32,7 +31,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,19 +45,15 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
     public ButterflyEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
-        this.setMaxUpStep(10.0F);
     }
 
-    public static AnimationState idleAnimationState = new AnimationState();
-    private final int idleAnimationTimeOut = 0;
+    public static final AnimationState idleAnimationState = new AnimationState();
 
+    @Override
     public boolean isPushable() { return false; }
-    protected void doPush(Entity p_27415_) {}
-    protected void pushEntities() {}
+
     @Override
-    protected void checkFallDamage(double p_27754_, boolean p_27755_, BlockState p_27756_, BlockPos p_27757_) {}
-    @Override
-    public float getWalkTargetValue(BlockPos p_21693_) {
+    public float getWalkTargetValue(@NotNull BlockPos blockPos) {
         return 0.0F;
     }
 
@@ -71,10 +65,6 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
         this.goalSelector.addGoal(2, new FollowParentGoal(this, 1.3D));
 
         this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
-
-        // ???
-        // this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-        // this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 12.0F));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -85,9 +75,8 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
                 .add(Attributes.FOLLOW_RANGE, 10.0D);
     }
 
-
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @javax.annotation.Nullable SpawnGroupData spawnGroupData, @javax.annotation.Nullable CompoundTag tag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor serverLevelAccessor, @NotNull DifficultyInstance difficultyInstance, @NotNull MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
         boolean flag = false;
         if (mobSpawnType == MobSpawnType.BUCKET) {
             return spawnGroupData;
@@ -107,7 +96,7 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
             }
             ((ButterflyGroupData) spawnGroupData).getVariant(randomsource);
 
-            return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, tag);
+            return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
         }
     }
 
@@ -147,11 +136,6 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
             public boolean isStableDestination(BlockPos below) {
                 return !this.level.getBlockState(below.below()).isAir();
             }
-
-            @Override
-            public void tick() {
-                super.tick();
-            }
         };
         flyingpathnavigation.setCanOpenDoors(false);
         flyingpathnavigation.setCanFloat(false);
@@ -174,37 +158,34 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand interactionHand) {
         ItemStack itemstack = player.getItemInHand(interactionHand);
 
-        if (itemstack.getItem() instanceof ButterflyNetItem butterflyNet && !this.isBaby() ){
-            if (!this.level().isClientSide) {
-                this.setFromButterflyNet(true);
-                this.setHealth(0);
-                this.discard();
+        if (itemstack.getItem() instanceof ButterflyNetItem && !this.isBaby() && !this.level().isClientSide) {
+            this.setFromButterflyNet(true);
+            this.setHealth(0);
+            this.discard();
 
-                Variant v = this.getVariant();
-                ItemStack butterflyEgg = switch (v) {
-                    case ADMIRAL -> new ItemStack(PrettyGuardianItem.ADMIRAL_BUTTERFLY_EGG.get());
-                    case APOLLO -> new ItemStack(PrettyGuardianItem.APOLLO_BUTTERFLY_EGG.get());
-                    case DUSK -> new ItemStack(PrettyGuardianItem.DUSK_BUTTERFLY_EGG.get());
-                    case LEMON -> new ItemStack(PrettyGuardianItem.LEMON_BUTTERFLY_EGG.get());
-                    case MORPHO -> new ItemStack(PrettyGuardianItem.MORPHO_BUTTERFLY_EGG.get());
-                    case ORCHID -> new ItemStack(PrettyGuardianItem.ORCHID_BUTTERFLY_EGG.get());
-                    case PEACOCK -> new ItemStack(PrettyGuardianItem.PEACOCK_BUTTERFLY_EGG.get());
-                    case PINK -> new ItemStack(PrettyGuardianItem.PINK_BUTTERFLY_EGG.get());
-                    case SKIPPER -> new ItemStack(PrettyGuardianItem.SKIPPER_BUTTERFLY_EGG.get());
-                    case VIOLETTE -> new ItemStack(PrettyGuardianItem.VIOLETTE_BUTTERFLY_EGG.get());
-                };
+            Variant v = this.getVariant();
+            ItemStack butterflyEgg = switch (v) {
+                case ADMIRAL -> new ItemStack(PrettyGuardianItem.ADMIRAL_BUTTERFLY_EGG.get());
+                case APOLLO -> new ItemStack(PrettyGuardianItem.APOLLO_BUTTERFLY_EGG.get());
+                case DUSK -> new ItemStack(PrettyGuardianItem.DUSK_BUTTERFLY_EGG.get());
+                case LEMON -> new ItemStack(PrettyGuardianItem.LEMON_BUTTERFLY_EGG.get());
+                case MORPHO -> new ItemStack(PrettyGuardianItem.MORPHO_BUTTERFLY_EGG.get());
+                case ORCHID -> new ItemStack(PrettyGuardianItem.ORCHID_BUTTERFLY_EGG.get());
+                case PEACOCK -> new ItemStack(PrettyGuardianItem.PEACOCK_BUTTERFLY_EGG.get());
+                case PINK -> new ItemStack(PrettyGuardianItem.PINK_BUTTERFLY_EGG.get());
+                case SKIPPER -> new ItemStack(PrettyGuardianItem.SKIPPER_BUTTERFLY_EGG.get());
+                case VIOLETTE -> new ItemStack(PrettyGuardianItem.VIOLETTE_BUTTERFLY_EGG.get());
+            };
 
-                if (!player.isCreative()) {
+            if (!player.isCreative()) {
+                player.addItem(butterflyEgg);
+            } else {
+                if (!player.getInventory().contains(butterflyEgg)) {
                     player.addItem(butterflyEgg);
-                    butterflyNet.setDamage(itemstack, butterflyNet.getDamage(itemstack) + 1);
-                } else {
-                    if (!player.getInventory().contains(butterflyEgg)) {
-                        player.addItem(butterflyEgg);
-                    }
                 }
-
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
+
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
 
 
@@ -227,20 +208,23 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
         return !this.onGround();
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_VARIANT, 0);
-        this.entityData.define(DATA_PLAYING_DEAD, false);
-        this.entityData.define(FROM_BUTTERFLY_NET, false);
+    @Override
+    protected void defineSynchedData(@NotNull SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_VARIANT, 0);
+        builder.define(DATA_PLAYING_DEAD, false);
+        builder.define(FROM_BUTTERFLY_NET, false);
     }
 
-    public void addAdditionalSaveData(CompoundTag tag) {
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("Variant", this.getVariant().getId());
         tag.putBoolean("FromButterflyNet", this.fromButterflyNet());
     }
 
-    public void readAdditionalSaveData(CompoundTag tag) {
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.setVariant(Variant.byId(tag.getInt("Variant")));
         this.setFromButterflyNet(tag.getBoolean("FromButterflyNet"));
@@ -255,25 +239,25 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
     }
 
     @Override
-    public void setVariant(Variant p_149118_) {
-        this.entityData.set(DATA_VARIANT, p_149118_.getId());
+    public void setVariant(Variant variant) {
+        this.entityData.set(DATA_VARIANT, variant.getId());
     }
 
     @Override
-    public Variant getVariant() {
+    public @NotNull Variant getVariant() {
         return Variant.byId(this.entityData.get(DATA_VARIANT));
     }
 
     public static class ButterflyGroupData extends AgeableMobGroupData {
         public final Variant[] types;
 
-        public ButterflyGroupData(Variant... p_149204_) {
+        public ButterflyGroupData(Variant... variants) {
             super(false);
-            this.types = p_149204_;
+            this.types = variants;
         }
 
-        public Variant getVariant(RandomSource p_218447_) {
-            return this.types[p_218447_.nextInt(this.types.length)];
+        public Variant getVariant(RandomSource randomSource) {
+            return this.types[randomSource.nextInt(this.types.length)];
         }
     }
 
@@ -290,7 +274,6 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
         VIOLETTE(9, "violette");
 
         private static final IntFunction<Variant> BY_ID = ByIdMap.continuous(Variant::getId, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
-        public static final Codec<Variant> CODEC = StringRepresentable.fromEnum(Variant::values);
         private final int id;
         private final String name;
         Variant(int id, String name) {
@@ -307,7 +290,7 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
         }
 
         @Override
-        public String getSerializedName() {
+        public @NotNull String getSerializedName() {
             return this.name;
         }
 
@@ -316,8 +299,8 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, VariantHold
         }
 
         private static Variant getSpawnVariant(RandomSource randomSource) {
-            Variant[] butterfly$variant = Arrays.stream(values()).toArray(Variant[]::new);
-            return Util.getRandom(butterfly$variant, randomSource);
+            Variant[] variants = Arrays.stream(values()).toArray(Variant[]::new);
+            return Util.getRandom(variants, randomSource);
         }
     }
 }
