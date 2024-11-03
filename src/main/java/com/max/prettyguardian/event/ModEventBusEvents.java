@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = PrettyGuardian.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEventBusEvents {
+    private ModEventBusEvents() {}
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {

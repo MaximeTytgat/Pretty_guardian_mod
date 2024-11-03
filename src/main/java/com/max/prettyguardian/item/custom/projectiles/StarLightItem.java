@@ -9,21 +9,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class StarLightItem extends Item {
-
     public final float damage;
 
-    public StarLightItem(Properties p_40512_, float damage) {
-        super(p_40512_);
+    public StarLightItem(Properties properties, float damage) {
+        super(properties);
         this.damage = damage;
     }
 
-    public StarLightEntity createArrow(Level world, ItemStack itemStack, LivingEntity shooter, float damage) {
-        StarLightEntity arrow = new StarLightEntity(ModEntityType.STAR_LIGHT.get(), shooter, world, damage);
-        return arrow;
-    }
-
-    public boolean isInfinite(ItemStack stack, ItemStack bow, net.minecraft.world.entity.player.Player player) {
-        int enchant = net.minecraft.world.item.enchantment.EnchantmentHelper.getItemEnchantmentLevel(net.minecraft.world.item.enchantment.Enchantments.INFINITY_ARROWS, bow);
-        return enchant > 0 && this.getClass() == StarLightItem.class;
+    public StarLightEntity createArrow(Level world, LivingEntity shooter, float damage) {
+        return new StarLightEntity(ModEntityType.STAR_LIGHT.get(), shooter, world, damage);
     }
 }

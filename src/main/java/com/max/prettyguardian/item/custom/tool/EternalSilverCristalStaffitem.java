@@ -21,7 +21,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
@@ -37,9 +36,7 @@ import java.util.function.Predicate;
 public class EternalSilverCristalStaffitem extends BowItem implements GeoItem {
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public static final Predicate<ItemStack> HEART_ARROW_ONLY = (itemStack) -> {
-        return itemStack.is(ModTags.Items.HEART_ARROWS);
-    };
+    public static final Predicate<ItemStack> HEART_ARROW_ONLY = itemStack -> itemStack.is(ModTags.Items.HEART_ARROWS);
 
     public EternalSilverCristalStaffitem(Properties properties) {
         super(properties.rarity(Rarity.EPIC));
@@ -47,56 +44,48 @@ public class EternalSilverCristalStaffitem extends BowItem implements GeoItem {
 
     @Override
     public void inventoryTick(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int i, boolean b) {
-        if (entity instanceof Player player) {
-            if (player.getName().getString().equals("LittlePokky")) {
-                player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 1,false, false));
-                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 1,false, false));
-                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 1,false, false));
-                player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 1,false, false));
-                player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 200, 1,false, false));
-                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 1,false, false));
-                player.addEffect(new MobEffectInstance(MobEffects.HERO_OF_THE_VILLAGE, 200, 0,false, false));
-            }
+        if (entity instanceof Player player && player.getName().getString().equals("LittlePokky")) {
+            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 1,false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 1,false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 1,false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 1,false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 200, 1,false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 1,false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.HERO_OF_THE_VILLAGE, 200, 0,false, false));
         }
+
         super.inventoryTick(itemStack, level, entity, i, b);
     }
 
-    public void releaseUsing(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity livingEntity, int p_40670_) {
+    @Override
+    public void releaseUsing(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity livingEntity, int i1) {
         if (livingEntity instanceof Player player) {
             boolean flag = player.getAbilities().instabuild || EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY, itemStack) > 0;
             ItemStack itemstack = player.getProjectile(itemStack);
 
-            int i = this.getUseDuration(itemStack) - p_40670_;
+            int i = this.getUseDuration(itemStack) - i1;
             i = ForgeEventFactory.onArrowLoose(itemStack, level, player, i, !itemstack.isEmpty() || flag);
             if (i < 0) return;
 
 
-            if (itemstack.isEmpty()) {
-                itemstack = new ItemStack(Items.ARROW);
+            float f = 1.0F;
+            if (!level.isClientSide) {
+                float damage = 8.0F;
+                if (player.getName().getString().equals("LittlePokky")) damage = 999.9F;
+
+                StarLightItem arrowitem = (StarLightItem) PrettyGuardianItem.STAR_LIGHT.get();
+                StarLightEntity abstractarrow = arrowitem.createArrow(level, player, damage);
+                abstractarrow.setOwner(player);
+
+                abstractarrow.setPos(player.getX(), player.getEyeY() - 0.5F, player.getZ());
+                abstractarrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, f * 3.0F, 1.0F);
+
+                level.addFreshEntity(abstractarrow);
             }
 
-            float f = getPowerForTime(i);
-            if (!((double)f < 0.1D)) {
-                if (!level.isClientSide) {
-                    float damage = 8.0F;
-                    if (player.getName().getString().equals("LittlePokky")) {
-                        damage = 999.9F;
-                    }
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ETERNAL_SILVER_CRISTAL_STAFF_SHOOT.get(), SoundSource.PLAYERS, 0.3F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-                    StarLightItem arrowitem = (StarLightItem) PrettyGuardianItem.STAR_LIGHT.get();
-                    StarLightEntity abstractarrow = arrowitem.createArrow(level, itemstack, player, damage);
-                    abstractarrow.setOwner(player);
-
-                    abstractarrow.setPos(player.getX(), player.getEyeY() - 0.5F, player.getZ());
-                    abstractarrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, f * 3.0F, 1.0F);
-
-                    level.addFreshEntity(abstractarrow);
-                }
-
-                level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ETERNAL_SILVER_CRISTAL_STAFF_SHOOT.get(), SoundSource.PLAYERS, 0.3F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-
-                player.awardStat(Stats.ITEM_USED.get(this));
-            }
+            player.awardStat(Stats.ITEM_USED.get(this));
 
             setPlayerStaffCooldown(player, 30);
         }
@@ -112,14 +101,10 @@ public class EternalSilverCristalStaffitem extends BowItem implements GeoItem {
         player.getCooldowns().addCooldown(PrettyGuardianItem.SPIRAL_HEART_MOON_ROD.get(), cooldown);
     }
 
-    public boolean isFoil(ItemStack p_41172_) {
+    @Override
+    public boolean isFoil(@NotNull ItemStack itemStack) {
         return true;
     }
-
-    public static float getPowerForTime(int p_40662_) {
-        return 1.0F;
-    }
-
 
     @Override
     public int getUseDuration(@NotNull ItemStack itemStack) {
@@ -137,7 +122,7 @@ public class EternalSilverCristalStaffitem extends BowItem implements GeoItem {
     }
 
 
-    private PlayState predicate(AnimationState animationState) {
+    private PlayState predicate(AnimationState<EternalSilverCristalStaffitem> animationState) {
         animationState.getController().setAnimation(RawAnimation.begin().then("Idle", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
@@ -172,7 +157,7 @@ public class EternalSilverCristalStaffitem extends BowItem implements GeoItem {
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand interactionHand) {
         ItemStack itemstack = player.getItemInHand(interactionHand);
         boolean flag = true;
 

@@ -10,13 +10,28 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Supplier;
 
 public class ModTags {
+    private ModTags() {}
+
     public static class Blocks {
+        private Blocks() {}
+
         public static final TagKey<Block> CAKE = tag("cake");
         public static final TagKey<Block> JAP_TABLE = tag("jap_table");
 
         public static final TagKey<Block> NEEDS_PINK_SAPPHIRE_TOOL = tag("needs_pink_sapphire_tool");
+        public static final TagKey<Block> INCORRECT_PINK_SAPPHIRE_TOOL = tag("incorrect_pink_sapphire_tool");
+
+        public static final TagKey<Block> NEEDS_SPACE_SWORD_TOOL = tag("needs_space_sword_tool");
+        public static final TagKey<Block> INCORRECT_SPACE_SWORD_TOOL = tag("incorrect_space_sword_tool");
+
+        public static final TagKey<Block> NEEDS_RUBY_TOOL = tag("needs_ruby_tool");
+        public static final TagKey<Block> INCORRECT_RUBY_TOOL = tag("incorrect_ruby_tool");
+
         public static final TagKey<Block> SAPLING = tag("sapling");
 
         private static TagKey<Block> tag(String name) {
@@ -24,6 +39,7 @@ public class ModTags {
         }
     }
     public static class Items {
+        private Items() {}
 
         public static final TagKey<Item> HEART_ARROWS = tag("heart_arrows");
         public static final TagKey<Item> STAFF_ITEM = tag("staff_item");

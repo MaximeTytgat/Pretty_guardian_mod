@@ -13,6 +13,8 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = PrettyGuardian.MOD_ID, value = Dist.CLIENT)
 public class SecretDonutEvent {
+    private SecretDonutEvent() {}
+
     @SubscribeEvent
     public static void onPlayerInteract(PlayerInteractEvent.EntityInteractSpecific event) {
         Player player = event.getEntity();

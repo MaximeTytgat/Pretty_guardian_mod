@@ -1,6 +1,7 @@
-package com.max.prettyguardian.entityOnShoulder;
+package com.max.prettyguardian.entityonshoulder;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -12,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class PlayerEntityOnShoulderProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    public static Capability<PlayerEntityOnShoulder> PLAYER_ENTITY_ON_SHOULDER_CAPABILITY = CapabilityManager.get(new CapabilityToken<PlayerEntityOnShoulder>() {});
+    public static final Capability<PlayerEntityOnShoulder> PLAYER_ENTITY_ON_SHOULDER_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
     private PlayerEntityOnShoulder playerEntityOnShoulder = null;
     private final LazyOptional<PlayerEntityOnShoulder> lazyOptional = LazyOptional.of(this::createPlayerEntityOnShoulder);
 
@@ -24,11 +25,6 @@ public class PlayerEntityOnShoulderProvider implements ICapabilityProvider, INBT
         return this.playerEntityOnShoulder;
     }
 
-    public PlayerEntityOnShoulder getPlayerEntityOnShoulder() {
-        return createPlayerEntityOnShoulder();
-    }
-
-
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction direction) {
         if (capability == PLAYER_ENTITY_ON_SHOULDER_CAPABILITY) {
@@ -39,15 +35,14 @@ public class PlayerEntityOnShoulderProvider implements ICapabilityProvider, INBT
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         CompoundTag tag = new CompoundTag();
-        createPlayerEntityOnShoulder().saveNBTData(tag);
-
+        createPlayerEntityOnShoulder().saveNBTData(tag, provider);
         return tag;
     }
 
     @Override
-    public void deserializeNBT(CompoundTag compoundTag) {
-        createPlayerEntityOnShoulder().loadNBTData(compoundTag);
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag ) {
+        createPlayerEntityOnShoulder().loadNBTData(compoundTag, provider);
     }
 }

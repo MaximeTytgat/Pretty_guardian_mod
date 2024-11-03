@@ -16,7 +16,7 @@ import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber(modid = PrettyGuardian.MOD_ID, value = Dist.CLIENT)
 public class DoubleJumpEvent {
-
+    private DoubleJumpEvent() {}
     private static final long COOLDOWN_MILLIS_DOUBLE_JUMP = 1300;
     private static Date lastJumpTime = new Date();
 
@@ -36,13 +36,14 @@ public class DoubleJumpEvent {
         Date currentTime = new Date();
         long timeSinceLastJump = currentTime.getTime() - lastJumpTime.getTime();
 
-        if (event.getKey() == GLFW.GLFW_KEY_SPACE && event.getAction() == GLFW.GLFW_PRESS) {
-            if (!player.onGround()) {
-                if (timeSinceLastJump >= COOLDOWN_MILLIS_DOUBLE_JUMP) {
-                    player.jumpFromGround();
-                    lastJumpTime = currentTime;
-                }
-            }
+        if (
+                event.getKey() == GLFW.GLFW_KEY_SPACE
+                && event.getAction() == GLFW.GLFW_PRESS
+                && !player.onGround()
+                && timeSinceLastJump >= COOLDOWN_MILLIS_DOUBLE_JUMP
+        ) {
+            player.jumpFromGround();
+            lastJumpTime = currentTime;
         }
     }
 
@@ -53,7 +54,5 @@ public class DoubleJumpEvent {
         return player.getInventory().hasAnyMatching(ETERNAL_SILVER_CISTAL_STAFF_ONLY);
     }
 
-    public static final Predicate<ItemStack> ETERNAL_SILVER_CISTAL_STAFF_ONLY = (itemStack) -> {
-        return itemStack.is(PrettyGuardianItem.ETERNAL_SILVER_CRISTAL_STAFF.get());
-    };
+    public static final Predicate<ItemStack> ETERNAL_SILVER_CISTAL_STAFF_ONLY = itemStack -> itemStack.is(PrettyGuardianItem.ETERNAL_SILVER_CRISTAL_STAFF.get());
 }

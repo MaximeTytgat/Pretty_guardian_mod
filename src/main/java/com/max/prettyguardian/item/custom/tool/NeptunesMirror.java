@@ -1,6 +1,5 @@
 package com.max.prettyguardian.item.custom.tool;
 
-import com.max.prettyguardian.PrettyGuardian;
 import com.max.prettyguardian.item.PrettyGuardianItem;
 import com.max.prettyguardian.item.custom.projectiles.BubbleItem;
 import com.max.prettyguardian.worldgen.entity.projectile.BubbleEntity;
@@ -20,21 +19,25 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
 public class NeptunesMirror extends Item implements IThirdPersonAnimationProvider, IFirstPersonAnimationProvider {
 
+    public static final Random RANDOM = new Random();
+
     public NeptunesMirror(Properties properties) {
         super(properties.rarity(Rarity.EPIC));
     }
 
-    public boolean isFoil(ItemStack itemStack) {
+    @Override
+    public boolean isFoil(@NotNull ItemStack itemStack) {
         return true;
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand interactionHand) {
         ItemStack itemstack = player.getItemInHand(interactionHand);
 
         player.startUsingItem(interactionHand);
@@ -42,27 +45,22 @@ public class NeptunesMirror extends Item implements IThirdPersonAnimationProvide
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(@NotNull ItemStack stack) {
         return 72000;
     }
 
     @Override
-    public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemStack, int i) {
-        PrettyGuardian.LOGGER.info("onUseTick " + livingEntity);
+    public void onUseTick(@NotNull Level level, @NotNull LivingEntity livingEntity, @NotNull ItemStack itemStack, int i) {
         if (livingEntity instanceof Player player) {
             float damage = 0.0F;
-            ItemStack itemstack = new ItemStack(PrettyGuardianItem.BUBBLE.get());
-            BubbleItem arrowitem = (BubbleItem) PrettyGuardianItem.BUBBLE.get();
-            BubbleEntity abstractBubble = arrowitem.createArrow(level, itemstack, player, damage);
+            BubbleItem bubbleItem = (BubbleItem) PrettyGuardianItem.BUBBLE.get();
+            BubbleEntity abstractBubble = bubbleItem.createArrow(level, player, damage);
 
             abstractBubble.setOwner(player);
 
-            Random rand = new Random();
-            float random = rand.nextFloat() * 0.4F - 0.2F;
-            Random rand1 = new Random();
-            boolean randBool = rand1.nextBoolean();
-            Random rand2 = new Random();
-            boolean randBool1 = rand2.nextBoolean();
+            float random = RANDOM.nextFloat() * 0.4F - 0.2F;
+            boolean randBool = RANDOM.nextBoolean();
+            boolean randBool1 = RANDOM.nextBoolean();
 
             Vec3 look = player.getLookAngle();
 
@@ -97,9 +95,7 @@ public class NeptunesMirror extends Item implements IThirdPersonAnimationProvide
             } else {
                 abstractBubble.shoot(look.x, look.y + 0.05F, look.z, 3.0F, 1.0F);
             }
-//            abstractBubble.shoot(look.x, look.y + 0.05F, look.z, 3.0F, 1.0F);
             level.addFreshEntity(abstractBubble);
-
         }
 
 
@@ -108,28 +104,22 @@ public class NeptunesMirror extends Item implements IThirdPersonAnimationProvide
 
     @Override
     public void animateItemFirstPerson(Player entity, ItemStack stack, InteractionHand hand, HumanoidArm arm, PoseStack matrixStack, float partialTicks, float pitch, float attackAnim, float handHeight) {
-        //is using item
         if (entity.isUsingItem() && entity.getUseItemRemainingTicks() > 0 && entity.getUsedItemHand() == hand) {
-            //bow anim
-
             float timeLeft = stack.getUseDuration() - (entity.getUseItemRemainingTicks() - partialTicks + 1.0F);
-            float f12 = 1;//getPowerForTime(stack, timeLeft);
+            float f12 = 1;
 
-            if (f12 > 0.1F) {
-                float f15 = Mth.sin((timeLeft - 0.1F) * 1.3F);
-                float f18 = f12 - 0.1F;
-                float f20 = f15 * f18;
-                matrixStack.translate(0, f20 * 0.004F, 0);
-            }
+            float f15 = Mth.sin((timeLeft - 0.1F) * 1.3F);
+            float f18 = f12 - 0.1F;
+            float f20 = f15 * f18;
+            matrixStack.translate(0, f20 * 0.004F, 0);
 
             matrixStack.translate(0, 0, f12 * 0.04F);
             matrixStack.scale(1.0F, 1.0F, 1.0F + f12 * 0.2F);
-            //matrixStack.mulPose(Axis.YN.rotationDegrees((float)k * 45.0F));
         }
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
         return UseAnim.NONE;
     }
 
@@ -165,7 +155,7 @@ public class NeptunesMirror extends Item implements IThirdPersonAnimationProvide
         mainHand.xRot = (float) (pitch - Math.PI / 2f) - dir * 0.3f * headYRot;
 
         float yaw = 0.7f * dir;
-        mainHand.yRot = Mth.clamp(-yaw * Mth.cos(pitch + cr) + headYRot, -1.1f, 1.1f);//yaw;
+        mainHand.yRot = Mth.clamp(-yaw * Mth.cos(pitch + cr) + headYRot, -1.1f, 1.1f);
         mainHand.zRot = -yaw * Mth.sin(pitch + cr);
 
         AnimationUtils.bobModelPart(mainHand, entity.tickCount, -dir);

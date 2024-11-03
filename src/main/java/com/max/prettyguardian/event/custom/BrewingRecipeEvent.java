@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
 public class BrewingRecipeEvent {
+    private BrewingRecipeEvent() {}
     @SubscribeEvent
     public static void onBrewingRecipeEvent(BrewingRecipeRegisterEvent event) {
         event.getBuilder().addMix(Potions.WATER, PrettyGuardianItem.FAIRY_DUST.get(), ModPotions.LOVE_POTION.getHolder().get());

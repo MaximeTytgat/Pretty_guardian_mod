@@ -14,9 +14,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @Mod.EventBusSubscriber(modid = PrettyGuardian.MOD_ID, value = Dist.CLIENT)
 public class LoveGuiRendererEvent {
+    private LoveGuiRendererEvent() {}
 
     @SubscribeEvent
-    public static void onRenderGameOverlay(RenderGuiOverlayEvent event) {
+    public static void onRenderGameOverlay(Register  event) {
         Player player = Minecraft.getInstance().player;
         if (player == null) return;
         if (player.getHealth() <= 0) return;

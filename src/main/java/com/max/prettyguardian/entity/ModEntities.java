@@ -13,6 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModEntities {
+    private ModEntities() {}
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, PrettyGuardian.MOD_ID);
 
     public static final RegistryObject<EntityType<StrawberryCowEntity>> STRAWBERRY_COW =

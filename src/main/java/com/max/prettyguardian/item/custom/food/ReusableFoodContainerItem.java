@@ -10,31 +10,30 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.RegistryObject;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 public class ReusableFoodContainerItem extends Item {
-    private final int DRINK_DURATION;
+    private final int drinkDuration;
     private final boolean isDrink;
-    private final RegistryObject<Item> REUSE_ITEM;
+    private final RegistryObject<Item> reuseItem;
 
     public ReusableFoodContainerItem(Properties properties, int drinkDuration, RegistryObject<Item> reuseItem) {
         super(properties);
-        this.REUSE_ITEM = reuseItem;
-        this.DRINK_DURATION = drinkDuration;
+        this.reuseItem = reuseItem;
+        this.drinkDuration = drinkDuration;
         this.isDrink = true;
     }
 
     public ReusableFoodContainerItem(Properties properties, int drinkDuration, RegistryObject<Item> reuseItem, boolean isDrink) {
         super(properties);
-        this.REUSE_ITEM = reuseItem;
-        this.DRINK_DURATION = drinkDuration;
+        this.reuseItem = reuseItem;
+        this.drinkDuration = drinkDuration;
         this.isDrink = isDrink;
     }
 
-    public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
+    @Override
+    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity livingEntity) {
         super.finishUsingItem(itemStack, level, livingEntity);
-        if (!level.isClientSide) livingEntity.curePotionEffects(itemStack); // FORGE - move up so stack.shrink does not turn stack into air
         if (livingEntity instanceof ServerPlayer serverplayer) {
             CriteriaTriggers.CONSUME_ITEM.trigger(serverplayer, itemStack);
             serverplayer.awardStat(Stats.ITEM_USED.get(this));
@@ -45,39 +44,22 @@ public class ReusableFoodContainerItem extends Item {
         }
 
         if (itemStack.isEmpty()) {
-            return new ItemStack(REUSE_ITEM.get());
+            return new ItemStack(reuseItem.get());
         } else {
             if (livingEntity instanceof Player player) {
-                player.addItem(new ItemStack(REUSE_ITEM.get()));
+                player.addItem(new ItemStack(reuseItem.get()));
             }
             return itemStack;
         }
     }
 
-    public int getUseDuration(ItemStack itemStack) {
-        return this.DRINK_DURATION;
-    }
-
-    public UseAnim getUseAnimation(ItemStack itemStack) {
-        return isDrink ? UseAnim.DRINK : UseAnim.EAT;
-    }
-
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        ItemStack itemstack = player.getItemInHand(interactionHand);
-        if (itemstack.isEdible()) {
-            if (player.canEat(itemstack.getFoodProperties(player).canAlwaysEat())) {
-                player.startUsingItem(interactionHand);
-                return InteractionResultHolder.consume(itemstack);
-            } else {
-                return InteractionResultHolder.fail(itemstack);
-            }
-        } else {
-            return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
-        }
+    @Override
+    public int getUseDuration(@NotNull ItemStack itemStack) {
+        return this.drinkDuration;
     }
 
     @Override
-    public net.minecraftforge.common.capabilities.ICapabilityProvider initCapabilities(ItemStack stack, @org.jetbrains.annotations.Nullable net.minecraft.nbt.CompoundTag nbt) {
-        return new net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper(stack);
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack itemStack) {
+        return isDrink ? UseAnim.DRINK : UseAnim.EAT;
     }
 }

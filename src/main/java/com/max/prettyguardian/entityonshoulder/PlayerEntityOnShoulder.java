@@ -1,6 +1,6 @@
-package com.max.prettyguardian.entityOnShoulder;
+package com.max.prettyguardian.entityonshoulder;
 
-import com.max.prettyguardian.entity.custom.CelestialRabbitEntity;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
@@ -34,6 +34,7 @@ public class PlayerEntityOnShoulder {
     public String getId() {
         return ID;
     }
+
     public EntityType<?> getEntityType() {
         return entityType;
     }
@@ -54,17 +55,17 @@ public class PlayerEntityOnShoulder {
         isInSittingPose = source.isInSittingPose;
     }
 
-    public void saveNBTData(CompoundTag tag) {
+    public void saveNBTData(CompoundTag tag, HolderLookup.Provider provider) {
         if (entityType != null) tag.putString(ENTITY_ON_SHOULDER, EntityType.getKey(entityType).toString());
         if (collarColor != null) tag.putString(COLLAR_COLOR, collarColor.getName());
-        if (name != null) tag.putString("name", Component.Serializer.toJson(name));
+        if (name != null) tag.putString("name", Component.Serializer.toJson(name, provider));
         tag.putBoolean(IS_IN_SITTING_POSE, isInSittingPose);
     }
 
-    public void loadNBTData(CompoundTag tag) {
+    public void loadNBTData(CompoundTag tag, HolderLookup.Provider provider) {
         if (tag.contains(ENTITY_ON_SHOULDER)) entityType = EntityType.byString(tag.getString(ENTITY_ON_SHOULDER)).orElse(null);
         if (tag.contains(COLLAR_COLOR)) collarColor = DyeColor.byName(tag.getString(COLLAR_COLOR), null);
-        if (tag.contains("name")) name = Component.Serializer.fromJson(tag.getString("name"));
+        if (tag.contains("name")) name = Component.Serializer.fromJson(tag.getString("name"), provider);
         if (tag.contains(IS_IN_SITTING_POSE)) isInSittingPose = tag.getBoolean(IS_IN_SITTING_POSE);
     }
 }

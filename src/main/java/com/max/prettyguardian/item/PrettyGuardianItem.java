@@ -112,11 +112,11 @@ public class PrettyGuardianItem {
     public static final RegistryObject<Item> PINK_SAPPHIRE = ITEMS.register("pink_sapphire", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> RAW_PINK_SAPPHIRE = ITEMS.register("raw_pink_sapphire", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> PINK_SAPPHIRE_SWORD = ITEMS.register("pink_sapphire_sword", () -> new SwordItem(ModToolTiers.PINK_SAPPHIRE, 4, -1.4F,  new Item.Properties()));
-    public static final RegistryObject<Item> PINK_SAPPHIRE_PICKAXE = ITEMS.register("pink_sapphire_pickaxe", () -> new PickaxeItem(ModToolTiers.PINK_SAPPHIRE, 2, -1.8F,  new Item.Properties()));
-    public static final RegistryObject<Item> PINK_SAPPHIRE_AXE = ITEMS.register("pink_sapphire_axe", () -> new AxeItem(ModToolTiers.PINK_SAPPHIRE, 6.0F, -2.0F,  new Item.Properties()));
-    public static final RegistryObject<Item> PINK_SAPPHIRE_SHOVEL = ITEMS.register("pink_sapphire_shovel", () -> new ShovelItem(ModToolTiers.PINK_SAPPHIRE, 2.5F, -2.0F,  new Item.Properties()));
-    public static final RegistryObject<Item> PINK_SAPPHIRE_HOE = ITEMS.register("pink_sapphire_hoe", () -> new HoeItem(ModToolTiers.PINK_SAPPHIRE, -4, 1.0F,  new Item.Properties()));
+    public static final RegistryObject<Item> PINK_SAPPHIRE_SWORD = ITEMS.register("pink_sapphire_sword", () -> new SwordItem(ModToolTiers.PINK_SAPPHIRE, new Item.Properties().attributes(SwordItem.createAttributes(ModToolTiers.PINK_SAPPHIRE,4, -1.4F))));
+    public static final RegistryObject<Item> PINK_SAPPHIRE_PICKAXE = ITEMS.register("pink_sapphire_pickaxe", () -> new PickaxeItem(ModToolTiers.PINK_SAPPHIRE, new Item.Properties().attributes(DiggerItem.createAttributes(ModToolTiers.PINK_SAPPHIRE, 2, -1.8F))));
+    public static final RegistryObject<Item> PINK_SAPPHIRE_AXE = ITEMS.register("pink_sapphire_axe", () -> new AxeItem(ModToolTiers.PINK_SAPPHIRE, new Item.Properties().attributes(DiggerItem.createAttributes(ModToolTiers.PINK_SAPPHIRE,6.0F, -2.0F))));
+    public static final RegistryObject<Item> PINK_SAPPHIRE_SHOVEL = ITEMS.register("pink_sapphire_shovel", () -> new ShovelItem(ModToolTiers.PINK_SAPPHIRE, new Item.Properties().attributes(DiggerItem.createAttributes(ModToolTiers.PINK_SAPPHIRE,2.5F, -2.0F))));
+    public static final RegistryObject<Item> PINK_SAPPHIRE_HOE = ITEMS.register("pink_sapphire_hoe", () -> new HoeItem(ModToolTiers.PINK_SAPPHIRE, new Item.Properties().attributes(DiggerItem.createAttributes(ModToolTiers.PINK_SAPPHIRE,-4, 1.0F))));
 
     public static final RegistryObject<Item> PINK_SAPPHIRE_HELMET = ITEMS.register("pink_sapphire_helmet", () -> new ArmorItem(ModArmorMaterials.PINK_SAPPHIRE, ArmorItem.Type.HELMET,  new Item.Properties()));
     public static final RegistryObject<Item> PINK_SAPPHIRE_CHESTPLATE = ITEMS.register("pink_sapphire_chestplate", () -> new ArmorItem(ModArmorMaterials.PINK_SAPPHIRE, ArmorItem.Type.CHESTPLATE,  new Item.Properties()));
@@ -125,11 +125,11 @@ public class PrettyGuardianItem {
 
     public static final RegistryObject<Item> RAW_RUBY = ITEMS.register("raw_ruby", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> RUBY = ITEMS.register("ruby", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> RUBY_SWORD = ITEMS.register("ruby_sword", () -> new SwordItem(ModToolTiers.RUBY, 4, -1.4F,  new Item.Properties()));
-    public static final RegistryObject<Item> RUBY_PICKAXE = ITEMS.register("ruby_pickaxe", () -> new PickaxeItem(ModToolTiers.RUBY, 2, -1.8F,  new Item.Properties()));
-    public static final RegistryObject<Item> RUBY_AXE = ITEMS.register("ruby_axe", () -> new AxeItem(ModToolTiers.RUBY, 6.0F, -2.0F,  new Item.Properties()));
-    public static final RegistryObject<Item> RUBY_SHOVEL = ITEMS.register("ruby_shovel", () -> new ShovelItem(ModToolTiers.RUBY, 2.5F, -2.0F,  new Item.Properties()));
-    public static final RegistryObject<Item> RUBY_HOE = ITEMS.register("ruby_hoe", () -> new HoeItem(ModToolTiers.RUBY, -5, 0.0F,  new Item.Properties()));
+    public static final RegistryObject<Item> RUBY_SWORD = ITEMS.register("ruby_sword", () -> new SwordItem(ModToolTiers.RUBY, new Item.Properties().attributes(SwordItem.createAttributes(ModToolTiers.RUBY,4, -1.4F))));
+    public static final RegistryObject<Item> RUBY_PICKAXE = ITEMS.register("ruby_pickaxe", () -> new PickaxeItem(ModToolTiers.RUBY, new Item.Properties().attributes(DiggerItem.createAttributes(ModToolTiers.RUBY,2, -1.8F))));
+    public static final RegistryObject<Item> RUBY_AXE = ITEMS.register("ruby_axe", () -> new AxeItem(ModToolTiers.RUBY, new Item.Properties().attributes(DiggerItem.createAttributes(ModToolTiers.RUBY,6.0F, -2.0F))));
+    public static final RegistryObject<Item> RUBY_SHOVEL = ITEMS.register("ruby_shovel", () -> new ShovelItem(ModToolTiers.RUBY, new Item.Properties().attributes(DiggerItem.createAttributes(ModToolTiers.RUBY,2.5F, -2.0F))));
+    public static final RegistryObject<Item> RUBY_HOE = ITEMS.register("ruby_hoe", () -> new HoeItem(ModToolTiers.RUBY, new Item.Properties().attributes(DiggerItem.createAttributes(ModToolTiers.RUBY,-5, 0.0F))));
 
     public static final RegistryObject<Item> RUBY_HELMET = ITEMS.register("ruby_helmet", () -> new RubyArmorItem(ModArmorMaterials.RUBY, ArmorItem.Type.HELMET,  new Item.Properties()));
     public static final RegistryObject<Item> RUBY_CHESTPLATE = ITEMS.register("ruby_chestplate", () -> new RubyArmorItem(ModArmorMaterials.RUBY, ArmorItem.Type.CHESTPLATE,  new Item.Properties()));
@@ -151,15 +151,15 @@ public class PrettyGuardianItem {
     public static final RegistryObject<Item> SPIRAL_HEART_MOON_ROD = ITEMS.register("spiral_heart_moon_rod", () -> new CuteWandItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> PLUTONS_KEY = ITEMS.register("plutons_key", () -> new PlutonsKey(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> NEPTUNES_MIRROR = ITEMS.register("neptunes_mirror", () -> new NeptunesMirror(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> SPACE_SWORD = ITEMS.register("space_sword", () -> new SpaceSwordItem(ModToolTiers.SPACE_SWORD, 3, -2.4F, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SPACE_SWORD = ITEMS.register("space_sword", () -> new SpaceSwordItem(ModToolTiers.SPACE_SWORD, new Item.Properties().stacksTo(1).attributes(SwordItem.createAttributes(ModToolTiers.RUBY,3, -2.4F))));
     public static final RegistryObject<Item> STRAWBERRY_COW_EGG = ITEMS.register("strawberry_cow_egg", () -> new ForgeSpawnEggItem(ModEntities.STRAWBERRY_COW, 0xfcd6df, 0xf798be, new Item.Properties()));
     public static final RegistryObject<Item> CELESTIAL_RABBIT_EGG = ITEMS.register("celestial_rabbit_egg", () -> new ForgeSpawnEggItem(ModEntities.CELESTIAL_RABBIT, 0xf564df, 0xf548be, new Item.Properties()));
 
-    public static final RegistryObject<Item> SAILORMOON_OST_MUSIC_DISC = ITEMS.register("sailormoon_ost_music_disc", () -> new RecordItem(4, ModSounds.SAILORMOON_OST.get(), new Item.Properties().stacksTo(1), 10380));
-    public static final RegistryObject<Item> FIREFLIES_MUSIC_DISC = ITEMS.register("fireflies_music_disc", () -> new RecordItem(4, ModSounds.SAILORMOON_MOONPRIDE.get(), new Item.Properties().stacksTo(1), 3100));
-    public static final RegistryObject<Item> LOFI_MUSIC_DISC = ITEMS.register("lofi_music_disc", () -> new RecordItem(4, ModSounds.LOFI.get(), new Item.Properties().stacksTo(1), 9700));
-    public static final RegistryObject<Item> TAVERN_MUSIC_DISC = ITEMS.register("tavern_music_disc", () -> new RecordItem(4, ModSounds.TAVERN.get(), new Item.Properties().stacksTo(1), 16000));
-    public static final RegistryObject<Item> THE_LANTERN_FAIR_MUSIC_DISC = ITEMS.register("the_lantern_fair_music_disc", () -> new RecordItem(4, ModSounds.JAPANESE_FLUTE.get(), new Item.Properties().stacksTo(1), 4480));
+    public static final RegistryObject<Item> SAILORMOON_OST_MUSIC_DISC = ITEMS.register("sailormoon_ost_music_disc", () -> new RecordItem(4, ModSounds.SAILORMOON_OST, new Item.Properties().stacksTo(1), 10380));
+    public static final RegistryObject<Item> FIREFLIES_MUSIC_DISC = ITEMS.register("fireflies_music_disc", () -> new RecordItem(4, ModSounds.SAILORMOON_MOONPRIDE, new Item.Properties().stacksTo(1), 3100));
+    public static final RegistryObject<Item> LOFI_MUSIC_DISC = ITEMS.register("lofi_music_disc", () -> new RecordItem(4, ModSounds.LOFI, new Item.Properties().stacksTo(1), 9700));
+    public static final RegistryObject<Item> TAVERN_MUSIC_DISC = ITEMS.register("tavern_music_disc", () -> new RecordItem(4, ModSounds.TAVERN, new Item.Properties().stacksTo(1), 16000));
+    public static final RegistryObject<Item> THE_LANTERN_FAIR_MUSIC_DISC = ITEMS.register("the_lantern_fair_music_disc", () -> new RecordItem(4, ModSounds.JAPANESE_FLUTE, new Item.Properties().stacksTo(1), 4480));
 
     public static final RegistryObject<Item> FAIRY_DUST = ITEMS.register("fairy_dust", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GIFT_BOX = ITEMS.register("gift_box", () -> new GiftBoxItem(new Item.Properties().stacksTo(1)));

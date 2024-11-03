@@ -15,10 +15,12 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class ModArmorMaterials {
+    private ModArmorMaterials() {}
+
     public static final Holder<ArmorMaterial> PINK_SAPPHIRE;
     public static final Holder<ArmorMaterial> RUBY;
 
-    private static Holder<ArmorMaterial> register(String name, EnumMap<ArmorItem.Type, Integer> integer, int p_331490_, Supplier<Ingredient> ingredientSupplier, List<ArmorMaterial.Layer> layers) {
+    private static Holder<ArmorMaterial> register(String name, EnumMap<ArmorItem.Type, Integer> integer, int i, Supplier<Ingredient> ingredientSupplier, List<ArmorMaterial.Layer> layers) {
         EnumMap<ArmorItem.Type, Integer> enumMap = new EnumMap<>(ArmorItem.Type.class);
         ArmorItem.Type[] values = ArmorItem.Type.values();
 
@@ -26,28 +28,38 @@ public class ModArmorMaterials {
             enumMap.put(type, integer.get(type));
         }
 
-        return Registry.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, new ResourceLocation(name), new ArmorMaterial(enumMap, p_331490_, SoundEvents.ARMOR_EQUIP_GOLD, ingredientSupplier, layers, (float) 0.0, (float) 0.0));
+        return Registry.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, new ResourceLocation(name), new ArmorMaterial(enumMap, i, SoundEvents.ARMOR_EQUIP_GOLD, ingredientSupplier, layers, (float) 0.0, (float) 0.0));
     }
 
+    public static final String PINK_SAPPHIRE_STRING = "pink_sapphire";
+
     static {
-        PINK_SAPPHIRE = register("pink_sapphire", Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
+        PINK_SAPPHIRE = register(PINK_SAPPHIRE_STRING, Util.make(new EnumMap<>(ArmorItem.Type.class), enumMap -> {
             enumMap.put(ArmorItem.Type.BOOTS, 4);
             enumMap.put(ArmorItem.Type.LEGGINGS, 9);
             enumMap.put(ArmorItem.Type.CHESTPLATE, 6);
             enumMap.put(ArmorItem.Type.HELMET, 4);
             enumMap.put(ArmorItem.Type.BODY, 15);
-        }), 15, () -> {
-            return Ingredient.of(PrettyGuardianItem.PINK_SAPPHIRE.get());
-        }, List.of(new ArmorMaterial.Layer(new ResourceLocation("pink_sapphire"), "", true), new ArmorMaterial.Layer(new ResourceLocation("pink_sapphire"), "_overlay", false)));
+        }), 15,
+                () -> Ingredient.of(PrettyGuardianItem.PINK_SAPPHIRE.get()),
+                List.of(
+                        new ArmorMaterial.Layer(new ResourceLocation(PINK_SAPPHIRE_STRING), "", true),
+                        new ArmorMaterial.Layer(new ResourceLocation(PINK_SAPPHIRE_STRING), "_overlay", false)
+                )
+        );
 
-        RUBY = register("ruby", Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
+        RUBY = register("ruby", Util.make(new EnumMap<>(ArmorItem.Type.class), enumMap -> {
             enumMap.put(ArmorItem.Type.BOOTS, 5);
             enumMap.put(ArmorItem.Type.LEGGINGS, 10);
             enumMap.put(ArmorItem.Type.CHESTPLATE, 7);
             enumMap.put(ArmorItem.Type.HELMET, 5);
             enumMap.put(ArmorItem.Type.BODY, 17);
-        }), 17, () -> {
-            return Ingredient.of(PrettyGuardianItem.RUBY.get());
-        }, List.of(new ArmorMaterial.Layer(new ResourceLocation("ruby"), "", true), new ArmorMaterial.Layer(new ResourceLocation("ruby"), "_overlay", false)));
+        }), 17,
+                () -> Ingredient.of(PrettyGuardianItem.RUBY.get()),
+                List.of(
+                        new ArmorMaterial.Layer(new ResourceLocation("ruby"), "", true),
+                        new ArmorMaterial.Layer(new ResourceLocation("ruby"), "_overlay", false)
+                )
+        );
     }
 }
