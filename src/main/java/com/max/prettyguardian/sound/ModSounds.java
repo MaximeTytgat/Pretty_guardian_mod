@@ -9,6 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModSounds {
+    private ModSounds() {}
     private static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, "prettyguardian");
 
     public static final RegistryObject<SoundEvent> SAILORMOON_MOONPRIDE = registerSoundEvents("fireflies_music_disc");

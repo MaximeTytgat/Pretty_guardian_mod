@@ -8,6 +8,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 public abstract class ModStructures {
+    private ModStructures() {}
 
     public static final DeferredRegister<StructureType<?>> MODDED_STRUCTURES = DeferredRegister.create(Registries.STRUCTURE_TYPE, PrettyGuardian.MOD_ID);
 

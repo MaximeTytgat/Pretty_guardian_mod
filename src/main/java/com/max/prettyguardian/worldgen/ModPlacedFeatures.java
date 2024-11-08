@@ -17,6 +17,7 @@ import net.minecraft.world.level.levelgen.placement.*;
 import java.util.List;
 
 public class ModPlacedFeatures {
+    private ModPlacedFeatures() {}
     public static final ResourceKey<PlacedFeature> PINK_SAPPHIRE_ORE_PLACED_KEY = registerKey("pink_sapphire_ore_placed");
     public static final ResourceKey<PlacedFeature> RUBY_ORE_PLACED_KEY = registerKey("ruby_ore_placed");
     public static final ResourceKey<PlacedFeature> PISTACHIO_PLACED_KEY = registerKey("pistachio_placed");
@@ -49,7 +50,7 @@ public class ModPlacedFeatures {
                         PrettyGuardianBlock.BOBA_SAPLING.get()));
 
         register(context, SEA_SHELL_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.SEA_SHELL_KEY),
-                    List.of(new PlacementModifier[]{RarityFilter.onAverageOnceEvery(3), PlacementUtils.HEIGHTMAP_WORLD_SURFACE , BiomeFilter.biome()}));
+                    List.of(RarityFilter.onAverageOnceEvery(3), PlacementUtils.HEIGHTMAP_WORLD_SURFACE , BiomeFilter.biome()));
 
     }
 

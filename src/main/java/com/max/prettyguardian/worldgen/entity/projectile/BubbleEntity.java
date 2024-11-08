@@ -1,8 +1,6 @@
 package com.max.prettyguardian.worldgen.entity.projectile;
 
 
-import com.max.prettyguardian.PrettyGuardian;
-import com.max.prettyguardian.entity.custom.CelestialRabbitEntity;
 import com.max.prettyguardian.particle.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -10,58 +8,46 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.Random;
+import org.jetbrains.annotations.NotNull;
 
 public class BubbleEntity extends Projectile {
-    public double xPower;
-    public double yPower;
-    public double zPower;
-
-    private final float baseDamage;
-
+    public static final String POWER = "power";
+    private double xPower;
+    private double yPower;
+    private double zPower;
 
     public BubbleEntity(EntityType<BubbleEntity> entityType, Level world) {
         super(entityType, world);
-        this.baseDamage = 8.0F;
     }
 
-    public BubbleEntity(EntityType<BubbleEntity> entityType, LivingEntity shooter, Level world, float damage) {
-        super(entityType, world);
-        this.baseDamage = damage;
-    }
-
-    protected void defineSynchedData() {
-    }
-
-    public boolean shouldRenderAtSqrDistance(double p_36837_) {
+    @Override
+    public boolean shouldRenderAtSqrDistance(double v) {
         double d0 = this.getBoundingBox().getSize() * 4.0D;
         if (Double.isNaN(d0)) {
             d0 = 4.0D;
         }
 
         d0 *= 64.0D;
-        return p_36837_ < d0 * d0;
+        return v < d0 * d0;
     }
 
-    protected float getEyeHeight(Pose pose, EntityDimensions entityDimensions) {
-        return 0.01F;
-    }
+    @Override
+    protected void defineSynchedData(@NotNull SynchedEntityData.Builder builder) {}
 
+    @Override
     public void tick() {
         Entity entity = this.getOwner();
         if (this.level().isClientSide || (entity == null || !entity.isRemoved()) && this.level().hasChunkAt(this.blockPosition())) {
@@ -77,8 +63,8 @@ public class BubbleEntity extends Projectile {
             Vec3 vec3 = this.getDeltaMovement();
             if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
                 double d0 = vec3.horizontalDistance();
-                this.setYRot((float)(Mth.atan2(vec3.x, vec3.z) * (double)(180F / (float)Math.PI)));
-                this.setXRot((float)(Mth.atan2(vec3.y, d0) * (double)(180F / (float)Math.PI)));
+                this.setYRot((float)(Mth.atan2(vec3.x, vec3.z) * (180F / (float)Math.PI)));
+                this.setXRot((float)(Mth.atan2(vec3.y, d0) * (180F / (float)Math.PI)));
                 this.yRotO = this.getYRot();
                 this.xRotO = this.getXRot();
             }
@@ -95,20 +81,15 @@ public class BubbleEntity extends Projectile {
             double d7 = this.getX() + d5;
             double d2 = this.getY() + d6;
             double d3 = this.getZ() + d1;
-            double d4 = vec3.horizontalDistance();
             this.setXRot(lerpRotation(this.xRotO, this.getXRot()));
             this.setYRot(lerpRotation(this.yRotO, this.getYRot()));
-            float f = 0.2F;
-            float f1 = 0.05F;
 
-//            this.setDeltaMovement(vec3.scale((double)f));
             Vec3 vec34 = this.getDeltaMovement();
-            this.setDeltaMovement(vec34.x, vec34.y - (double)0.02F, vec34.z);
+            this.setDeltaMovement(vec34.x, vec34.y - 0.02F, vec34.z);
 
             this.setPos(d7, d2, d3);
             this.checkInsideBlocks();
 
-            Random random = new Random();
             double randx = -0.5 + (random.nextDouble() * 1);
             double randy = -0.5 + (random.nextDouble() * 1);
             double randz = -0.5 + (random.nextDouble() * 1);
@@ -126,11 +107,11 @@ public class BubbleEntity extends Projectile {
 
     @Override
     protected void onHit(HitResult hitresult) {
-        HitResult.Type hitresult$type = hitresult.getType();
-        if (hitresult$type == HitResult.Type.ENTITY) {
+        HitResult.Type hitresultType = hitresult.getType();
+        if (hitresultType == HitResult.Type.ENTITY) {
             this.onHitEntity((EntityHitResult)hitresult);
             this.level().gameEvent(GameEvent.PROJECTILE_LAND, hitresult.getLocation(), GameEvent.Context.of(this, null));
-        } else if (hitresult$type == HitResult.Type.BLOCK) {
+        } else if (hitresultType == HitResult.Type.BLOCK) {
             BlockHitResult blockhitresult = (BlockHitResult)hitresult;
             this.onHitBlock(blockhitresult);
             BlockPos blockpos = blockhitresult.getBlockPos();
@@ -146,41 +127,41 @@ public class BubbleEntity extends Projectile {
         Entity entityHit = entityHitResult.getEntity();
 
         if (entityHit instanceof LivingEntity livingentity) {
-            Vec3 $$3 = this.position();
-            Vec3 $$4 = entityHit.getEyePosition().subtract($$3);
+            Vec3 position = this.position();
+            Vec3 subtract = entityHit.getEyePosition().subtract(position);
 
-            Vec3 $$5 = $$4.normalize();
+            Vec3 normalize = subtract.normalize();
 
-            double $$8 = 0.5 * (0.5 - livingentity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-            double $$9 = 2.5 * (0.5 - livingentity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+            double v = 0.5 * (0.5 - livingentity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+            double v1 = 2.5 * (0.5 - livingentity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
 
-            livingentity.push($$5.x() * $$9, $$5.y() * $$8, $$5.z() * $$9);
+            livingentity.push(normalize.x() * v1, normalize.y() * v, normalize.z() * v1);
         }
-
-//        entity.hurt(this.damageSources().mobProjectile(this, livingentity), this.baseDamage);
-
 
         this.discard();
     }
 
     @Override
-    protected void onHitBlock(BlockHitResult p_37258_) {
+    protected void onHitBlock(@NotNull BlockHitResult blockHitResult) {
         this.discard();
     }
 
-    protected boolean canHitEntity(Entity p_36842_) {
-        return super.canHitEntity(p_36842_) && !p_36842_.noPhysics;
+    @Override
+    protected boolean canHitEntity(@NotNull Entity entity) {
+        return super.canHitEntity(entity) && !entity.noPhysics;
     }
 
-    public void addAdditionalSaveData(CompoundTag p_36848_) {
-        super.addAdditionalSaveData(p_36848_);
-        p_36848_.put("power", this.newDoubleList(this.xPower, this.yPower, this.zPower));
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.put(POWER, this.newDoubleList(this.xPower, this.yPower, this.zPower));
     }
 
-    public void readAdditionalSaveData(CompoundTag p_36844_) {
-        super.readAdditionalSaveData(p_36844_);
-        if (p_36844_.contains("power", 9)) {
-            ListTag listtag = p_36844_.getList("power", 6);
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        if (compoundTag.contains(POWER, 9)) {
+            ListTag listtag = compoundTag.getList(POWER, 6);
             if (listtag.size() == 3) {
                 this.xPower = listtag.getDouble(0);
                 this.yPower = listtag.getDouble(1);
@@ -190,15 +171,18 @@ public class BubbleEntity extends Projectile {
 
     }
 
+    @Override
     public boolean isPickable() {
         return true;
     }
 
+    @Override
     public float getPickRadius() {
         return 1.0F;
     }
 
-    public boolean hurt(DamageSource damageSource, float p_36840_) {
+    @Override
+    public boolean hurt(@NotNull DamageSource damageSource, float v) {
         if (this.isInvulnerableTo(damageSource)) {
             return false;
         } else {
@@ -221,21 +205,24 @@ public class BubbleEntity extends Projectile {
         }
     }
 
+    @Override
     public float getLightLevelDependentMagicValue() {
         return 0.6F;
     }
 
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+    @Override
+    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
         Entity entity = this.getOwner();
         int i = entity == null ? 0 : entity.getId();
         return new ClientboundAddEntityPacket(this.getId(), this.getUUID(), this.getX(), this.getY(), this.getZ(), this.getXRot(), this.getYRot(), this.getType(), i, new Vec3(this.xPower, this.yPower, this.zPower), 0.0D);
     }
 
-    public void recreateFromPacket(ClientboundAddEntityPacket p_150128_) {
-        super.recreateFromPacket(p_150128_);
-        double d0 = p_150128_.getXa();
-        double d1 = p_150128_.getYa();
-        double d2 = p_150128_.getZa();
+    @Override
+    public void recreateFromPacket(@NotNull ClientboundAddEntityPacket clientboundAddEntityPacket) {
+        super.recreateFromPacket(clientboundAddEntityPacket);
+        double d0 = clientboundAddEntityPacket.getXa();
+        double d1 = clientboundAddEntityPacket.getYa();
+        double d2 = clientboundAddEntityPacket.getZa();
         double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
         if (d3 != 0.0D) {
             this.xPower = d0 / d3 * 0.1D;

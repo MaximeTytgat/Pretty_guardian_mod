@@ -14,9 +14,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModEntityType {
+    private ModEntityType() {}
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, PrettyGuardian.MOD_ID);
-
 
     public static final RegistryObject<EntityType<CuteArrowEntity>> HEART_ARROW =
             ENTITY_TYPES.register("heart_arrow", () -> EntityType.Builder.of((EntityType.EntityFactory<CuteArrowEntity>) CuteArrowEntity::new, MobCategory.MISC)
@@ -26,7 +26,7 @@ public class ModEntityType {
             ENTITY_TYPES.register("heart", () -> EntityType.Builder.of((EntityType.EntityFactory<HeartEntity>) HeartEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build("heart"));
     public static final RegistryObject<EntityType<BubbleEntity>> BUBBLE =
-            ENTITY_TYPES.register("bubble", () -> EntityType.Builder.of((EntityType.EntityFactory<BubbleEntity>) BubbleEntity::new, MobCategory.MISC)
+            ENTITY_TYPES.register("bubble", () -> EntityType.Builder.of(BubbleEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build("bubble"));
 
     public static final RegistryObject<EntityType<StarLightEntity>> STAR_LIGHT =

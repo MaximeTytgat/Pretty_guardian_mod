@@ -11,8 +11,9 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 public abstract class ModStructureUtils {
+    private ModStructureUtils() {}
 
-    private static final Predicate<Block> isAir = (block) -> block == Blocks.AIR || block == Blocks.CAVE_AIR;
+    private static final Predicate<Block> isAir = block -> block == Blocks.AIR || block == Blocks.CAVE_AIR;
 
     public static boolean isLavaLake(NoiseColumn blockReader) {
         boolean isLake = true;
@@ -26,27 +27,16 @@ public abstract class ModStructureUtils {
         return isLake;
     }
 
-    public static boolean isBuried(NoiseColumn blockReader, int min, int max) {
-
-        boolean found = false;
-        for (int i = min; i < max; i++) {
-            if (isAir.test(blockReader.getBlock(i + 1).getBlock()) && !isAir.test(blockReader.getBlock(i).getBlock())) {
-                found = true;
-            }
-        }
-        return !found;
-    }
-
     public static boolean verticalSpace(NoiseColumn blockReader, int min, int max, int height) {
-        int height_tracked = 0;
-        for(int i = max; i >= min && height_tracked < height; i --) {
+        int heightTracked = 0;
+        for(int i = max; i >= min && heightTracked < height; i --) {
             if(isAir.test(blockReader.getBlock(i).getBlock())) {
-                height_tracked ++;
+                heightTracked ++;
             } else {
-                height_tracked = 0;
+                heightTracked = 0;
             }
         }
-        return height_tracked == height;
+        return heightTracked == height;
     }
 
     public static BlockPos getElevation(Structure.GenerationContext context, int min, int max) {
@@ -69,54 +59,4 @@ public abstract class ModStructureUtils {
     public static int getScaledNetherHeight(int vanillaHeight) {
         return (int) (vanillaHeight / 128.0F * (ModList.get().isLoaded("starmute") ? 256.0F : 128.0F));
     }
-
-//    public static void addBasaltRestrictions() {
-//        BasaltColumnsFeature.CANNOT_PLACE_ON = ImmutableList.of(
-//                // Default
-//                Blocks.LAVA,
-//                Blocks.BEDROCK,
-//                Blocks.MAGMA_BLOCK,
-//                Blocks.SOUL_SAND,
-//                Blocks.NETHER_BRICKS,
-//                Blocks.NETHER_BRICK_FENCE,
-//                Blocks.NETHER_BRICK_STAIRS,
-//                Blocks.NETHER_WART,
-//                Blocks.CHEST,
-//                Blocks.SPAWNER,
-//                // New Fortresses:
-//                Blocks.NETHER_BRICK_SLAB,
-//                Blocks.CRACKED_NETHER_BRICKS,
-//                Blocks.CHISELED_NETHER_BRICKS,
-//                Blocks.RED_NETHER_BRICKS,
-//                Blocks.RED_NETHER_BRICK_STAIRS,
-//                Blocks.RED_NETHER_BRICK_SLAB,
-//                Blocks.CRIMSON_TRAPDOOR,
-//                // Wither Forts:
-//                Blocks.IRON_BARS,
-//                Blocks.COAL_BLOCK
-//        );
-//        DeltaFeature.CANNOT_REPLACE = ImmutableList.of(
-//                // Default
-//                Blocks.BEDROCK,
-//                Blocks.NETHER_BRICKS,
-//                Blocks.NETHER_BRICK_FENCE,
-//                Blocks.NETHER_BRICK_STAIRS,
-//                Blocks.NETHER_WART,
-//                Blocks.CHEST,
-//                Blocks.SPAWNER,
-//                // New Fortresses:
-//                Blocks.NETHER_BRICK_SLAB,
-//                Blocks.CRACKED_NETHER_BRICKS,
-//                Blocks.CHISELED_NETHER_BRICKS,
-//                Blocks.RED_NETHER_BRICKS,
-//                Blocks.RED_NETHER_BRICK_STAIRS,
-//                Blocks.RED_NETHER_BRICK_SLAB,
-//                Blocks.CRIMSON_TRAPDOOR,
-//                // Wither Forts:
-//                Blocks.IRON_BARS,
-//                Blocks.COAL_BLOCK
-//        );
-//
-//    }
-
 }

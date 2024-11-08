@@ -1,7 +1,5 @@
 package com.max.prettyguardian.worldgen.entity.projectile;
 
-
-import com.max.prettyguardian.PrettyGuardian;
 import com.max.prettyguardian.particle.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -9,59 +7,50 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.phys.shapes.VoxelShape;
-
-import java.util.Iterator;
-import java.util.Random;
+import org.jetbrains.annotations.NotNull;
 
 public class HeartEntity extends Projectile {
-    private static final int EXPOSED_POTION_DECAY_TIME = 600;
-    protected boolean inGround;
-    protected int inGroundTime;
-    public double xPower;
-    public double yPower;
-    public double zPower;
+    public static final String POWER = "power";
+    private double xPower;
+    private double yPower;
+    private double zPower;
 
     private final float baseDamage;
-
 
     public HeartEntity(EntityType<HeartEntity> entityType, Level world) {
         super(entityType, world);
         this.baseDamage = 8.0F;
     }
 
-    public HeartEntity(EntityType<HeartEntity> entityType, LivingEntity shooter, Level world, float damage) {
+    public HeartEntity(EntityType<HeartEntity> entityType, Level world, float damage) {
         super(entityType, world);
         this.baseDamage = damage;
     }
 
-    protected void defineSynchedData() {
-    }
-
-    public boolean shouldRenderAtSqrDistance(double p_36837_) {
+    @Override
+    public boolean shouldRenderAtSqrDistance(double v) {
         double d0 = this.getBoundingBox().getSize() * 4.0D;
         if (Double.isNaN(d0)) {
             d0 = 4.0D;
         }
 
         d0 *= 64.0D;
-        return p_36837_ < d0 * d0;
+        return v < d0 * d0;
     }
 
-    protected float getEyeHeight(Pose pose, EntityDimensions entityDimensions) {
-        return 0.01F;
-    }
+    @Override
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {}
 
+    @Override
     public void tick() {
         Entity entity = this.getOwner();
         if (this.level().isClientSide || (entity == null || !entity.isRemoved()) && this.level().hasChunkAt(this.blockPosition())) {
@@ -77,8 +66,8 @@ public class HeartEntity extends Projectile {
             Vec3 vec3 = this.getDeltaMovement();
             if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
                 double d0 = vec3.horizontalDistance();
-                this.setYRot((float)(Mth.atan2(vec3.x, vec3.z) * (double)(180F / (float)Math.PI)));
-                this.setXRot((float)(Mth.atan2(vec3.y, d0) * (double)(180F / (float)Math.PI)));
+                this.setYRot((float)(Mth.atan2(vec3.x, vec3.z) * (180F / (float)Math.PI)));
+                this.setXRot((float)(Mth.atan2(vec3.y, d0) * (180F / (float)Math.PI)));
                 this.yRotO = this.getYRot();
                 this.xRotO = this.getXRot();
             }
@@ -91,24 +80,20 @@ public class HeartEntity extends Projectile {
             double d2 = this.getY() + d6;
             double d3 = this.getZ() + d1;
             double d4 = vec3.horizontalDistance();
-            this.setYRot((float)(Mth.atan2(-d5, -d1) * (double)(180F / (float)Math.PI)));
+            this.setYRot((float)(Mth.atan2(-d5, -d1) * (180F / (float)Math.PI)));
 
-            this.setXRot((float)(Mth.atan2(d6, d4) * (double)(180F / (float)Math.PI)));
+            this.setXRot((float)(Mth.atan2(d6, d4) * (180F / (float)Math.PI)));
             this.setXRot(lerpRotation(this.xRotO, this.getXRot()));
             this.setYRot(lerpRotation(this.yRotO, this.getYRot()));
             float f = 0.99F;
-            float f1 = 0.05F;
 
             this.setDeltaMovement(vec3.scale(f));
             Vec3 vec34 = this.getDeltaMovement();
-            this.setDeltaMovement(vec34.x, vec34.y - (double)0.02F, vec34.z);
-
-
+            this.setDeltaMovement(vec34.x, vec34.y - 0.02F, vec34.z);
 
             this.setPos(d7, d2, d3);
             this.checkInsideBlocks();
 
-            Random random = new Random();
             double randx = -0.5 + (random.nextDouble() * 1);
             double randy = -0.5 + (random.nextDouble() * 1);
             double randz = -0.5 + (random.nextDouble() * 1);
@@ -126,11 +111,11 @@ public class HeartEntity extends Projectile {
 
     @Override
     protected void onHit(HitResult hitresult) {
-        HitResult.Type hitresult$type = hitresult.getType();
-        if (hitresult$type == HitResult.Type.ENTITY) {
+        HitResult.Type hitresultType = hitresult.getType();
+        if (hitresultType == HitResult.Type.ENTITY) {
             this.onHitEntity((EntityHitResult)hitresult);
             this.level().gameEvent(GameEvent.PROJECTILE_LAND, hitresult.getLocation(), GameEvent.Context.of(this, null));
-        } else if (hitresult$type == HitResult.Type.BLOCK) {
+        } else if (hitresultType == HitResult.Type.BLOCK) {
             BlockHitResult blockhitresult = (BlockHitResult)hitresult;
             this.onHitBlock(blockhitresult);
             BlockPos blockpos = blockhitresult.getBlockPos();
@@ -145,7 +130,7 @@ public class HeartEntity extends Projectile {
         }
         Entity entity = entityHitResult.getEntity();
         Entity entity1 = this.getOwner();
-        LivingEntity livingentity = entity1 instanceof LivingEntity ? (LivingEntity)entity1 : null;
+        LivingEntity livingentity = entity1 instanceof LivingEntity livingEntity ? livingEntity : null;
 
 
         if (entity instanceof Player player && (player.getName().getString().equals("___Max__________") || player.getName().getString().equals("Dev"))) {
@@ -158,23 +143,26 @@ public class HeartEntity extends Projectile {
     }
 
     @Override
-    protected void onHitBlock(BlockHitResult p_37258_) {
+    protected void onHitBlock(@NotNull BlockHitResult blockHitResult) {
         this.discard();
     }
 
-    protected boolean canHitEntity(Entity p_36842_) {
-        return super.canHitEntity(p_36842_) && !p_36842_.noPhysics;
+    @Override
+    protected boolean canHitEntity(@NotNull Entity entity) {
+        return super.canHitEntity(entity) && !entity.noPhysics;
     }
 
-    public void addAdditionalSaveData(CompoundTag p_36848_) {
-        super.addAdditionalSaveData(p_36848_);
-        p_36848_.put("power", this.newDoubleList(this.xPower, this.yPower, this.zPower));
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.put(POWER, this.newDoubleList(this.xPower, this.yPower, this.zPower));
     }
 
-    public void readAdditionalSaveData(CompoundTag p_36844_) {
-        super.readAdditionalSaveData(p_36844_);
-        if (p_36844_.contains("power", 9)) {
-            ListTag listtag = p_36844_.getList("power", 6);
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        if (compoundTag.contains(POWER, 9)) {
+            ListTag listtag = compoundTag.getList(POWER, 6);
             if (listtag.size() == 3) {
                 this.xPower = listtag.getDouble(0);
                 this.yPower = listtag.getDouble(1);
@@ -184,15 +172,18 @@ public class HeartEntity extends Projectile {
 
     }
 
+    @Override
     public boolean isPickable() {
         return true;
     }
 
+    @Override
     public float getPickRadius() {
         return 1.0F;
     }
 
-    public boolean hurt(DamageSource damageSource, float p_36840_) {
+    @Override
+    public boolean hurt(@NotNull DamageSource damageSource, float v) {
         if (this.isInvulnerableTo(damageSource)) {
             return false;
         } else {
@@ -215,21 +206,24 @@ public class HeartEntity extends Projectile {
         }
     }
 
+    @Override
     public float getLightLevelDependentMagicValue() {
         return 0.6F;
     }
 
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+    @Override
+    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
         Entity entity = this.getOwner();
         int i = entity == null ? 0 : entity.getId();
         return new ClientboundAddEntityPacket(this.getId(), this.getUUID(), this.getX(), this.getY(), this.getZ(), this.getXRot(), this.getYRot(), this.getType(), i, new Vec3(this.xPower, this.yPower, this.zPower), 0.0D);
     }
 
-    public void recreateFromPacket(ClientboundAddEntityPacket p_150128_) {
-        super.recreateFromPacket(p_150128_);
-        double d0 = p_150128_.getXa();
-        double d1 = p_150128_.getYa();
-        double d2 = p_150128_.getZa();
+    @Override
+    public void recreateFromPacket(@NotNull ClientboundAddEntityPacket clientboundAddEntityPacket) {
+        super.recreateFromPacket(clientboundAddEntityPacket);
+        double d0 = clientboundAddEntityPacket.getXa();
+        double d1 = clientboundAddEntityPacket.getYa();
+        double d2 = clientboundAddEntityPacket.getZa();
         double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
         if (d3 != 0.0D) {
             this.xPower = d0 / d3 * 0.1D;

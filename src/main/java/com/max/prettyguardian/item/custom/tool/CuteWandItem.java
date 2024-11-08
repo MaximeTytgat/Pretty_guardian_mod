@@ -45,7 +45,7 @@ public class CuteWandItem extends BowItem  {
             if (!level.isClientSide) {
                 float damage = 8.0F;
                 HeartItem arrowitem = (HeartItem) PrettyGuardianItem.CUTE_HEART.get();
-                HeartEntity abstractarrow = arrowitem.createArrow(level, player, damage);
+                HeartEntity abstractarrow = arrowitem.createArrow(level, damage);
 
                 abstractarrow.setOwner(player);
 

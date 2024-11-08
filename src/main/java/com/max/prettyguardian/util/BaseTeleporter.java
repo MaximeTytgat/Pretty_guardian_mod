@@ -7,7 +7,6 @@ import net.minecraftforge.common.util.ITeleporter;
 import java.util.function.Function;
 
 public class BaseTeleporter implements ITeleporter {
-
     private final double x, y, z;
 
     public BaseTeleporter(double x, double y, double z) {

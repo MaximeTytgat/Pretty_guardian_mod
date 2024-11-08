@@ -1,12 +1,13 @@
 package com.max.prettyguardian.worldgen.tree;
 
 import com.max.prettyguardian.worldgen.ModConfiguredFeatures;
-import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.world.level.block.grower.TreeGrower;
 
 import java.util.Optional;
 
 public class TreeGrowers {
+    private TreeGrowers() {}
+
     public static final TreeGrower PISTACHIO = new TreeGrower(
             "pistachio",
             Optional.empty(),

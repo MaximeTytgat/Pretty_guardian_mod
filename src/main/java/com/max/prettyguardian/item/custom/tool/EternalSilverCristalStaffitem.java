@@ -74,7 +74,7 @@ public class EternalSilverCristalStaffitem extends BowItem implements GeoItem {
                 if (player.getName().getString().equals("LittlePokky")) damage = 999.9F;
 
                 StarLightItem arrowitem = (StarLightItem) PrettyGuardianItem.STAR_LIGHT.get();
-                StarLightEntity abstractarrow = arrowitem.createArrow(level, player, damage);
+                StarLightEntity abstractarrow = arrowitem.createArrow(level, damage);
                 abstractarrow.setOwner(player);
 
                 abstractarrow.setPos(player.getX(), player.getEyeY() - 0.5F, player.getZ());

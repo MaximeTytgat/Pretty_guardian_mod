@@ -14,10 +14,8 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-
 public class CuteArrowEntity extends AbstractArrow {
-    private boolean hited = false;
+    private boolean hit = false;
     public CuteArrowEntity(EntityType<CuteArrowEntity> entityType, Level world) {
         super(entityType, world);
     }
@@ -40,7 +38,7 @@ public class CuteArrowEntity extends AbstractArrow {
         if (entityHitResult.getEntity() == this.getOwner()) {
             return;
         }
-        this.hited = true;
+        this.hit = true;
         super.onHitEntity(entityHitResult);
 
         if (entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
@@ -50,30 +48,24 @@ public class CuteArrowEntity extends AbstractArrow {
 
     @Override
     protected void onHitBlock(@NotNull BlockHitResult entityHitResult) {
-        this.hited = true;
+        this.hit = true;
         super.onHitBlock(entityHitResult);
-    }
-
-    @Override
-    protected void tickDespawn() {
-
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        if(this.tickCount > 600 && this.pickup == CuteArrowEntity.Pickup.CREATIVE_ONLY) {
+        if(this.tickCount > 600 && this.pickup == AbstractArrow.Pickup.CREATIVE_ONLY) {
             this.discard();
         }
 
-        if (!this.hited) {
+        if (!this.hit) {
             Vec3 vec3 = this.getDeltaMovement();
             double d5 = vec3.x;
             double d6 = vec3.y;
             double d1 = vec3.z;
 
-            Random random = new Random();
             double randx = -0.5 + (random.nextDouble() * 1);
             double randy = -0.5 + (random.nextDouble() * 1);
             double randz = -0.5 + (random.nextDouble() * 1);

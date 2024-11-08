@@ -54,7 +54,7 @@ public class NeptunesMirror extends Item implements IThirdPersonAnimationProvide
         if (livingEntity instanceof Player player) {
             float damage = 0.0F;
             BubbleItem bubbleItem = (BubbleItem) PrettyGuardianItem.BUBBLE.get();
-            BubbleEntity abstractBubble = bubbleItem.createArrow(level, player, damage);
+            BubbleEntity abstractBubble = bubbleItem.createArrow(level);
 
             abstractBubble.setOwner(player);
 

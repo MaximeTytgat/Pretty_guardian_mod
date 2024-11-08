@@ -131,7 +131,7 @@ public class ModEvents {
 
         entityOnShoulder.letGoEntity();
 
-        ModMessages.sendToAllPlayer(
+        ModMessages.sendToAllPlayers(
                 new PlayerEntityOnShoulderDataSCPacket(
                         player.getStringUUID(),
                         false
@@ -175,7 +175,7 @@ public class ModEvents {
 
                     livingEntity.discard();
 
-                    ModMessages.sendToAllPlayer(
+                    ModMessages.sendToAllPlayers(
                             new PlayerEntityOnShoulderDataSCPacket(
                                     player.getStringUUID(),
                                     true
@@ -195,7 +195,7 @@ public class ModEvents {
         ) {
                 player.getCapability(PlayerEntityOnShoulderProvider.PLAYER_ENTITY_ON_SHOULDER_CAPABILITY).ifPresent(entityOnShoulder -> {
                     if (entityOnShoulder.getEntityType() != null) {
-                        ModMessages.sendToAllPlayer(new PlayerEntityOnShoulderDataSCPacket(
+                        ModMessages.sendToAllPlayers(new PlayerEntityOnShoulderDataSCPacket(
                                 player.getStringUUID(),
                                 true
                         ));
@@ -221,7 +221,7 @@ public class ModEvents {
 
                     entityOnShoulder.letGoEntity();
 
-                    ModMessages.sendToAllPlayer(
+                    ModMessages.sendToAllPlayers(
                             new PlayerEntityOnShoulderDataSCPacket(
                                     player.getStringUUID(),
                                     false

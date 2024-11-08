@@ -3,7 +3,6 @@ package com.max.prettyguardian.item.custom.projectiles;
 
 import com.max.prettyguardian.worldgen.entity.ModEntityType;
 import com.max.prettyguardian.worldgen.entity.projectile.BubbleEntity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 
@@ -16,7 +15,7 @@ public class BubbleItem extends Item {
         this.damage = damage;
     }
 
-    public BubbleEntity createArrow(Level world, LivingEntity shooter, float damage) {
-        return new BubbleEntity(ModEntityType.BUBBLE.get(), shooter, world, damage);
+    public BubbleEntity createArrow(Level world) {
+        return new BubbleEntity(ModEntityType.BUBBLE.get(), world);
     }
 }

@@ -9,9 +9,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Set;
 
 public class ModPoiTypes {
+    private ModPoiTypes() {}
+
     public static final DeferredRegister<PoiType> POI_TYPES =
             DeferredRegister.create(ForgeRegistries.POI_TYPES, PrettyGuardian.MOD_ID);
 

@@ -30,7 +30,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import java.util.List;
 
 public class ModConfiguredFeatures {
-
+    private ModConfiguredFeatures() {}
     public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_PINK_SAPPHIRE_ORE_KEY = registerKey("pink_sapphire_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_RUBY_ORE_KEY = registerKey("ruby_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PISTACHIO_KEY = registerKey("pistachio");
@@ -88,7 +88,7 @@ public class ModConfiguredFeatures {
         SimpleWeightedRandomList.Builder<BlockState> builder = SimpleWeightedRandomList.builder();
         for(int i = 0; i <= 3; ++i) {
             for(Direction direction : Direction.Plane.HORIZONTAL) {
-                builder.add(block.defaultBlockState().setValue(SeaShell.VARIANT, Integer.valueOf(i)).setValue(PinkPetalsBlock.FACING, direction), 1);
+                builder.add(block.defaultBlockState().setValue(SeaShell.VARIANT, i).setValue(PinkPetalsBlock.FACING, direction), 1);
             }
         }
 

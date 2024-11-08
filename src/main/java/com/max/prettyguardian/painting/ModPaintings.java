@@ -8,6 +8,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModPaintings {
+    private ModPaintings() {}
+
     public static final DeferredRegister<PaintingVariant> PAINTING_VARIANTS =
             DeferredRegister.create(ForgeRegistries.PAINTING_VARIANTS, PrettyGuardian.MOD_ID);
 
@@ -36,7 +38,6 @@ public class ModPaintings {
     public static final RegistryObject<PaintingVariant> CHERRY_BIRCH = PAINTING_VARIANTS.register("cherry_birch", () -> new PaintingVariant(32, 32));
     public static final RegistryObject<PaintingVariant> DAY_FLOWERS = PAINTING_VARIANTS.register("day_flowers", () -> new PaintingVariant(48, 32));
     public static final RegistryObject<PaintingVariant> NIGHT_FLOWERS = PAINTING_VARIANTS.register("night_flowers", () -> new PaintingVariant(48, 32));
-
 
     public static void register(IEventBus eventBus) {
         PAINTING_VARIANTS.register(eventBus);

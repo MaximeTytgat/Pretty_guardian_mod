@@ -5,13 +5,22 @@ import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 public class BubbleParticles extends TextureSheetParticle {
     private final SpriteSet sprites;
 
 
-    protected BubbleParticles(ClientLevel level, double xCoord, double yCoord, double zCoord,
-                              SpriteSet spriteSet, double xd, double yd, double zd) {
+    protected BubbleParticles(
+            ClientLevel level,
+            double xCoord,
+            double yCoord,
+            double zCoord,
+            SpriteSet spriteSet,
+            double xd,
+            double yd,
+            double zd
+    ) {
         super(level, xCoord, yCoord, zCoord, xd, yd, zd);
 
         this.friction = 0.8F;
@@ -34,7 +43,6 @@ public class BubbleParticles extends TextureSheetParticle {
     @Override
     public void tick() {
         super.tick();
-//        fadeOut();
         if (this.age++ >= this.lifetime) {
             this.remove();
         } else {
@@ -42,12 +50,8 @@ public class BubbleParticles extends TextureSheetParticle {
         }
     }
 
-    private void fadeOut() {
-        this.alpha = (-(1 / (float) this.lifetime) * this.age + 1F);
-    }
-
     @Override
-    public ParticleRenderType getRenderType() {
+    public @NotNull ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
@@ -59,7 +63,7 @@ public class BubbleParticles extends TextureSheetParticle {
             this.sprites = spriteSet;
         }
 
-        public Particle createParticle(SimpleParticleType particleType, ClientLevel level,
+        public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level,
                                        double x, double y, double z,
                                        double dx, double dy, double dz) {
             return new BubbleParticles(level, x, y, z, this.sprites, dx, dy, dz);

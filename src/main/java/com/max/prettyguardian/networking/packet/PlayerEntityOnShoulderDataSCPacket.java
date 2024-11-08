@@ -2,7 +2,7 @@ package com.max.prettyguardian.networking.packet;
 
 import com.max.prettyguardian.client.ClientPlayerEntityOnShoulderData;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 
 import java.util.function.Supplier;
 
@@ -25,8 +25,7 @@ public class PlayerEntityOnShoulderDataSCPacket {
         buf.writeBoolean(this.isEntityOnShoulder);
     }
 
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = supplier.get();
+    public void handle(CustomPayloadEvent.Context context) {
         context.enqueueWork(() -> {
             // Here we are in the client
             if (isEntityOnShoulder)
@@ -34,6 +33,5 @@ public class PlayerEntityOnShoulderDataSCPacket {
             else
                 ClientPlayerEntityOnShoulderData.letGoEntity(this.playerId);
         });
-        return true;
     }
 }

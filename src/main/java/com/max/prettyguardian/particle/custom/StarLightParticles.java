@@ -5,6 +5,7 @@ import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 public class StarLightParticles extends TextureSheetParticle {
 
@@ -36,7 +37,7 @@ public class StarLightParticles extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
+    public @NotNull ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
@@ -48,7 +49,7 @@ public class StarLightParticles extends TextureSheetParticle {
             this.sprites = spriteSet;
         }
 
-        public Particle createParticle(SimpleParticleType particleType, ClientLevel level,
+        public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level,
                                        double x, double y, double z,
                                        double dx, double dy, double dz) {
             return new StarLightParticles(level, x, y, z, this.sprites, dx, dy, dz);

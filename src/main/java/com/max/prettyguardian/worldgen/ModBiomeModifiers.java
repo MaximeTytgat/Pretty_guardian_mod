@@ -12,9 +12,8 @@ import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.List;
-
 public class ModBiomeModifiers {
+    private ModBiomeModifiers() {}
     public static final ResourceKey<BiomeModifier> ADD_PINK_SAPPHIRE_ORE = registerKey("add_pink_sapphire_ore");
     public static final ResourceKey<BiomeModifier> ADD_RUBY_ORE = registerKey("add_ruby_ore");
     public static final ResourceKey<BiomeModifier> ADD_TREE_PISTACHIO = registerKey("add_tree_pistachio");
