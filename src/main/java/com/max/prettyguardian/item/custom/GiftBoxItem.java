@@ -1,10 +1,8 @@
 package com.max.prettyguardian.item.custom;
 
 import com.max.prettyguardian.client.gui.sreens.inventory.GiftBoxMenu;
+import com.max.prettyguardian.component.ModDataComponentTypes;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
@@ -13,9 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -33,57 +29,51 @@ public class GiftBoxItem extends Item {
             if (interactionHand != InteractionHand.MAIN_HAND) {
                 return InteractionResultHolder.pass(stack);
             }
-            SimpleContainer simpleContainer = new SimpleContainer(1) {
-                @Override
-                public void startOpen(Player player) {
-                    ItemStack giftBox = player.getItemInHand(InteractionHand.MAIN_HAND);
-                    CompoundTag tag = giftBox.getTag();
-                    this.setItem(0, tryToGetContent(tag));
-                }
-
-                @Override
-                public void setChanged() {
-                    trytoSaveContent(player.getItemInHand(InteractionHand.MAIN_HAND), this.getItem(0));
-                }
-            };
-
-            SimpleMenuProvider simpleMenuProvider = new SimpleMenuProvider((id, inv, player1) -> new GiftBoxMenu(id, inv, simpleContainer), stack.getHoverName());
-            NetworkHooks.openScreen(serverPlayer, simpleMenuProvider);
+            SimpleMenuProvider simpleMenuProvider = getSimpleMenuProvider(player, stack);
+            serverPlayer.openMenu(simpleMenuProvider);
 
             return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
         } else {
             return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
         }
     }
-    private ItemStack tryToGetContent(CompoundTag tag) {
-        ItemStack item = ItemStack.EMPTY;
-        if (tag != null && tag.contains("Items")) {
-            Tag itemsTag = tag.get("Items");
-            if (itemsTag instanceof ListTag itemsList) {
-                if (!itemsList.isEmpty()) {
-                    Tag itemTag = itemsList.get(0);
-                    if (itemTag instanceof CompoundTag compoundItemTag) {
-                        item = ItemStack.of(compoundItemTag);
-                    }
-                }
+
+    private @NotNull SimpleMenuProvider getSimpleMenuProvider(@NotNull Player player, ItemStack stack) {
+        SimpleContainer simpleContainer = new SimpleContainer(1) {
+            @Override
+            public void startOpen(@NotNull Player player) {
+                this.setItem(0, tryToGetContent(player));
+            }
+
+            @Override
+            public void setChanged() {
+                tryToSaveContent(player.getItemInHand(InteractionHand.MAIN_HAND), this.getItem(0));
+            }
+        };
+
+        return new SimpleMenuProvider((id, inv, player1) -> new GiftBoxMenu(id, inv, simpleContainer), stack.getHoverName());
+    }
+
+    private ItemStack tryToGetContent(Player player) {
+        ItemStack giftBox = player.getItemInHand(InteractionHand.MAIN_HAND);
+        if (giftBox.has(ModDataComponentTypes.GIFT_BOX_INVENTORY.get())) {
+            ItemStack gift = giftBox.get(ModDataComponentTypes.GIFT_BOX_INVENTORY.get());
+            if (gift != null) {
+                return gift;
             }
         }
-        return item;
+        return ItemStack.EMPTY;
     }
-    private void trytoSaveContent(ItemStack giftBox, ItemStack item) {
-        CompoundTag tag = giftBox.getOrCreateTag();
-        ListTag itemsTag = new ListTag();
-        CompoundTag itemTag = new CompoundTag();
 
-        item.save(itemTag);
-        itemsTag.add(itemTag);
-        tag.put("Items", itemsTag);
-        giftBox.setTag(tag);
+    private void tryToSaveContent(ItemStack giftBox, ItemStack item) {
+        if (item != ItemStack.EMPTY) {
+            giftBox.set(ModDataComponentTypes.GIFT_BOX_INVENTORY.get(), item);
+        }
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        super.appendHoverText(itemStack, level, components, tooltipFlag);
+    public void appendHoverText(@NotNull ItemStack itemStack, @NotNull TooltipContext tooltipContext, @NotNull List<Component> components, @NotNull TooltipFlag tooltipFlag) {
+        super.appendHoverText(itemStack, tooltipContext, components, tooltipFlag);
         components.add(Component.translatable("prettyGuardian.container.giftBox.hoverText", 1).withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 }

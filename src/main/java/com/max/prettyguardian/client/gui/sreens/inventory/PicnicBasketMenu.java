@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
 import org.jetbrains.annotations.NotNull;
 
 public class PicnicBasketMenu extends AbstractContainerMenu {
@@ -32,6 +33,8 @@ public class PicnicBasketMenu extends AbstractContainerMenu {
         this.addSlot(new ShulkerBoxSlot(data, 2, 71, 73));
         this.addSlot(new ShulkerBoxSlot(data, 3, 89, 73));
     }
+
+    ShulkerBoxBlock
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
     // must assign a slot number to each of the slots used by the GUI.

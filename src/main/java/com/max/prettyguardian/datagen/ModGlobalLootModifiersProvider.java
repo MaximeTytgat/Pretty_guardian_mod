@@ -22,11 +22,11 @@ public class ModGlobalLootModifiersProvider extends GlobalLootModifierProvider {
     protected void start() {
         add("raw_squid_from_squid", new AddItemModifier(new LootItemCondition[] {
                 new LootTableIdCondition.Builder(new ResourceLocation("entities/squid")).build()
-        }, PrettyGuardianItem.RAW_SQUID.get()));
+        }, PrettyGuardianItem.RAW_SQUID.get(), 1));
 
         add("ruby_template_upgrade_from_ancient_city", new AddItemModifier(new LootItemCondition[] {
                 new LootTableIdCondition.Builder(new ResourceLocation("chests/ancient_city")).build(),
                 LootItemRandomChanceCondition.randomChance(0.6f).build()
-        }, PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()));
+        }, PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get(), 1));
     }
 }

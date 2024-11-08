@@ -5,7 +5,7 @@ import com.max.prettyguardian.client.gui.components.CustomFittingMultiLineTextWi
 import com.max.prettyguardian.client.gui.components.CustomMultiLineEditBox;
 import com.max.prettyguardian.client.gui.components.CustomStringWidget;
 import com.max.prettyguardian.client.gui.sreens.inventory.FakeLoveLetterMenu;
-import com.max.prettyguardian.data.ModDataComponents;
+import com.max.prettyguardian.component.ModDataComponentTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -64,9 +64,9 @@ public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMe
         this.output.setMessage(Component.translatable("screen.prettyGuardian.love_letter.placeholder").withStyle(Style.EMPTY.withColor(11828699)));
 
 
-        if (this.stack.has(ModDataComponents.LOVE_LETTER_TEXT) || this.stack.has(ModDataComponents.LOVE_LETTER_AUTHOR)) {
-            String text = this.stack.get(ModDataComponents.LOVE_LETTER_TEXT);
-            String author = this.stack.get(ModDataComponents.LOVE_LETTER_AUTHOR);
+        if (this.stack.has(ModDataComponentTypes.LOVE_LETTER_TEXT.get()) || this.stack.has(ModDataComponentTypes.LOVE_LETTER_AUTHOR.get())) {
+            String text = this.stack.get(ModDataComponentTypes.LOVE_LETTER_TEXT.get());
+            String author = this.stack.get(ModDataComponentTypes.LOVE_LETTER_AUTHOR.get());
             if (text != null && author != null) {
                 CustomFittingMultiLineTextWidget writtenOutput = new CustomFittingMultiLineTextWidget(
                         bookX + 30, bookY + 18, 105, 115,
@@ -156,7 +156,7 @@ public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMe
     @Override
     public void onClose() {
         String text = this.output.getValue();
-        this.stack.set(ModDataComponents.LOVE_LETTER_TEXT, text);
+        this.stack.set(ModDataComponentTypes.LOVE_LETTER_TEXT.get(), text);
         super.onClose();
     }
 
@@ -165,8 +165,8 @@ public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMe
         String playerName = Minecraft.getInstance().player.getName().getString();
 
         if (Objects.equals(action, "sign")) {
-            this.stack.set(ModDataComponents.LOVE_LETTER_TEXT, this.output.getValue());
-            this.stack.set(ModDataComponents.LOVE_LETTER_AUTHOR, playerName);
+            this.stack.set(ModDataComponentTypes.LOVE_LETTER_TEXT.get(), this.output.getValue());
+            this.stack.set(ModDataComponentTypes.LOVE_LETTER_AUTHOR.get(), playerName);
         }
 
         super.onClose();

@@ -1,7 +1,7 @@
 package com.max.prettyguardian.item.custom;
 
 import com.max.prettyguardian.client.gui.sreens.inventory.FakeLoveLetterMenu;
-import com.max.prettyguardian.data.ModDataComponents;
+import com.max.prettyguardian.component.ModDataComponentTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
@@ -28,6 +28,6 @@ public class LoveLetterItem extends Item {
 
     @Override
     public boolean isFoil(ItemStack itemStack) {
-        return itemStack.has(ModDataComponents.LOVE_LETTER_AUTHOR);
+        return itemStack.has(ModDataComponentTypes.LOVE_LETTER_AUTHOR.get());
     }
 }
