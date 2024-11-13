@@ -18,7 +18,7 @@
     "C  "
   ],
   "result": {
-    "item": "prettyguardian:candy_apple"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:candy_apple"
+  }
 }

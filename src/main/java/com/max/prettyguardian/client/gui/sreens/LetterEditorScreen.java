@@ -10,6 +10,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -57,11 +58,11 @@ public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMe
 
         this.output = new CustomMultiLineEditBox(
                 this.font, bookX + 30, bookY + 18, 105, 115,
-                Component.translatable("screen.prettyGuardian.love_letter.placeholder").withStyle(Style.EMPTY.withColor(11828699)),
+                Component.translatable("screen.prettyguardian.love_letter.placeholder").withStyle(Style.EMPTY.withColor(11828699)),
                 Component.empty()
         );
 
-        this.output.setMessage(Component.translatable("screen.prettyGuardian.love_letter.placeholder").withStyle(Style.EMPTY.withColor(11828699)));
+        this.output.setMessage(Component.translatable("screen.prettyguardian.love_letter.placeholder").withStyle(Style.EMPTY.withColor(11828699)));
 
 
         if (this.stack.has(ModDataComponentTypes.LOVE_LETTER_TEXT.get()) || this.stack.has(ModDataComponentTypes.LOVE_LETTER_AUTHOR.get())) {
@@ -75,7 +76,7 @@ public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMe
                 );
 
                 this.addRenderableWidget(new CustomStringWidget(bookX + 22, 160, 100, 20,
-                        Component.translatable("screen.prettyGuardian.love_letter.send_by").withStyle(Style.EMPTY.withColor(10455011).applyFormats(ChatFormatting.BOLD))
+                        Component.translatable("screen.prettyguardian.love_letter.send_by").withStyle(Style.EMPTY.withColor(10455011).applyFormats(ChatFormatting.BOLD))
                                 .append(" ")
                                 .append(author),
                         this.font));
@@ -103,9 +104,9 @@ public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMe
 
     @Override
     public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTicks);
         int bookX = (this.width - 170) / 2;
         int bookY = 20;
+        graphics.fillGradient(0, 0, this.width, this.height, -1072689136, -804253680);
         graphics.blit(LOVE_LETTER_LOCATION, bookX, bookY, 0, 0, 192, 192);
 
         int maxLines = Math.min(128 / 9, this.cachedPageComponents.size());
@@ -120,8 +121,11 @@ public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMe
             graphics.renderComponentHoverEffect(this.font, hoveredComponentStyle, mouseX, mouseY);
         }
 
-        super.render(graphics, mouseX, mouseY, partialTicks);
         graphics.blit(LOVE_LETTER_LAYER_LOCATIION, bookX, bookY, 0, 0, 192, 192);
+
+        for (Renderable renderable : this.renderables) {
+            renderable.render(graphics, mouseX, mouseY, partialTicks);
+        }
     }
 
     @Override
@@ -156,7 +160,9 @@ public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMe
     @Override
     public void onClose() {
         String text = this.output.getValue();
-        this.stack.set(ModDataComponentTypes.LOVE_LETTER_TEXT.get(), text);
+        if (!this.stack.has(ModDataComponentTypes.LOVE_LETTER_AUTHOR.get())) {
+            this.stack.set(ModDataComponentTypes.LOVE_LETTER_TEXT.get(), text);
+        }
         super.onClose();
     }
 

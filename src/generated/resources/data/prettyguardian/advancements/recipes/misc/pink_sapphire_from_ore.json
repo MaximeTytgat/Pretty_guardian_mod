@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:pink_sapphire_ore"
-            ]
+            "items": "prettyguardian:pink_sapphire_ore"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_pink_sapphire_ore",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_pink_sapphire_ore"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:pink_sapphire_from_ore"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -19,7 +19,6 @@
   ],
   "result": {
     "count": 4,
-    "item": "prettyguardian:strawberry_pocky"
-  },
-  "show_notification": true
+    "id": "prettyguardian:strawberry_pocky"
+  }
 }

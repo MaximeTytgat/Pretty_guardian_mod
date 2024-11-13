@@ -15,7 +15,7 @@
     " A "
   ],
   "result": {
-    "item": "prettyguardian:chocolate_milk_bucket"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:chocolate_milk_bucket"
+  }
 }

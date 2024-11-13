@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:chocolate"
-            ]
+            "items": "prettyguardian:chocolate"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_chocolate",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_chocolate"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:chocolate_block_from_chocolate_item"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

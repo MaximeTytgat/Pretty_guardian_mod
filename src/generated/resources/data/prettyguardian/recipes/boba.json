@@ -7,5 +7,7 @@
   "ingredient": {
     "item": "prettyguardian:raw_boba"
   },
-  "result": "prettyguardian:boba"
+  "result": {
+    "id": "prettyguardian:boba"
+  }
 }

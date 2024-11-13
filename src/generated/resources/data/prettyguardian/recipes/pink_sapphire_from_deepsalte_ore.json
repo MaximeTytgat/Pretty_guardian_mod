@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "prettyguardian:deepslate_pink_sapphire_ore"
   },
-  "result": "prettyguardian:pink_sapphire"
+  "result": {
+    "id": "prettyguardian:pink_sapphire"
+  }
 }

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:pink_sapphire_block"
-            ]
+            "items": "prettyguardian:pink_sapphire_block"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_pink_sapphire_block",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_pink_sapphire_block"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:pink_sapphire_item_from_pink_sapphire_block"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

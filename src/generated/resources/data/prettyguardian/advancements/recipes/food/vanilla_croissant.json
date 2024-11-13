@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:vanilla"
-            ]
+            "items": "prettyguardian:vanilla"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_vanilla",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_vanilla"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:vanilla_croissant"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

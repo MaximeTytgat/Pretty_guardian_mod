@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:blaze_rod"
-            ]
+            "items": "minecraft:blaze_rod"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:fairy_dust"
-            ]
+            "items": "prettyguardian:fairy_dust"
           }
         ]
       },
@@ -29,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:pink_sapphire"
-            ]
+            "items": "prettyguardian:pink_sapphire"
           }
         ]
       },
@@ -46,16 +40,15 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_pink_sapphire",
       "has_blaze_rod",
-      "has_fairy_dust",
-      "has_the_recipe"
+      "has_fairy_dust"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:moon_stick_pearl"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

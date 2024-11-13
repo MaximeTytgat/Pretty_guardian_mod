@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:cocoa_beans"
-            ]
+            "items": "minecraft:cocoa_beans"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_cocoa_beans",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_cocoa_beans"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:chocolate"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

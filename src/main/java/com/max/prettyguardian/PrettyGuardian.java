@@ -3,6 +3,7 @@ package com.max.prettyguardian;
 import com.max.prettyguardian.blocks.PrettyGuardianBlock;
 import com.max.prettyguardian.blocks.entity.ModBlockEntities;
 import com.max.prettyguardian.client.gui.sreens.*;
+import com.max.prettyguardian.component.ModDataComponentTypes;
 import com.max.prettyguardian.effect.ModEffects;
 import com.max.prettyguardian.enchantment.ModEnchantments;
 import com.max.prettyguardian.entity.ModEntities;
@@ -48,6 +49,8 @@ public class PrettyGuardian
     public PrettyGuardian()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        ModDataComponentTypes.register(modEventBus);
 
         PrettyGuardianBlock.register(modEventBus);
         PrettyGuardianItem.register(modEventBus);

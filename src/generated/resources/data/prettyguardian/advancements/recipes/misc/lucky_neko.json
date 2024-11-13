@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:gold_block"
-            ]
+            "items": "minecraft:gold_block"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:gold_ingot"
-            ]
+            "items": "minecraft:gold_ingot"
           }
         ]
       },
@@ -29,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:red_dye"
-            ]
+            "items": "minecraft:red_dye"
           }
         ]
       },
@@ -41,9 +35,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:string"
-            ]
+            "items": "minecraft:string"
           }
         ]
       },
@@ -58,17 +50,16 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_gold_ingot",
       "has_string",
       "has_red_dye",
-      "has_gold_block",
-      "has_the_recipe"
+      "has_gold_block"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:lucky_neko"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

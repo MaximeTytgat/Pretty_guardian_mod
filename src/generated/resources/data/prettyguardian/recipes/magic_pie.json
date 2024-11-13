@@ -24,7 +24,7 @@
     "FFF"
   ],
   "result": {
-    "item": "prettyguardian:magic_pie"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:magic_pie"
+  }
 }

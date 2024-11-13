@@ -20,7 +20,7 @@
     "DDD"
   ],
   "result": {
-    "item": "prettyguardian:chocolate_pie"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:chocolate_pie"
+  }
 }

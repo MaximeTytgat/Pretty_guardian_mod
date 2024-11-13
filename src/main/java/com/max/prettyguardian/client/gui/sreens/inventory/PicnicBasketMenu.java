@@ -1,6 +1,7 @@
 package com.max.prettyguardian.client.gui.sreens.inventory;
 
 import com.max.prettyguardian.PrettyGuardian;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -33,8 +34,6 @@ public class PicnicBasketMenu extends AbstractContainerMenu {
         this.addSlot(new ShulkerBoxSlot(data, 2, 71, 73));
         this.addSlot(new ShulkerBoxSlot(data, 3, 89, 73));
     }
-
-    ShulkerBoxBlock
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
     // must assign a slot number to each of the slots used by the GUI.

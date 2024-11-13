@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:ruby"
-            ]
+            "items": "prettyguardian:ruby"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_ruby",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_ruby"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:ruby_chestplate"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

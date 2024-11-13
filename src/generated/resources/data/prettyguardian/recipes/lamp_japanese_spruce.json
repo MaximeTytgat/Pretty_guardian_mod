@@ -21,7 +21,7 @@
     "D D"
   ],
   "result": {
-    "item": "prettyguardian:lamp_japanese_spruce"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:lamp_japanese_spruce"
+  }
 }

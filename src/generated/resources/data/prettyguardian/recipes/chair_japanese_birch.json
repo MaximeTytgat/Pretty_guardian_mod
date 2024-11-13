@@ -18,7 +18,7 @@
     "C C"
   ],
   "result": {
-    "item": "prettyguardian:chair_japanese_birch"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:chair_japanese_birch"
+  }
 }

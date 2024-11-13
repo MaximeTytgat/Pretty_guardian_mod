@@ -25,7 +25,6 @@
   ],
   "result": {
     "count": 3,
-    "item": "prettyguardian:strawberry_croissant"
-  },
-  "show_notification": true
+    "id": "prettyguardian:strawberry_croissant"
+  }
 }

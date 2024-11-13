@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:pink_wool"
-            ]
+            "items": "minecraft:pink_wool"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:stick"
-            ]
+            "items": "minecraft:stick"
           }
         ]
       },
@@ -29,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:string"
-            ]
+            "items": "minecraft:string"
           }
         ]
       },
@@ -47,9 +41,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:white_wool"
-            ]
+            "items": "minecraft:white_wool"
           }
         ]
       },
@@ -58,17 +50,16 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_stick",
       "has_pink_wool",
       "has_white_wool",
-      "has_string",
-      "has_the_recipe"
+      "has_string"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:random_plush_box"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

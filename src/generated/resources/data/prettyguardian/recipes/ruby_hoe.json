@@ -15,7 +15,7 @@
     " B "
   ],
   "result": {
-    "item": "prettyguardian:ruby_hoe"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:ruby_hoe"
+  }
 }

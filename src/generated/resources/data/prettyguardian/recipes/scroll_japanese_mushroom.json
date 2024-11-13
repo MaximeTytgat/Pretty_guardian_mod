@@ -21,7 +21,7 @@
     "DDD"
   ],
   "result": {
-    "item": "prettyguardian:scroll_japanese_mushroom"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:scroll_japanese_mushroom"
+  }
 }

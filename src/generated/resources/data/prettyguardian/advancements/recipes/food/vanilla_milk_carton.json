@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:vanilla_milk_bucket"
-            ]
+            "items": "prettyguardian:vanilla_milk_bucket"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_vanilla_milk_bucket",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_vanilla_milk_bucket"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:vanilla_milk_carton"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

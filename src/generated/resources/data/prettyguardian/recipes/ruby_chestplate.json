@@ -12,7 +12,7 @@
     "AAA"
   ],
   "result": {
-    "item": "prettyguardian:ruby_chestplate"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:ruby_chestplate"
+  }
 }

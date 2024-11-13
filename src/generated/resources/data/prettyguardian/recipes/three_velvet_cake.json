@@ -12,7 +12,7 @@
     "A"
   ],
   "result": {
-    "item": "prettyguardian:three_velvet_cake"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:three_velvet_cake"
+  }
 }

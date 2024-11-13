@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:strawberry"
-            ]
+            "items": "prettyguardian:strawberry"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_strawberry",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_strawberry"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:strawberry_seeds"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

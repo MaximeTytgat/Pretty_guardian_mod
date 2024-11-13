@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:pink_sapphire_boots"
-            ]
+            "items": "prettyguardian:pink_sapphire_boots"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:ruby"
-            ]
+            "items": "prettyguardian:ruby"
           }
         ]
       },
@@ -29,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:ruby_template_upgrade"
-            ]
+            "items": "prettyguardian:ruby_template_upgrade"
           }
         ]
       },
@@ -46,16 +40,15 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_ruby_template_upgrade",
       "has_pink_sapphire_boots",
-      "has_ruby",
-      "has_the_recipe"
+      "has_ruby"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:ruby_boots_from_pink_sapphire_boots"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -6,6 +6,7 @@ import com.max.prettyguardian.item.PrettyGuardianItem;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.armortrim.TrimMaterial;
@@ -197,7 +198,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         simpleBlockItemBlockTexture();
 
-        String templatePath = "trims/items/template_trim";
+        String templatePath = "item/template_spawn_egg";
 
         withExistingParent(PrettyGuardianItem.STRAWBERRY_COW_EGG.getId().getPath(),
                 mcLoc(templatePath));
@@ -238,8 +239,10 @@ public class ModItemModelProvider extends ItemModelProvider {
                 String trimPath = "trims/items/" + armorType + "_trim_" + trimMaterial.location().getPath();
                 String currentTrimName = armorItemPath + "_" + trimMaterial.location().getPath() + "_trim";
                 ResourceLocation armorItemResLoc = new ResourceLocation(MOD_ID, armorItemPath);
-                ResourceLocation trimResLoc = new ResourceLocation(trimPath);
+                ResourceLocation trimResLoc = new ResourceLocation(MOD_ID, trimPath);
                 ResourceLocation trimNameResLoc = new ResourceLocation(MOD_ID, currentTrimName);
+
+                existingFileHelper.trackGenerated(trimResLoc, PackType.CLIENT_RESOURCES, ".png", "textures");
 
                 getBuilder(currentTrimName)
                         .parent(new ModelFile.UncheckedModelFile(ITEM_GENERATED))

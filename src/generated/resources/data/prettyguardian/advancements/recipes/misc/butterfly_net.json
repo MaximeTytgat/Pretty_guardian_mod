@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:stick"
-            ]
+            "items": "minecraft:stick"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:string"
-            ]
+            "items": "minecraft:string"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_stick",
-      "has_string",
-      "has_the_recipe"
+      "has_string"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:butterfly_net"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

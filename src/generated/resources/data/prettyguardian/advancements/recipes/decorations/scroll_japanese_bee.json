@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:honeycomb"
-            ]
+            "items": "minecraft:honeycomb"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:paper"
-            ]
+            "items": "minecraft:paper"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_honeycomb",
-      "has_paper",
-      "has_the_recipe"
+      "has_paper"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:scroll_japanese_bee"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:paper"
-            ]
+            "items": "minecraft:paper"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:pink_dye"
-            ]
+            "items": "minecraft:pink_dye"
           }
         ]
       },
@@ -29,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:string"
-            ]
+            "items": "minecraft:string"
           }
         ]
       },
@@ -46,16 +40,15 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_paper",
       "has_string",
-      "has_pink_dye",
-      "has_the_recipe"
+      "has_pink_dye"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:gift_box"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

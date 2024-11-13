@@ -15,7 +15,7 @@
     "AAA"
   ],
   "result": {
-    "item": "prettyguardian:screen_japanese_cherry_log"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:screen_japanese_cherry_log"
+  }
 }

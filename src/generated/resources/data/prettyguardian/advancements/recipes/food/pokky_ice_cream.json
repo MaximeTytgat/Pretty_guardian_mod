@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:chocolate_pocky"
-            ]
+            "items": "prettyguardian:chocolate_pocky"
           }
         ]
       },
@@ -23,9 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:vanilla_ice_cream"
-            ]
+            "items": "prettyguardian:vanilla_ice_cream"
           }
         ]
       },
@@ -35,9 +31,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:waffle"
-            ]
+            "items": "prettyguardian:waffle"
           }
         ]
       },
@@ -46,16 +40,15 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_vanilla_ice_cream",
       "has_chocolate_pocky",
-      "has_waffle",
-      "has_the_recipe"
+      "has_waffle"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:pokky_ice_cream"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

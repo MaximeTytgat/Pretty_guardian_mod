@@ -7,5 +7,7 @@
   "ingredient": {
     "item": "prettyguardian:marshmello_block"
   },
-  "result": "prettyguardian:roasted_marshmello_block"
+  "result": {
+    "id": "prettyguardian:roasted_marshmello_block"
+  }
 }

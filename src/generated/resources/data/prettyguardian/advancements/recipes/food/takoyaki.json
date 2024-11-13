@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:egg"
-            ]
+            "items": "minecraft:egg"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:kelp"
-            ]
+            "items": "minecraft:kelp"
           }
         ]
       },
@@ -29,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:squid_cooked"
-            ]
+            "items": "prettyguardian:squid_cooked"
           }
         ]
       },
@@ -47,9 +41,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:wheat"
-            ]
+            "items": "minecraft:wheat"
           }
         ]
       },
@@ -58,17 +50,16 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_kelp",
       "has_egg",
       "has_squid_cooked",
-      "has_wheat",
-      "has_the_recipe"
+      "has_wheat"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:takoyaki"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:bow"
-            ]
+            "items": "minecraft:bow"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:fairy_dust"
-            ]
+            "items": "prettyguardian:fairy_dust"
           }
         ]
       },
@@ -29,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:feather"
-            ]
+            "items": "minecraft:feather"
           }
         ]
       },
@@ -41,9 +35,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:pink_sapphire"
-            ]
+            "items": "prettyguardian:pink_sapphire"
           }
         ]
       },
@@ -58,17 +50,16 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_pink_sapphire",
       "has_feather",
       "has_bow",
-      "has_fairy_dust",
-      "has_the_recipe"
+      "has_fairy_dust"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:cupidon_bow"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

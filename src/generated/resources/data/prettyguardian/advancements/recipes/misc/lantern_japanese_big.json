@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:lantern_japanese"
-            ]
+            "items": "prettyguardian:lantern_japanese"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_lantern_japanese",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_lantern_japanese"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:lantern_japanese_big"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

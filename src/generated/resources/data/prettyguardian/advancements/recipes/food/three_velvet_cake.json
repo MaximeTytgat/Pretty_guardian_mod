@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:velvet_cake"
-            ]
+            "items": "prettyguardian:velvet_cake"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_velvet_cake",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_velvet_cake"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:three_velvet_cake"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

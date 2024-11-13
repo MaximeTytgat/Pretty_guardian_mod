@@ -13,7 +13,6 @@
   ],
   "result": {
     "count": 6,
-    "item": "prettyguardian:juice_glass"
-  },
-  "show_notification": true
+    "id": "prettyguardian:juice_glass"
+  }
 }

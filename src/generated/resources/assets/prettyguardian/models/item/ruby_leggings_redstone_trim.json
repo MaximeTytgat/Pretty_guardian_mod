@@ -2,6 +2,6 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "prettyguardian:item/ruby_leggings",
-    "layer1": "minecraft:trims/items/leggings_trim_redstone"
+    "layer1": "prettyguardian:trims/items/leggings_trim_redstone"
   }
 }

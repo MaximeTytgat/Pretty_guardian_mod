@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:boba"
-            ]
+            "items": "prettyguardian:boba"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:juice_glass"
-            ]
+            "items": "prettyguardian:juice_glass"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_juice_glass",
-      "has_boba",
-      "has_the_recipe"
+      "has_boba"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:bubbletea_strawberry"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

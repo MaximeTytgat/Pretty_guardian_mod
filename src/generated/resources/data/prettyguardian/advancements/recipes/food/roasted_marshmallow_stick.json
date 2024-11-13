@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:marshmallow_stick"
-            ]
+            "items": "prettyguardian:marshmallow_stick"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_marshmallow_stick",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_marshmallow_stick"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:roasted_marshmallow_stick"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

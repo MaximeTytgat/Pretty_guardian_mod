@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:cherry_log"
-            ]
+            "items": "minecraft:cherry_log"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:cherry_wood"
-            ]
+            "items": "minecraft:cherry_wood"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_cherry_log",
-      "has_cherry_wood",
-      "has_the_recipe"
+      "has_cherry_wood"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:table_japanese_cherry_log"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

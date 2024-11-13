@@ -15,7 +15,7 @@
     "AAA"
   ],
   "result": {
-    "item": "prettyguardian:picnic_basket"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:picnic_basket"
+  }
 }

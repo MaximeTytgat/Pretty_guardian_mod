@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:spruce_slab"
-            ]
+            "items": "minecraft:spruce_slab"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:stripped_spruce_log"
-            ]
+            "items": "minecraft:stripped_spruce_log"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_stripped_spruce_log",
-      "has_spruce_slab",
-      "has_the_recipe"
+      "has_spruce_slab"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:chair_japanese_spruce"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

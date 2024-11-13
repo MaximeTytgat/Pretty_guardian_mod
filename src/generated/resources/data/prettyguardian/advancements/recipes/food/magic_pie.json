@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:fairy_dust"
-            ]
+            "items": "prettyguardian:fairy_dust"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_fairy_dust",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_fairy_dust"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:magic_pie"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

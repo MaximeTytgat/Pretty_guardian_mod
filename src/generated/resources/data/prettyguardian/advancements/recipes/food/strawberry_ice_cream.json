@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:ice_cream_cup"
-            ]
+            "items": "prettyguardian:ice_cream_cup"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_ice_cream_cup",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_ice_cream_cup"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:strawberry_ice_cream"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

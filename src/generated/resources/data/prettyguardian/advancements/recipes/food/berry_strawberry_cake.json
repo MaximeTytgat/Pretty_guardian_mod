@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:strawberry"
-            ]
+            "items": "prettyguardian:strawberry"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:sweet_berries"
-            ]
+            "items": "minecraft:sweet_berries"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_strawberry",
-      "has_sweet_berries",
-      "has_the_recipe"
+      "has_sweet_berries"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:berry_strawberry_cake"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

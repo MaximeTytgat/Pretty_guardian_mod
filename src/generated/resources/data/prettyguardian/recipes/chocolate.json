@@ -15,7 +15,7 @@
     "AB"
   ],
   "result": {
-    "item": "prettyguardian:chocolate"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:chocolate"
+  }
 }

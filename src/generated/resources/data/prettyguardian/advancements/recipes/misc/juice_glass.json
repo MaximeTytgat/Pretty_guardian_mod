@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:glass_pane"
-            ]
+            "items": "minecraft:glass_pane"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_glass_pane",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_glass_pane"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:juice_glass"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

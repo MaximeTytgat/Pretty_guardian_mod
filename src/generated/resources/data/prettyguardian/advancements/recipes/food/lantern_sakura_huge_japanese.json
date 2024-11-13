@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:lantern_japanese_sakura"
-            ]
+            "items": "prettyguardian:lantern_japanese_sakura"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_lantern_japanese_sakura",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_lantern_japanese_sakura"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:lantern_sakura_huge_japanese"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

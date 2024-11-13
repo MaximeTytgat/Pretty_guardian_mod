@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:chocolate"
-            ]
+            "items": "prettyguardian:chocolate"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:snowball"
-            ]
+            "items": "minecraft:snowball"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_snowball",
-      "has_chocolate",
-      "has_the_recipe"
+      "has_chocolate"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:chocolate_popsicle"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -7,7 +7,8 @@
     "item": "prettyguardian:pink_sapphire_axe"
   },
   "result": {
-    "item": "prettyguardian:ruby_axe"
+    "count": 1,
+    "id": "prettyguardian:ruby_axe"
   },
   "template": {
     "item": "prettyguardian:ruby_template_upgrade"

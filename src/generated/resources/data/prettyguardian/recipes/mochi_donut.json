@@ -18,7 +18,7 @@
     "ABA"
   ],
   "result": {
-    "item": "prettyguardian:mochi_donut"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:mochi_donut"
+  }
 }

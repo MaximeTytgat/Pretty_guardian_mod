@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:egg"
-            ]
+            "items": "minecraft:egg"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:sugar"
-            ]
+            "items": "minecraft:sugar"
           }
         ]
       },
@@ -35,9 +31,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:wheat"
-            ]
+            "items": "minecraft:wheat"
           }
         ]
       },
@@ -46,16 +40,15 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_sugar",
       "has_wheat",
-      "has_egg",
-      "has_the_recipe"
+      "has_egg"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:donut"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

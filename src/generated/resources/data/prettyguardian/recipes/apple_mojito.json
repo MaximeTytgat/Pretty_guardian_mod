@@ -27,7 +27,7 @@
     " F "
   ],
   "result": {
-    "item": "prettyguardian:apple_mojito"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:apple_mojito"
+  }
 }

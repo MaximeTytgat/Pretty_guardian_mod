@@ -1,9 +1,9 @@
 package com.max.prettyguardian.blocks.custom.crop;
 
-import net.mehvahdjukaar.moonlight.core.fake_player.FakeGenericPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -165,7 +165,7 @@ public class CropLeavesBlock extends LeavesBlock implements BonemealableBlock {
         if (blockState.getValue(AGE) == 3 && level.setBlockAndUpdate(blockPos, blockState.setValue(AGE, 1))) {
             if (!level.isClientSide) {
                 ItemStack fruitItem = new ItemStack(this.fruit.get());
-                if (player instanceof FakeGenericPlayer) {
+                if (player instanceof ServerPlayer) {
                     popResourceFromFace(level, blockPos, blockHitResult.getDirection(), fruitItem);
                 } else {
                     ItemHandlerHelper.giveItemToPlayer(player, fruitItem);

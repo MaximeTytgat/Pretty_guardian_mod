@@ -73,12 +73,12 @@ public class MoonAltarBlockEntity extends RandomizableContainerBlockEntity imple
 
     @Override
     public @NotNull Component getDisplayName() {
-        return Component.translatable("block.prettyGuardian.moon_altar");
+        return Component.translatable("block.prettyguardian.moon_altar");
     }
 
     @Override
     protected @NotNull Component getDefaultName() {
-        return Component.translatable("block.prettyGuardian.moon_altar");
+        return Component.translatable("block.prettyguardian.moon_altar");
     }
 
     @Override

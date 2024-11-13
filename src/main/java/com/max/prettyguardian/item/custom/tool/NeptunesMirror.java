@@ -4,12 +4,10 @@ import com.max.prettyguardian.item.PrettyGuardianItem;
 import com.max.prettyguardian.item.custom.projectiles.BubbleItem;
 import com.max.prettyguardian.worldgen.entity.projectile.BubbleEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.mehvahdjukaar.moonlight.api.item.IFirstPersonAnimationProvider;
-import net.mehvahdjukaar.moonlight.api.item.IThirdPersonAnimationProvider;
-import net.mehvahdjukaar.moonlight.api.util.math.MthUtils;
 import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -19,11 +17,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
+import java.util.function.Consumer;
 
-public class NeptunesMirror extends Item implements IThirdPersonAnimationProvider, IFirstPersonAnimationProvider {
+public class NeptunesMirror extends Item {
 
     public static final Random RANDOM = new Random();
 
@@ -103,53 +103,63 @@ public class NeptunesMirror extends Item implements IThirdPersonAnimationProvide
     }
 
     @Override
-    public void animateItemFirstPerson(Player entity, ItemStack stack, InteractionHand hand, HumanoidArm arm, PoseStack matrixStack, float partialTicks, float pitch, float attackAnim, float handHeight) {
-        if (entity.isUsingItem() && entity.getUseItemRemainingTicks() > 0 && entity.getUsedItemHand() == hand) {
-            float timeLeft = stack.getUseDuration() - (entity.getUseItemRemainingTicks() - partialTicks + 1.0F);
-            float f12 = 1;
-
-            float f15 = Mth.sin((timeLeft - 0.1F) * 1.3F);
-            float f18 = f12 - 0.1F;
-            float f20 = f15 * f18;
-            matrixStack.translate(0, f20 * 0.004F, 0);
-
-            matrixStack.translate(0, 0, f12 * 0.04F);
-            matrixStack.scale(1.0F, 1.0F, 1.0F + f12 * 0.2F);
-        }
-    }
-
-    @Override
     public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
         return UseAnim.NONE;
     }
 
     @Override
-    public <T extends LivingEntity> boolean poseLeftArm(ItemStack stack, HumanoidModel<T> model, T entity, HumanoidArm mainHand) {
-        if (entity.getUseItemRemainingTicks() > 0 && entity.getUseItem().getItem() == this) {
-            this.animateHands(model, entity, true);
-            return true;
-        }
-        return false;
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+
+            private static final HumanoidModel.ArmPose EXAMPLE_POSE = HumanoidModel.ArmPose.create("EXAMPLE", false, (model, entity, arm) -> {
+                NeptunesMirror.animateHands(model, entity, arm == HumanoidArm.LEFT);
+            });
+
+            @Override
+            public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
+                if (!itemStack.isEmpty()) {
+                    if (entityLiving.getUsedItemHand() == hand && entityLiving.getUseItemRemainingTicks() > 0) {
+                        return EXAMPLE_POSE;
+                    }
+                }
+                return HumanoidModel.ArmPose.EMPTY;
+            }
+
+            @Override
+            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+                int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+
+                poseStack.translate(i * 0.56F, -0.52F, -0.72F);
+
+                if (player.isUsingItem() && player.getUseItemRemainingTicks() > 0 && player.getUseItem() == itemInHand) {
+                    float timeLeft = itemInHand.getUseDuration() - (player.getUseItemRemainingTicks() - partialTick + 1.0F);
+                    float f12 = 1;
+
+                    float f15 = Mth.sin((timeLeft - 0.1F) * 1.3F);
+                    float f18 = f12 - 0.1F;
+                    float f20 = f15 * f18;
+                    poseStack.translate(0, f20 * 0.004F, 0);
+
+                    poseStack.translate(0, 0, f12 * 0.04F);
+                    poseStack.scale(1.0F, 1.0F, 1.0F + f12 * 0.2F);
+                }
+
+                return true;
+            }
+        });
+
+        super.initializeClient(consumer);
     }
 
-    @Override
-    public <T extends LivingEntity> boolean poseRightArm(ItemStack stack, HumanoidModel<T> model, T entity, HumanoidArm mainHand) {
-        if (entity.getUseItemRemainingTicks() > 0 && entity.getUseItem().getItem() == this) {
-            this.animateHands(model, entity, false);
-            return true;
-        }
-        return false;
-    }
-
-    public <T extends LivingEntity> void animateHands(HumanoidModel<T> model, T entity, boolean leftHand) {
+    private static void animateHands(HumanoidModel<?> model, LivingEntity entity, boolean leftHand) {
 
         ModelPart mainHand = leftHand ? model.leftArm : model.rightArm;
         int dir = (leftHand ? -1 : 1);
 
         float cr = (entity.isCrouching() ? 0.3F : 0.0F);
 
-        float headXRot = MthUtils.wrapRad(model.head.xRot);
-        float headYRot = MthUtils.wrapRad(model.head.yRot);
+        float headXRot = wrapRad(model.head.xRot);
+        float headYRot = wrapRad(model.head.yRot);
 
         float pitch = Mth.clamp(headXRot, -1.6f, 0.8f) + 0.55f - cr;
         mainHand.xRot = (float) (pitch - Math.PI / 2f) - dir * 0.3f * headYRot;
@@ -159,5 +169,19 @@ public class NeptunesMirror extends Item implements IThirdPersonAnimationProvide
         mainHand.zRot = -yaw * Mth.sin(pitch + cr);
 
         AnimationUtils.bobModelPart(mainHand, entity.tickCount, -dir);
+    }
+
+    private static float wrapRad(float pValue) {
+        float p = 6.2831855F;
+        float d0 = pValue % p;
+        if (d0 >= Math.PI) {
+            d0 -= p;
+        }
+
+        if (d0 < -3.141592653589793) {
+            d0 += p;
+        }
+
+        return d0;
     }
 }

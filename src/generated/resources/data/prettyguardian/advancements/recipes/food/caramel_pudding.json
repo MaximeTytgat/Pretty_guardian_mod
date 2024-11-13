@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:caramel"
-            ]
+            "items": "prettyguardian:caramel"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_caramel",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_caramel"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:caramel_pudding"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

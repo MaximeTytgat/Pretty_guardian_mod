@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:raw_squid"
-            ]
+            "items": "prettyguardian:raw_squid"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:squid_stick"
-            ]
+            "items": "prettyguardian:squid_stick"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_squid_stick",
-      "has_raw_squid",
-      "has_the_recipe"
+      "has_raw_squid"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:squid_cooked"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

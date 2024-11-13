@@ -15,7 +15,7 @@
     " B "
   ],
   "result": {
-    "item": "prettyguardian:ruby_sword"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:ruby_sword"
+  }
 }

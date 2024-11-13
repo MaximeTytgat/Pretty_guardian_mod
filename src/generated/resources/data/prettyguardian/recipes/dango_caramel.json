@@ -22,7 +22,6 @@
   ],
   "result": {
     "count": 3,
-    "item": "prettyguardian:dango_caramel"
-  },
-  "show_notification": true
+    "id": "prettyguardian:dango_caramel"
+  }
 }

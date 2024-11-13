@@ -27,6 +27,7 @@ public class CustomFittingMultiLineTextWidget extends CustomAbstractScrollWidget
         return this;
     }
 
+    @Override
     public void setWidth(int i) {
         super.setWidth(i);
         this.multilineWidget.setMaxWidth(this.getWidth() - this.totalInnerPadding());
@@ -41,11 +42,12 @@ public class CustomFittingMultiLineTextWidget extends CustomAbstractScrollWidget
         return 9.0;
     }
 
+    @Override
     public void renderWidget(@NotNull GuiGraphics guiGraphics, int i, int i1, float v) {
         if (this.visible) {
             if (!this.scrollbarVisible()) {
                 guiGraphics.pose().pushPose();
-                guiGraphics.pose().translate((float)this.getX(), (float)this.getY(), 0.0F);
+                guiGraphics.pose().translate(this.getX(), this.getY(), 0.0F);
                 this.multilineWidget.render(guiGraphics, i, i1, v);
                 guiGraphics.pose().popPose();
             } else {
@@ -57,7 +59,7 @@ public class CustomFittingMultiLineTextWidget extends CustomAbstractScrollWidget
 
     protected void renderContents(GuiGraphics guiGraphics, int i, int i1, float v) {
         guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate((float)(this.getX() + this.innerPadding()), (float)(this.getY() + this.innerPadding()), 0.0F);
+        guiGraphics.pose().translate((this.getX() + this.innerPadding()), (this.getY() + this.innerPadding()), 0.0F);
         this.multilineWidget.render(guiGraphics, i, i1, v);
         guiGraphics.pose().popPose();
     }

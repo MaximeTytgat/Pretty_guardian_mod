@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:agaragar"
-            ]
+            "items": "prettyguardian:agaragar"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_agaragar",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_agaragar"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:marshmallow"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

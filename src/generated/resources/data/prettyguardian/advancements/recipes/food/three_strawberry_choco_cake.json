@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:strawberry_choco_cake"
-            ]
+            "items": "prettyguardian:strawberry_choco_cake"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_strawberry_choco_cake",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_strawberry_choco_cake"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:three_strawberry_choco_cake"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

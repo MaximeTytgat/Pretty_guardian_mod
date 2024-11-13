@@ -96,7 +96,7 @@ public class GemPolishingStationBlockEntity extends BlockEntity implements MenuP
 
     @Override
     public @NotNull Component getDisplayName() {
-        return Component.translatable("block.prettyGuardian.gem_polishing_station");
+        return Component.translatable("block.prettyguardian.gem_polishing_station");
     }
 
     @Nullable

@@ -27,7 +27,7 @@
     " F "
   ],
   "result": {
-    "item": "prettyguardian:mint_mojito"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:mint_mojito"
+  }
 }

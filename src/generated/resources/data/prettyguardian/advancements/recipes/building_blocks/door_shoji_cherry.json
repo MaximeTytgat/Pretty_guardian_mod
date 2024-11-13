@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:cherry_log"
-            ]
+            "items": "minecraft:cherry_log"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_cherry_log",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_cherry_log"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:door_shoji_cherry"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

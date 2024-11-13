@@ -21,7 +21,7 @@
     "ABA"
   ],
   "result": {
-    "item": "prettyguardian:random_plush_box"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:random_plush_box"
+  }
 }

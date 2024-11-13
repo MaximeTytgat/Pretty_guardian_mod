@@ -12,7 +12,7 @@
     "A A"
   ],
   "result": {
-    "item": "prettyguardian:ruby_leggings"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:ruby_leggings"
+  }
 }

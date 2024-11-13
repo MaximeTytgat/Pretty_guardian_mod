@@ -7,5 +7,7 @@
   "ingredient": {
     "item": "minecraft:sugar"
   },
-  "result": "prettyguardian:caramel"
+  "result": {
+    "id": "prettyguardian:caramel"
+  }
 }

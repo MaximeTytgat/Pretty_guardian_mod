@@ -15,7 +15,7 @@
     "B B"
   ],
   "result": {
-    "item": "prettyguardian:table_japanese_birch"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:table_japanese_birch"
+  }
 }

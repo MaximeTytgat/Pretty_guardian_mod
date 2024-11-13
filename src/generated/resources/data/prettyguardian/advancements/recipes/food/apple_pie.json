@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:apple"
-            ]
+            "items": "minecraft:apple"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_apple",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_apple"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:apple_pie"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

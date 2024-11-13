@@ -9,13 +9,20 @@ import net.minecraft.client.renderer.RenderType;
 import org.jetbrains.annotations.NotNull;
 
 public class LoveEffectHubOverlay implements LayeredDraw.Layer {
-    public LoveEffectHubOverlay() {}
+    private final Minecraft minecraft;
+
+    public LoveEffectHubOverlay(Minecraft minecraft) {
+        this.minecraft = minecraft;
+    }
+
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, float v) {
-        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.level == null || minecraft.player == null) {
+            return;
+        }
+
         LocalPlayer player = minecraft.player;
-        if (player == null) return;
         if (player.getHealth() <= 0) return;
         if (player.hasEffect(ModEffects.LOVE.getHolder().get())) {
             renderPinkBlurOnScreen(guiGraphics);

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:lemon"
-            ]
+            "items": "prettyguardian:lemon"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_lemon",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_lemon"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:lemon_sapling"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

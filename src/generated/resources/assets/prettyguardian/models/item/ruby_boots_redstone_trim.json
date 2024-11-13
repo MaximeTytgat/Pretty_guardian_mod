@@ -2,6 +2,6 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "prettyguardian:item/ruby_boots",
-    "layer1": "minecraft:trims/items/boots_trim_redstone"
+    "layer1": "prettyguardian:trims/items/boots_trim_redstone"
   }
 }

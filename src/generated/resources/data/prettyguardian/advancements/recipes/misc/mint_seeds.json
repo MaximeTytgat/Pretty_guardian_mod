@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:mint"
-            ]
+            "items": "prettyguardian:mint"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_mint",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_mint"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:mint_seeds"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

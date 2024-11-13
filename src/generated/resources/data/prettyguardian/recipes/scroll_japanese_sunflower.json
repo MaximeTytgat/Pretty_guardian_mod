@@ -21,7 +21,7 @@
     "DDD"
   ],
   "result": {
-    "item": "prettyguardian:scroll_japanese_sunflower"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:scroll_japanese_sunflower"
+  }
 }

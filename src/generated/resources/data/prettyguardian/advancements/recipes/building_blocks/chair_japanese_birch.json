@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:birch_slab"
-            ]
+            "items": "minecraft:birch_slab"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:stripped_birch_log"
-            ]
+            "items": "minecraft:stripped_birch_log"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_stripped_birch_log",
-      "has_birch_slab",
-      "has_the_recipe"
+      "has_birch_slab"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:chair_japanese_birch"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

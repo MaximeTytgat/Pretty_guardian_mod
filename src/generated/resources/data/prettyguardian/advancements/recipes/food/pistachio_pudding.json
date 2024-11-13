@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:pistachio"
-            ]
+            "items": "prettyguardian:pistachio"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_pistachio",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_pistachio"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:pistachio_pudding"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

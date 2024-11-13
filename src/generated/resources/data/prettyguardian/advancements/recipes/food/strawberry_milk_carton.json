@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:strawberry_milk_bucket"
-            ]
+            "items": "prettyguardian:strawberry_milk_bucket"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_strawberry_milk_bucket",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_strawberry_milk_bucket"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:strawberry_milk_carton"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -4,7 +4,6 @@ import com.max.prettyguardian.PrettyGuardian;
 import com.max.prettyguardian.blocks.PrettyGuardianBlock;
 import com.max.prettyguardian.blocks.entity.ModBlockEntities;
 import com.max.prettyguardian.blocks.entity.renderer.MoonAltarBlockEntityRenderer;
-import com.max.prettyguardian.client.gui.sreens.LoveEffectHubOverlay;
 import com.max.prettyguardian.entity.client.butterfly.ButterflyModel;
 import com.max.prettyguardian.entity.client.celestialrabbit.CelestialRabbitModel;
 import com.max.prettyguardian.entity.client.ModModelLayers;
@@ -12,10 +11,7 @@ import com.max.prettyguardian.entity.client.celestialrabbit.CelestialRabbitOnSho
 import com.max.prettyguardian.entity.client.fairy.FairyModel;
 import com.max.prettyguardian.particle.ModParticles;
 import com.max.prettyguardian.particle.custom.*;
-import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
@@ -29,18 +25,10 @@ import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
-import org.lwjgl.glfw.GLFW;
-
-import java.lang.reflect.Field;
-import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = PrettyGuardian.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ModEventBusClientEvents {
     private ModEventBusClientEvents() {}
-
-    private static final Field LAYERS = ObfuscationReflectionHelper.findField(Gui.class, "layers");
 
     // TODO Tester si c'est toujours necessaire
     @SubscribeEvent
@@ -114,17 +102,5 @@ public class ModEventBusClientEvents {
                 PrettyGuardianBlock.LEMON_LEAVES_CROP.get(),
                 PrettyGuardianBlock.PISTACHIO_LEAVES_CROP.get()
         );
-    }
-
-    // TODO Tester si ca fonctionne
-    @SubscribeEvent
-    public static void clientInit(FMLClientSetupEvent event) {
-        Minecraft mc = Minecraft.getInstance();
-        try {
-            LayeredDraw layers = (LayeredDraw) LAYERS.get(mc.gui);
-            layers.add(new LoveEffectHubOverlay());
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException("Failed to add Notes GUI layer");
-        }
     }
 }

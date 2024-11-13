@@ -7,5 +7,7 @@
   "ingredient": {
     "item": "prettyguardian:squid_stick"
   },
-  "result": "prettyguardian:squid_cooked"
+  "result": {
+    "id": "prettyguardian:squid_cooked"
+  }
 }

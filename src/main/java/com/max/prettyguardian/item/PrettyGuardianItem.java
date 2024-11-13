@@ -180,11 +180,11 @@ public class PrettyGuardianItem {
     public static final RegistryObject<Item> FAIRY_EGG = ITEMS.register("fairy_egg", () -> new ForgeSpawnEggItem(ModEntities.FAIRY, 0xf5d6df, 0x9798be, new Item.Properties()));
 
     public static final RegistryObject<Item> RUBY_TEMPLATE_UPGRADE = ITEMS.register("ruby_template_upgrade", () -> new SmithingTemplateItem(
-            Component.translatable("item.prettyGuardian.ruby_template_upgrade_apply_to"),
-            Component.translatable("item.prettyGuardian.ruby_template_upgrade_ingridient"),
-            Component.translatable("item.prettyGuardian.ruby_template_upgrade_upgrade_description"),
-            Component.translatable("item.prettyGuardian.ruby_template_upgrade_base_slot_description"),
-            Component.translatable("item.prettyGuardian.ruby_template_upgrade_additional_slot_description"),
+            Component.translatable("item.prettyguardian.ruby_template_upgrade_apply_to"),
+            Component.translatable("item.prettyguardian.ruby_template_upgrade_ingridient"),
+            Component.translatable("item.prettyguardian.ruby_template_upgrade_upgrade_description"),
+            Component.translatable("item.prettyguardian.ruby_template_upgrade_base_slot_description"),
+            Component.translatable("item.prettyguardian.ruby_template_upgrade_additional_slot_description"),
             List.of(
                     new ResourceLocation("item/empty_armor_slot_boots"),
                     new ResourceLocation("item/empty_armor_slot_chestplate"),

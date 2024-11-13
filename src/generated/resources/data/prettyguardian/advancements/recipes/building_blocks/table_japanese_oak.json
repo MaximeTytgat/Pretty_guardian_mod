@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:oak_slab"
-            ]
+            "items": "minecraft:oak_slab"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:stripped_oak_log"
-            ]
+            "items": "minecraft:stripped_oak_log"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_stripped_oak_log",
-      "has_oak_slab",
-      "has_the_recipe"
+      "has_oak_slab"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:table_japanese_oak"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

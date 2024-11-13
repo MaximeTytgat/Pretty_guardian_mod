@@ -7,7 +7,8 @@
     "item": "prettyguardian:pink_sapphire_shovel"
   },
   "result": {
-    "item": "prettyguardian:ruby_shovel"
+    "count": 1,
+    "id": "prettyguardian:ruby_shovel"
   },
   "template": {
     "item": "prettyguardian:ruby_template_upgrade"

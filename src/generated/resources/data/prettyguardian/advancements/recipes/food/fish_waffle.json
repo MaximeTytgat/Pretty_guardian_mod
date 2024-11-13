@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:egg"
-            ]
+            "items": "minecraft:egg"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:milk_bucket"
-            ]
+            "items": "minecraft:milk_bucket"
           }
         ]
       },
@@ -29,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:sugar"
-            ]
+            "items": "minecraft:sugar"
           }
         ]
       },
@@ -47,9 +41,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:wheat"
-            ]
+            "items": "minecraft:wheat"
           }
         ]
       },
@@ -58,17 +50,16 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_wheat",
       "has_sugar",
       "has_milk_bucket",
-      "has_egg",
-      "has_the_recipe"
+      "has_egg"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:fish_waffle"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

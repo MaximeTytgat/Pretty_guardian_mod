@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:agaragar"
-            ]
+            "items": "prettyguardian:agaragar"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:strawberry"
-            ]
+            "items": "prettyguardian:strawberry"
           }
         ]
       },
@@ -35,9 +31,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:vanilla"
-            ]
+            "items": "prettyguardian:vanilla"
           }
         ]
       },
@@ -46,16 +40,15 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_vanilla",
       "has_strawberry",
-      "has_agaragar",
-      "has_the_recipe"
+      "has_agaragar"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:tricolor_dango"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

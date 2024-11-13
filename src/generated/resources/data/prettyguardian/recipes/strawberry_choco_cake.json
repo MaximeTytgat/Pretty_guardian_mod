@@ -24,7 +24,7 @@
     "EEE"
   ],
   "result": {
-    "item": "prettyguardian:strawberry_choco_cake"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:strawberry_choco_cake"
+  }
 }

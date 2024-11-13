@@ -2,7 +2,6 @@ package com.max.prettyguardian.blocks.custom.crop;
 
 import com.max.prettyguardian.item.PrettyGuardianItem;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -70,7 +69,14 @@ public class VanillaCropBlock extends CropBlock {
         builder.add(AGE);
     }
 
-    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+    @Override
+    protected @NotNull InteractionResult useWithoutItem(
+            BlockState blockState,
+            @NotNull Level level,
+            @NotNull BlockPos blockPos,
+            @NotNull Player player,
+            @NotNull BlockHitResult blockHitResult
+    ) {
         if (blockState.getValue(AGE) == MAX_AGE) {
             int bonusSeed = random.nextInt(5) + 1;
 
@@ -84,6 +90,6 @@ public class VanillaCropBlock extends CropBlock {
 
             return InteractionResult.SUCCESS;
         }
-        return InteractionResult.PASS;
+        return super.useWithoutItem(blockState, level, blockPos, player, blockHitResult);
     }
 }

@@ -1,5 +1,6 @@
 package com.max.prettyguardian.blocks.custom.crop;
 
+import com.max.prettyguardian.PrettyGuardian;
 import com.max.prettyguardian.item.PrettyGuardianItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;

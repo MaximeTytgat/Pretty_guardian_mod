@@ -25,7 +25,6 @@
   ],
   "result": {
     "count": 3,
-    "item": "prettyguardian:fish_waffle"
-  },
-  "show_notification": true
+    "id": "prettyguardian:fish_waffle"
+  }
 }

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:cherry_leaves"
-            ]
+            "items": "minecraft:cherry_leaves"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:cherry_sapling"
-            ]
+            "items": "minecraft:cherry_sapling"
           }
         ]
       },
@@ -29,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:flower_pot"
-            ]
+            "items": "minecraft:flower_pot"
           }
         ]
       },
@@ -46,16 +40,15 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_cherry_leaves",
       "has_cherry_sapling",
-      "has_flower_pot",
-      "has_the_recipe"
+      "has_flower_pot"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:cherry_bonzai"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

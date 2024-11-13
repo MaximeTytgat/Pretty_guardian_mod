@@ -25,7 +25,6 @@
   ],
   "result": {
     "count": 3,
-    "item": "prettyguardian:tricolor_dango"
-  },
-  "show_notification": true
+    "id": "prettyguardian:tricolor_dango"
+  }
 }

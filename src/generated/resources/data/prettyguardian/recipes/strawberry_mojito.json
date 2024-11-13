@@ -27,7 +27,7 @@
     " F "
   ],
   "result": {
-    "item": "prettyguardian:strawberry_mojito"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:strawberry_mojito"
+  }
 }

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:juice_glass"
-            ]
+            "items": "prettyguardian:juice_glass"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_juice_glass",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_juice_glass"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:mint_mojito"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

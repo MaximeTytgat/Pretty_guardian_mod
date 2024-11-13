@@ -7,5 +7,7 @@
   "ingredient": {
     "item": "prettyguardian:marshmallow_stick"
   },
-  "result": "prettyguardian:roasted_marshmallow_stick"
+  "result": {
+    "id": "prettyguardian:roasted_marshmallow_stick"
+  }
 }

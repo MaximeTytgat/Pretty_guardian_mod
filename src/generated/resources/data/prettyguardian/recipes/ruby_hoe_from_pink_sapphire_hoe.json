@@ -7,7 +7,8 @@
     "item": "prettyguardian:pink_sapphire_hoe"
   },
   "result": {
-    "item": "prettyguardian:ruby_hoe"
+    "count": 1,
+    "id": "prettyguardian:ruby_hoe"
   },
   "template": {
     "item": "prettyguardian:ruby_template_upgrade"

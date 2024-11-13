@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:mochi_donut"
-            ]
+            "items": "prettyguardian:mochi_donut"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:strawberry"
-            ]
+            "items": "prettyguardian:strawberry"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_mochi_donut",
-      "has_strawberry",
-      "has_the_recipe"
+      "has_strawberry"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:strawberry_mochi_donut"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

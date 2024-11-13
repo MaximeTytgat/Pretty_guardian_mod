@@ -83,12 +83,12 @@ public class  PicnicBasketBlockEntity extends RandomizableContainerBlockEntity i
 
     @Override
     public @NotNull Component getDisplayName() {
-        return Component.translatable("block.prettyGuardian.picnic_basket");
+        return Component.translatable("block.prettyguardian.picnic_basket");
     }
 
     @Override
     protected @NotNull Component getDefaultName() {
-        return Component.translatable("block.prettyGuardian.picnic_basket");
+        return Component.translatable("block.prettyguardian.picnic_basket");
     }
 
     @Override

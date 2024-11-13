@@ -11,7 +11,7 @@
     "A A"
   ],
   "result": {
-    "item": "prettyguardian:pink_sapphire_helmet"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:pink_sapphire_helmet"
+  }
 }

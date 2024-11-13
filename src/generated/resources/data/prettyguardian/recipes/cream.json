@@ -19,7 +19,6 @@
   ],
   "result": {
     "count": 3,
-    "item": "prettyguardian:cream"
-  },
-  "show_notification": true
+    "id": "prettyguardian:cream"
+  }
 }

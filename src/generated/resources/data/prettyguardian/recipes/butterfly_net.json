@@ -14,7 +14,7 @@
     "BAA"
   ],
   "result": {
-    "item": "prettyguardian:butterfly_net"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:butterfly_net"
+  }
 }

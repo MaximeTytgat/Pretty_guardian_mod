@@ -21,7 +21,7 @@
     "DDD"
   ],
   "result": {
-    "item": "prettyguardian:lucky_neko"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:lucky_neko"
+  }
 }

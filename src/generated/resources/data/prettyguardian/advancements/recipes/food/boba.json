@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "prettyguardian:raw_boba"
-            ]
+            "items": "prettyguardian:raw_boba"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_raw_boba",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_raw_boba"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:boba"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

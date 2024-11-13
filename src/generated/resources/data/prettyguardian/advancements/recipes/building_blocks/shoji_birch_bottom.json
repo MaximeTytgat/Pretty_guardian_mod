@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:birch_planks"
-            ]
+            "items": "minecraft:birch_planks"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:paper"
-            ]
+            "items": "minecraft:paper"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_birch_planks",
-      "has_paper",
-      "has_the_recipe"
+      "has_paper"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:shoji_birch_bottom"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

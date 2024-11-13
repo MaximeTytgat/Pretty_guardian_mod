@@ -18,7 +18,7 @@
     "C  "
   ],
   "result": {
-    "item": "prettyguardian:chocolate_popsicle"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:chocolate_popsicle"
+  }
 }

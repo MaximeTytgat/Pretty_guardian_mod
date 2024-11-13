@@ -16,7 +16,6 @@
   ],
   "result": {
     "count": 3,
-    "item": "prettyguardian:door_shoji_birch_small"
-  },
-  "show_notification": true
+    "id": "prettyguardian:door_shoji_birch_small"
+  }
 }

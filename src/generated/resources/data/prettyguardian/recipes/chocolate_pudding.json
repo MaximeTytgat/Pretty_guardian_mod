@@ -21,7 +21,7 @@
     "ABA"
   ],
   "result": {
-    "item": "prettyguardian:chocolate_pudding"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:chocolate_pudding"
+  }
 }

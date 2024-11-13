@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:kelp"
-            ]
+            "items": "minecraft:kelp"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_kelp",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_kelp"
     ]
   ],
   "rewards": {
     "recipes": [
       "prettyguardian:agaragar"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -30,7 +30,7 @@
     "GGG"
   ],
   "result": {
-    "item": "prettyguardian:pokky_ice_cream"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "prettyguardian:pokky_ice_cream"
+  }
 }
