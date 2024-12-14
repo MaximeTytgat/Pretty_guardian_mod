@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class CelestialRabbitGlowLayer<T extends CelestialRabbitEntity, M extends CelestialRabbitModel<T>> extends RenderLayer<T, M> {
-    private static final RenderType RABBIT_LIGHT_TEXTURE = RenderType.entityTranslucentEmissive(new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/celestial_rabbit_glow.png"));
+    private static final RenderType RABBIT_LIGHT_TEXTURE = RenderType.entityTranslucentEmissive(ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/celestial_rabbit_glow.png"));
     public CelestialRabbitGlowLayer(RenderLayerParent<T, M> tmRenderLayerParent) {
         super(tmRenderLayerParent);
     }

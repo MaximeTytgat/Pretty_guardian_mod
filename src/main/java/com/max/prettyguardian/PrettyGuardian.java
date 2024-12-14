@@ -5,6 +5,7 @@ import com.max.prettyguardian.blocks.entity.ModBlockEntities;
 import com.max.prettyguardian.client.gui.sreens.*;
 import com.max.prettyguardian.component.ModDataComponentTypes;
 import com.max.prettyguardian.effect.ModEffects;
+import com.max.prettyguardian.enchantment.ModEnchantmentEffects;
 import com.max.prettyguardian.enchantment.ModEnchantments;
 import com.max.prettyguardian.entity.ModEntities;
 import com.max.prettyguardian.entity.client.butterfly.ButterflyRenderer;
@@ -66,10 +67,10 @@ public class PrettyGuardian
         ModBlockEntities.register(modEventBus);
         ModSounds.register(modEventBus);
         ModEntities.register(modEventBus);
-        ModEnchantments.register(modEventBus);
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
         ModStructures.register(modEventBus);
+        ModEnchantmentEffects.register(modEventBus);
 
         modEventBus.register(this);
 

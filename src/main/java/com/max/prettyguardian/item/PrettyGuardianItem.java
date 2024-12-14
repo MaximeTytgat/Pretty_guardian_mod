@@ -186,18 +186,18 @@ public class PrettyGuardianItem {
             Component.translatable("item.prettyguardian.ruby_template_upgrade_base_slot_description"),
             Component.translatable("item.prettyguardian.ruby_template_upgrade_additional_slot_description"),
             List.of(
-                    new ResourceLocation("item/empty_armor_slot_boots"),
-                    new ResourceLocation("item/empty_armor_slot_chestplate"),
-                    new ResourceLocation("item/empty_armor_slot_helmet"),
-                    new ResourceLocation("item/empty_armor_slot_leggings"),
-                    new ResourceLocation("item/empty_slot_axe"),
-                    new ResourceLocation("item/empty_slot_hoe"),
-                    new ResourceLocation("item/empty_slot_pickaxe"),
-                    new ResourceLocation("item/empty_slot_shovel"),
-                    new ResourceLocation("item/empty_slot_sword")
+                    ResourceLocation.withDefaultNamespace("item/empty_armor_slot_boots"),
+                    ResourceLocation.withDefaultNamespace("item/empty_armor_slot_chestplate"),
+                    ResourceLocation.withDefaultNamespace("item/empty_armor_slot_helmet"),
+                    ResourceLocation.withDefaultNamespace("item/empty_armor_slot_leggings"),
+                    ResourceLocation.withDefaultNamespace("item/empty_slot_axe"),
+                    ResourceLocation.withDefaultNamespace("item/empty_slot_hoe"),
+                    ResourceLocation.withDefaultNamespace("item/empty_slot_pickaxe"),
+                    ResourceLocation.withDefaultNamespace("item/empty_slot_shovel"),
+                    ResourceLocation.withDefaultNamespace("item/empty_slot_sword")
             ),
             List.of(
-                    new ResourceLocation(PrettyGuardian.MOD_ID, "item/empty_slot_ruby")
+                    ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "item/empty_slot_ruby")
             )
     ));
 

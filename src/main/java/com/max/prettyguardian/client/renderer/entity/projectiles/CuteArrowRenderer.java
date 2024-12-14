@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class CuteArrowRenderer extends ArrowRenderer<CuteArrowEntity> {
-    public static final ResourceLocation TEXTURE = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/projectiles/heart_arrow.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/entity/projectiles/heart_arrow.png");
 
     public CuteArrowRenderer(EntityRendererProvider.Context manager) {
         super(manager);

@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class CelestialRabbitCollarPearlLayer<T extends CelestialRabbitEntity, M extends CelestialRabbitModel<T>> extends RenderLayer<T, M> {
-    private static final ResourceLocation CELESTIAL_RABBIT_COLLAR_LOCATION = new ResourceLocation(PrettyGuardian.MOD_ID,"textures/entity/rabbit/celestial/celestial_rabbit_pearl.png");
+    private static final ResourceLocation CELESTIAL_RABBIT_COLLAR_LOCATION = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID,"textures/entity/rabbit/celestial/celestial_rabbit_pearl.png");
 
     public CelestialRabbitCollarPearlLayer(RenderLayerParent<T, M> tmRenderLayerParent) {
         super(tmRenderLayerParent);

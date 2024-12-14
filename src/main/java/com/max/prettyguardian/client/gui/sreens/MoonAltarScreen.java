@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MoonAltarScreen extends AbstractContainerScreen<MoonAltarMenu> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/gui/container/moon_altar.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/gui/container/moon_altar.png");
 
     public MoonAltarScreen(MoonAltarMenu staffMagicTableMenu, Inventory inventory, Component component) {
         super(staffMagicTableMenu, inventory, component);

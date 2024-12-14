@@ -29,7 +29,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> CELESTIAL_RABBIT_DEATH = registerSoundEvents("celestial_rabbit_death");
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
-        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(PrettyGuardian.MOD_ID, name)));
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, name)));
     }
     public static void register(IEventBus eventBus) {
         SOUND_EVENTS.register(eventBus);

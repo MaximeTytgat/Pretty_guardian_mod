@@ -18,7 +18,7 @@ import java.util.Map;
 public class ButterflyRenderer extends MobRenderer<ButterflyEntity, ButterflyModel<ButterflyEntity>> {
     private static final Map<ButterflyEntity.Variant, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), variantResourceLocationHashMap -> {
         for(ButterflyEntity.Variant butterfly$variant : ButterflyEntity.Variant.values()) {
-            variantResourceLocationHashMap.put(butterfly$variant, new ResourceLocation(PrettyGuardian.MOD_ID, String.format(Locale.ROOT, "textures/entity/butterfly/%s_butterfly.png", butterfly$variant.getName())));
+            variantResourceLocationHashMap.put(butterfly$variant, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, String.format(Locale.ROOT, "textures/entity/butterfly/%s_butterfly.png", butterfly$variant.getName())));
         }
 
     });

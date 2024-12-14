@@ -18,8 +18,8 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public class StrawberryCowRenderer extends MobRenderer<StrawberryCowEntity, CowModel<StrawberryCowEntity>> {
     private static final Map<StrawberryCowEntity.MushroomType, ResourceLocation> TEXTURES = Util.make(Maps.newHashMap(), mushroomTypeResourceLocationHashMap -> {
-        mushroomTypeResourceLocationHashMap.put(StrawberryCowEntity.MushroomType.BROWN, new ResourceLocation("textures/entity/cow/brown_mooshroom.png"));
-        mushroomTypeResourceLocationHashMap.put(StrawberryCowEntity.MushroomType.RED, new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/strawberry_cow.png"));
+        mushroomTypeResourceLocationHashMap.put(StrawberryCowEntity.MushroomType.BROWN, ResourceLocation.withDefaultNamespace("textures/entity/cow/brown_mooshroom.png"));
+        mushroomTypeResourceLocationHashMap.put(StrawberryCowEntity.MushroomType.RED, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/entity/strawberry_cow.png"));
     });
 
     public StrawberryCowRenderer(EntityRendererProvider.Context context) {

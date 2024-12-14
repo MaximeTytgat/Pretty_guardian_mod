@@ -18,7 +18,7 @@ import org.joml.Matrix4f;
 
 
 public class HeartRenderer extends EntityRenderer<HeartEntity> {
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/projectiles/heart.png");
+    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/entity/projectiles/heart.png");
     private static final RenderType RENDER_TYPE = RenderType.entityCutoutNoCull(TEXTURE_LOCATION);
 
     public HeartRenderer(EntityRendererProvider.Context context) {

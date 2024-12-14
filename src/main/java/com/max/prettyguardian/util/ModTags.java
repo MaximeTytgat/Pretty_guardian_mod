@@ -31,9 +31,10 @@ public class ModTags {
         public static final TagKey<Block> SAPLING = tag("sapling");
 
         private static TagKey<Block> tag(String name) {
-            return BlockTags.create(new ResourceLocation(PrettyGuardian.MOD_ID, name));
+            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, name));
         }
     }
+
     public static class Items {
         private Items() {}
 
@@ -46,7 +47,7 @@ public class ModTags {
         public static final TagKey<Item> SPACE_SWORD_ENCHANTABLE = tag("space_sword_enchantable");
 
         private static TagKey<Item> tag(String name) {
-            return ItemTags.create(new ResourceLocation(PrettyGuardian.MOD_ID, name));
+            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, name));
         }
     }
 
@@ -60,7 +61,7 @@ public class ModTags {
         }
 
         private static TagKey<PoiType> create() {
-            return TagKey.create(Registries.POINT_OF_INTEREST_TYPE, new ResourceLocation("moon_temple"));
+            return TagKey.create(Registries.POINT_OF_INTEREST_TYPE, ResourceLocation.withDefaultNamespace("moon_temple"));
         }
     }
 }

@@ -51,7 +51,7 @@ public class ModEvents {
                         .getCapability(PlayerEntityOnShoulderProvider.PLAYER_ENTITY_ON_SHOULDER_CAPABILITY)
                         .isPresent()
         ) {
-                event.addCapability(new ResourceLocation(PrettyGuardian.MOD_ID, "properties"), new PlayerEntityOnShoulderProvider());
+                event.addCapability(ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "properties"), new PlayerEntityOnShoulderProvider());
             }
 
     }

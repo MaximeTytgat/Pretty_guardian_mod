@@ -20,7 +20,7 @@ import java.util.Map;
 public class FairyGlowLayer<T extends FairyEntity, M extends FairyModel<T>> extends RenderLayer<T, M> {
     private static final Map<FairyEntity.Variant, RenderType> RENDER_BY_TYPE = Util.make(Maps.newHashMap(), variantRenderTypeHashMap -> {
         for(FairyEntity.Variant fairy$variant : FairyEntity.Variant.values()) {
-            variantRenderTypeHashMap.put(fairy$variant, RenderType.entityTranslucentEmissive(new ResourceLocation(PrettyGuardian.MOD_ID, String.format(Locale.ROOT, "textures/entity/fairy/fairy_%s.png", fairy$variant.getName()))));
+            variantRenderTypeHashMap.put(fairy$variant, RenderType.entityTranslucentEmissive(ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, String.format(Locale.ROOT, "textures/entity/fairy/fairy_%s.png", fairy$variant.getName()))));
         }
     });
     public FairyGlowLayer(RenderLayerParent<T, M> tmRenderLayerParent) {

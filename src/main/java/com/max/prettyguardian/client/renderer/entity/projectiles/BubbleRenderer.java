@@ -18,7 +18,7 @@ import org.joml.Matrix4f;
 
 
 public class BubbleRenderer extends EntityRenderer<BubbleEntity> {
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/projectiles/bubble.png");
+    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/entity/projectiles/bubble.png");
     private static final RenderType RENDER_TYPE = RenderType.entityCutoutNoCull(TEXTURE_LOCATION);
 
     public BubbleRenderer(EntityRendererProvider.Context context) {

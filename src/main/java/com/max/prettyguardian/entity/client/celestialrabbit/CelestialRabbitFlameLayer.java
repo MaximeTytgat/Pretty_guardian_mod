@@ -78,7 +78,7 @@ public class CelestialRabbitFlameLayer<T extends CelestialRabbitEntity, M extend
     private static ResourceLocation[] getFlameFrames(DyeColor color) {
         ResourceLocation[] frames = new ResourceLocation[8];
         for (int frame = 0; frame < 8; frame++) {
-            ResourceLocation resourceLocation = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/" + color.getName() + "_flame_" + frame + ".png");
+            ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/" + color.getName() + "_flame_" + frame + ".png");
             frames[frame] = resourceLocation;
         }
         return  frames;

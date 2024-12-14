@@ -11,8 +11,8 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class CelestialRabbitRenderer extends MobRenderer<CelestialRabbitEntity, CelestialRabbitModel<CelestialRabbitEntity>> {
-    private static final ResourceLocation CELESTIAL_RABBIT_LOCATION = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/celestial_rabbit.png");
-    private static final ResourceLocation CELESTIAL_RABBIT_ANGRY_LOCATION = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/celestial_rabbit_angry.png");
+    private static final ResourceLocation CELESTIAL_RABBIT_LOCATION = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/celestial_rabbit.png");
+    private static final ResourceLocation CELESTIAL_RABBIT_ANGRY_LOCATION = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/celestial_rabbit_angry.png");
 
     public CelestialRabbitRenderer(EntityRendererProvider.Context context) {
         super(context, new CelestialRabbitModel<>(context.bakeLayer(ModModelLayers.CELESTIAL_RABBIT_LAYER)), 0.5f);

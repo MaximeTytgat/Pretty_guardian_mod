@@ -28,7 +28,7 @@ public class ModArmorMaterials {
             enumMap.put(type, integer.get(type));
         }
 
-        return Registry.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, new ResourceLocation(name), new ArmorMaterial(enumMap, i, SoundEvents.ARMOR_EQUIP_GOLD, ingredientSupplier, layers, (float) 0.0, (float) 0.0));
+        return Registry.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, ResourceLocation.withDefaultNamespace(name), new ArmorMaterial(enumMap, i, SoundEvents.ARMOR_EQUIP_GOLD, ingredientSupplier, layers, (float) 0.0, (float) 0.0));
     }
 
     public static final String PINK_SAPPHIRE_STRING = "pink_sapphire";
@@ -43,8 +43,8 @@ public class ModArmorMaterials {
         }), 15,
                 () -> Ingredient.of(PrettyGuardianItem.PINK_SAPPHIRE.get()),
                 List.of(
-                        new ArmorMaterial.Layer(new ResourceLocation(PINK_SAPPHIRE_STRING), "", true),
-                        new ArmorMaterial.Layer(new ResourceLocation(PINK_SAPPHIRE_STRING), "_overlay", false)
+                        new ArmorMaterial.Layer(ResourceLocation.withDefaultNamespace(PINK_SAPPHIRE_STRING), "", true),
+                        new ArmorMaterial.Layer(ResourceLocation.withDefaultNamespace(PINK_SAPPHIRE_STRING), "_overlay", false)
                 )
         );
 
@@ -57,8 +57,8 @@ public class ModArmorMaterials {
         }), 17,
                 () -> Ingredient.of(PrettyGuardianItem.RUBY.get()),
                 List.of(
-                        new ArmorMaterial.Layer(new ResourceLocation("ruby"), "", true),
-                        new ArmorMaterial.Layer(new ResourceLocation("ruby"), "_overlay", false)
+                        new ArmorMaterial.Layer(ResourceLocation.withDefaultNamespace("ruby"), "", true),
+                        new ArmorMaterial.Layer(ResourceLocation.withDefaultNamespace("ruby"), "_overlay", false)
                 )
         );
     }

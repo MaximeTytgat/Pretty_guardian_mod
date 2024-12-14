@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class PicnicBasketScreen extends AbstractContainerScreen<PicnicBasketMenu> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/gui/container/picnic_basket.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/gui/container/picnic_basket.png");
 
     public PicnicBasketScreen(PicnicBasketMenu picnicBasketMenu, Inventory inventory, Component component) {
         super(picnicBasketMenu, inventory, component);

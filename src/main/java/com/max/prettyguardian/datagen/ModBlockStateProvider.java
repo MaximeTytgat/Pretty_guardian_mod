@@ -41,13 +41,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(block, models().cubeBottomTop(
                 getBlockPath(block),
                 blockTexture(block),
-                new ResourceLocation(PrettyGuardian.MOD_ID, BLOCK_PATH + getBlockPath(block) + "_bottom"),
-                new ResourceLocation(PrettyGuardian.MOD_ID, BLOCK_PATH + getBlockPath(block) + "_top")
+                ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, BLOCK_PATH + getBlockPath(block) + "_bottom"),
+                ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, BLOCK_PATH + getBlockPath(block) + "_top")
         ));
     }
 
     private void topBlockWithItem(Block block) {
-        simpleBlockWithItem(block, models().cubeTop(getBlockPath(block), blockTexture(block), new ResourceLocation(PrettyGuardian.MOD_ID, BLOCK_PATH + getBlockPath(block) + "_top")));
+        simpleBlockWithItem(block, models().cubeTop(getBlockPath(block), blockTexture(block), ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, BLOCK_PATH + getBlockPath(block) + "_top")));
     }
 
     private ResourceLocation getBlockKey(Block block) {
@@ -116,7 +116,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     private ConfiguredModel[] strawberryStates(BlockState state, CropBlock block, String modelName, String textureName) {
         ConfiguredModel[] models = new ConfiguredModel[1];
         models[0] = new ConfiguredModel(models().crop(modelName + state.getValue(((StrawberryCropBlock) block).getAgeProperty()),
-                new ResourceLocation(PrettyGuardian.MOD_ID, BLOCK_PATH + textureName + state.getValue(((StrawberryCropBlock) block).getAgeProperty()))).renderType(CUTOUT));
+                ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, BLOCK_PATH + textureName + state.getValue(((StrawberryCropBlock) block).getAgeProperty()))).renderType(CUTOUT));
 
         return models;
     }
@@ -131,7 +131,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     private ConfiguredModel[] mintStates(BlockState state, CropBlock block, String modelName, String textureName) {
         ConfiguredModel[] models = new ConfiguredModel[1];
         models[0] = new ConfiguredModel(models().crop(modelName + state.getValue(((MintCropBlock) block).getAgeProperty()),
-                new ResourceLocation(PrettyGuardian.MOD_ID, BLOCK_PATH + textureName + state.getValue(((MintCropBlock) block).getAgeProperty()))).renderType(CUTOUT));
+                ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, BLOCK_PATH + textureName + state.getValue(((MintCropBlock) block).getAgeProperty()))).renderType(CUTOUT));
 
         return models;
     }

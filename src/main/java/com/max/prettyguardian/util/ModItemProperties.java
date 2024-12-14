@@ -11,13 +11,13 @@ public class ModItemProperties {
     public static void addCustomProperties() {
         makeBow(PrettyGuardianItem.CUPIDON_BOW.get());
 
-        ItemProperties.register(PrettyGuardianItem.NEPTUNES_MIRROR.get(), new ResourceLocation(PrettyGuardian.MOD_ID, "using"),
+        ItemProperties.register(PrettyGuardianItem.NEPTUNES_MIRROR.get(), ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "using"),
                 (stack, world, entity, s) -> entity != null && entity.isUsingItem() && stack.equals(entity.getUseItem()) ? 1.0F : 0.0F);
     }
 
 
     private static void makeBow(Item item) {
-        ItemProperties.register(item, new ResourceLocation("pull"), (itemStack, clientLevel, livingEntity, i) -> {
+        ItemProperties.register(item, ResourceLocation.withDefaultNamespace("pull"), (itemStack, clientLevel, livingEntity, i) -> {
             if (livingEntity == null) {
                 return 0.0F;
             } else {
@@ -26,7 +26,7 @@ public class ModItemProperties {
         });
         ItemProperties.register(
                 item,
-                new ResourceLocation("pulling"),
+                ResourceLocation.withDefaultNamespace("pulling"),
                 (itemStack, clientLevel, livingEntity, i) ->
                     livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F
         );

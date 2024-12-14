@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 
 public class GiftBoxScreen extends AbstractContainerScreen<GiftBoxMenu> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/gui/container/gift_box.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/gui/container/gift_box.png");
 
     public GiftBoxScreen(GiftBoxMenu giftBoxMenu, Inventory inventory, Component component) {
         super(giftBoxMenu, inventory, component);

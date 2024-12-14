@@ -34,12 +34,12 @@ public class ModRecipeProvider extends RecipeProvider {
         SimpleCookingRecipeBuilder.generic(
                         Ingredient.of(PrettyGuardianBlock.PINK_SAPPHIRE_ORE.get()), RecipeCategory.MISC, PrettyGuardianItem.PINK_SAPPHIRE.get(), 0.35F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new)
                 .unlockedBy(getHasName(PrettyGuardianBlock.PINK_SAPPHIRE_ORE.get()), has(PrettyGuardianBlock.PINK_SAPPHIRE_ORE.get()))
-                .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "pink_sapphire_from_ore"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "pink_sapphire_from_ore"));
 
         SimpleCookingRecipeBuilder.generic(
                         Ingredient.of(PrettyGuardianBlock.DEEPSLATE_PINK_SAPPHIRE_ORE.get()), RecipeCategory.MISC, PrettyGuardianItem.PINK_SAPPHIRE.get(), 0.35F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new)
                 .unlockedBy(getHasName(PrettyGuardianBlock.DEEPSLATE_PINK_SAPPHIRE_ORE.get()), has(PrettyGuardianBlock.DEEPSLATE_PINK_SAPPHIRE_ORE.get()))
-                .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "pink_sapphire_from_deepsalte_ore"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "pink_sapphire_from_deepsalte_ore"));
 
         blockIngotRecipes(recipeOutput,
                 PrettyGuardianBlock.PINK_SAPPHIRE_BLOCK.get(),
@@ -667,55 +667,55 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlocks(getHasName(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), has(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.PINK_SAPPHIRE_AXE.get()), has(PrettyGuardianItem.PINK_SAPPHIRE_AXE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.RUBY.get()), has(PrettyGuardianItem.RUBY.get()))
-                .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "ruby_axe_from_pink_sapphire_axe"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "ruby_axe_from_pink_sapphire_axe"));
 
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), Ingredient.of(PrettyGuardianItem.PINK_SAPPHIRE_PICKAXE.get()), Ingredient.of(PrettyGuardianItem.RUBY.get()), RecipeCategory.TOOLS, PrettyGuardianItem.RUBY_PICKAXE.get())
                 .unlocks(getHasName(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), has(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.PINK_SAPPHIRE_PICKAXE.get()), has(PrettyGuardianItem.PINK_SAPPHIRE_PICKAXE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.RUBY.get()), has(PrettyGuardianItem.RUBY.get()))
-                .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "ruby_pickaxe_from_pink_sapphire_pickaxe"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "ruby_pickaxe_from_pink_sapphire_pickaxe"));
 
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), Ingredient.of(PrettyGuardianItem.PINK_SAPPHIRE_HOE.get()), Ingredient.of(PrettyGuardianItem.RUBY.get()), RecipeCategory.TOOLS, PrettyGuardianItem.RUBY_HOE.get())
                 .unlocks(getHasName(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), has(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.PINK_SAPPHIRE_HOE.get()), has(PrettyGuardianItem.PINK_SAPPHIRE_HOE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.RUBY.get()), has(PrettyGuardianItem.RUBY.get()))
-                .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "ruby_hoe_from_pink_sapphire_hoe"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "ruby_hoe_from_pink_sapphire_hoe"));
 
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), Ingredient.of(PrettyGuardianItem.PINK_SAPPHIRE_SHOVEL.get()), Ingredient.of(PrettyGuardianItem.RUBY.get()), RecipeCategory.TOOLS, PrettyGuardianItem.RUBY_SHOVEL.get())
                 .unlocks(getHasName(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), has(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.PINK_SAPPHIRE_SHOVEL.get()), has(PrettyGuardianItem.PINK_SAPPHIRE_SHOVEL.get()))
                 .unlocks(getHasName(PrettyGuardianItem.RUBY.get()), has(PrettyGuardianItem.RUBY.get()))
-                .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "ruby_shovel_from_pink_sapphire_shovel"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "ruby_shovel_from_pink_sapphire_shovel"));
 
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), Ingredient.of(PrettyGuardianItem.PINK_SAPPHIRE_SWORD.get()), Ingredient.of(PrettyGuardianItem.RUBY.get()), RecipeCategory.TOOLS, PrettyGuardianItem.RUBY_SWORD.get())
                 .unlocks(getHasName(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), has(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.PINK_SAPPHIRE_SWORD.get()), has(PrettyGuardianItem.PINK_SAPPHIRE_SWORD.get()))
                 .unlocks(getHasName(PrettyGuardianItem.RUBY.get()), has(PrettyGuardianItem.RUBY.get()))
-                .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "ruby_sword_from_pink_sapphire_sword"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "ruby_sword_from_pink_sapphire_sword"));
 
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), Ingredient.of(PrettyGuardianItem.PINK_SAPPHIRE_BOOTS.get()), Ingredient.of(PrettyGuardianItem.RUBY.get()), RecipeCategory.TOOLS, PrettyGuardianItem.RUBY_BOOTS.get())
                 .unlocks(getHasName(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), has(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.PINK_SAPPHIRE_BOOTS.get()), has(PrettyGuardianItem.PINK_SAPPHIRE_BOOTS.get()))
                 .unlocks(getHasName(PrettyGuardianItem.RUBY.get()), has(PrettyGuardianItem.RUBY.get()))
-                .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "ruby_boots_from_pink_sapphire_boots"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "ruby_boots_from_pink_sapphire_boots"));
 
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), Ingredient.of(PrettyGuardianItem.PINK_SAPPHIRE_CHESTPLATE.get()), Ingredient.of(PrettyGuardianItem.RUBY.get()), RecipeCategory.TOOLS, PrettyGuardianItem.RUBY_CHESTPLATE.get())
                 .unlocks(getHasName(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), has(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.PINK_SAPPHIRE_CHESTPLATE.get()), has(PrettyGuardianItem.PINK_SAPPHIRE_CHESTPLATE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.RUBY.get()), has(PrettyGuardianItem.RUBY.get()))
-                .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "ruby_chestplate_from_pink_sapphire_chestplate"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "ruby_chestplate_from_pink_sapphire_chestplate"));
 
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), Ingredient.of(PrettyGuardianItem.PINK_SAPPHIRE_HELMET.get()), Ingredient.of(PrettyGuardianItem.RUBY.get()), RecipeCategory.TOOLS, PrettyGuardianItem.RUBY_HELMET.get())
                 .unlocks(getHasName(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), has(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.PINK_SAPPHIRE_HELMET.get()), has(PrettyGuardianItem.PINK_SAPPHIRE_HELMET.get()))
                 .unlocks(getHasName(PrettyGuardianItem.RUBY.get()), has(PrettyGuardianItem.RUBY.get()))
-                .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "ruby_helmet_from_pink_sapphire_helmet"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "ruby_helmet_from_pink_sapphire_helmet"));
 
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), Ingredient.of(PrettyGuardianItem.PINK_SAPPHIRE_LEGGINGS.get()), Ingredient.of(PrettyGuardianItem.RUBY.get()), RecipeCategory.TOOLS, PrettyGuardianItem.RUBY_LEGGINGS.get())
                 .unlocks(getHasName(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()), has(PrettyGuardianItem.RUBY_TEMPLATE_UPGRADE.get()))
                 .unlocks(getHasName(PrettyGuardianItem.PINK_SAPPHIRE_LEGGINGS.get()), has(PrettyGuardianItem.PINK_SAPPHIRE_LEGGINGS.get()))
                 .unlocks(getHasName(PrettyGuardianItem.RUBY.get()), has(PrettyGuardianItem.RUBY.get()))
-                .save(recipeOutput, new ResourceLocation(PrettyGuardian.MOD_ID, "ruby_leggings_from_pink_sapphire_leggings"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "ruby_leggings_from_pink_sapphire_leggings"));
     }
 
     protected static void simpleMoonStick(RecipeOutput finishedRecipeConsumer, ItemLike stick) {
@@ -1050,12 +1050,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("AAA")
                 .define('A', ingot)
                 .unlockedBy(getHasName(ingot), has(ingot))
-                .save(finishedRecipeConsumer, new ResourceLocation(PrettyGuardian.MOD_ID, block.asItem() + "_from_" + ingot.asItem() + "_item"));
+                .save(finishedRecipeConsumer, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, block.asItem() + "_from_" + ingot.asItem() + "_item"));
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ingot, 9)
                 .requires(block)
                 .unlockedBy(getHasName(block), has(block))
-                .save(finishedRecipeConsumer, new ResourceLocation(PrettyGuardian.MOD_ID,ingot.asItem() + "_item_from_" + block.asItem()));
+                .save(finishedRecipeConsumer, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID,ingot.asItem() + "_item_from_" + block.asItem()));
     }
 
     protected static void armorRecipes(RecipeOutput finishedRecipeConsumer, Item helmet, Item chestplate, Item leggings, Item boots, ItemLike material) {

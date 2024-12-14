@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class CelestialRabbitOnShoulderLayer<T extends Player> extends RenderLayer<T, PlayerModel<T>> {
-    private static final ResourceLocation CELESTIAL_RABBIT_LOCATION = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/celestial_rabbit.png");
+    private static final ResourceLocation CELESTIAL_RABBIT_LOCATION = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/entity/rabbit/celestial/celestial_rabbit.png");
     private final CelestialRabbitModel<CelestialRabbitEntity> model;
 
     public CelestialRabbitOnShoulderLayer(RenderLayerParent<T, PlayerModel<T>> parent/*, EntityModelSet modelSet*/) {

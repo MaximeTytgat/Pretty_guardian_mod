@@ -8,16 +8,16 @@ import software.bernie.geckolib.model.GeoModel;
 public class EternalSilverCristalStaffModel extends GeoModel<EternalSilverCristalStaffitem> {
     @Override
     public ResourceLocation getModelResource(EternalSilverCristalStaffitem animatable) {
-        return new ResourceLocation(PrettyGuardian.MOD_ID, "geo/eternal_silver_cristal_staff.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "geo/eternal_silver_cristal_staff.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(EternalSilverCristalStaffitem animatable) {
-        return new ResourceLocation(PrettyGuardian.MOD_ID, "textures/item/eternal_silver_cristal_staff.png");
+        return ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/item/eternal_silver_cristal_staff.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(EternalSilverCristalStaffitem animatable) {
-        return new ResourceLocation(PrettyGuardian.MOD_ID, "animations/eternal_silver_cristal_staff.animation.json");
+        return ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "animations/eternal_silver_cristal_staff.animation.json");
     }
 }

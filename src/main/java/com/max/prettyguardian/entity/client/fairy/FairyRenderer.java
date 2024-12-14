@@ -19,7 +19,7 @@ public class FairyRenderer extends MobRenderer<FairyEntity, FairyModel<FairyEnti
 
     private static final Map<FairyEntity.Variant, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), variantResourceLocationHashMap -> {
         for(FairyEntity.Variant fairy$variant : FairyEntity.Variant.values()) {
-            variantResourceLocationHashMap.put(fairy$variant, new ResourceLocation(PrettyGuardian.MOD_ID, String.format(Locale.ROOT, "textures/entity/fairy/fairy_%s.png", fairy$variant.getName())));
+            variantResourceLocationHashMap.put(fairy$variant, ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, String.format(Locale.ROOT, "textures/entity/fairy/fairy_%s.png", fairy$variant.getName())));
         }
     });
 

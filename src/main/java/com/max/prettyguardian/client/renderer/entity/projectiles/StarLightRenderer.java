@@ -18,7 +18,7 @@ import org.joml.Matrix4f;
 
 
 public class StarLightRenderer extends EntityRenderer<StarLightEntity> {
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/entity/projectiles/star_light.png");
+    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/entity/projectiles/star_light.png");
     private static final RenderType RENDER_TYPE = RenderType.entityCutoutNoCull(TEXTURE_LOCATION);
 
     public StarLightRenderer(EntityRendererProvider.Context context) {

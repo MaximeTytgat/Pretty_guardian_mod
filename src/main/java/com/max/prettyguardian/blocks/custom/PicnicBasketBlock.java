@@ -44,7 +44,7 @@ public class PicnicBasketBlock extends BaseEntityBlock {
     public static final MapCodec<PicnicBasketBlock> CODEC = simpleCodec(PicnicBasketBlock::new);
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final EnumProperty<Direction> FACING = DirectionalBlock.FACING;
-    public static final ResourceLocation CONTENTS = new ResourceLocation("contents");
+    public static final ResourceLocation CONTENTS = ResourceLocation.withDefaultNamespace("contents");
     private static final Component UNKNOWN_CONTENTS = Component.translatable("prettyGuardian.container.picnicBasket.unknownContents");
 
     private static final VoxelShape SHAPE_NORTH = Stream.of(Block.box(2, 1, 3, 14, 7, 13), Block.box(3, 0, 4, 13, 1, 12)).reduce(Shapes::or).get();

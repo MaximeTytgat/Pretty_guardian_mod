@@ -20,6 +20,6 @@ public class ModPoiTypeTagGenerator extends PoiTypeTagsProvider {
     @Override
     protected void addTags(@NotNull HolderLookup.Provider pProvider) {
         tag(ModTags.PoiTypeTags.MOON_TEMPLE)
-                .addOptional(new ResourceLocation(PrettyGuardian.MOD_ID, "moon_temple"));
+                .addOptional(ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "moon_temple"));
     }
 }

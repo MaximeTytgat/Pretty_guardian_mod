@@ -28,8 +28,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class LetterEditorScreen extends AbstractContainerScreen<FakeLoveLetterMenu> {
-    private static final ResourceLocation LOVE_LETTER_LOCATION = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/gui/love_letter.png");
-    private static final ResourceLocation LOVE_LETTER_LAYER_LOCATIION = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/gui/love_letter_layer.png");
+    private static final ResourceLocation LOVE_LETTER_LOCATION = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/gui/love_letter.png");
+    private static final ResourceLocation LOVE_LETTER_LAYER_LOCATIION = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/gui/love_letter_layer.png");
     private CustomMultiLineEditBox output;
     private final ItemStack stack;
     private final List<FormattedCharSequence> cachedPageComponents;

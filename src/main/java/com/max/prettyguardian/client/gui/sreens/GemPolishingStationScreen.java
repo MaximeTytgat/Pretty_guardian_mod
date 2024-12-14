@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class GemPolishingStationScreen extends AbstractContainerScreen<GemPolishingStationMenu> {
-    public static final ResourceLocation TEXTURE = new ResourceLocation(PrettyGuardian.MOD_ID, "textures/gui/gem_polishing_station_gui.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(PrettyGuardian.MOD_ID, "textures/gui/gem_polishing_station_gui.png");
 
     public GemPolishingStationScreen(GemPolishingStationMenu gemPolishingStationMenu, Inventory inventory, Component component) {
         super(gemPolishingStationMenu, inventory, component);
