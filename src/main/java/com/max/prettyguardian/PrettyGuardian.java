@@ -6,7 +6,6 @@ import com.max.prettyguardian.client.gui.sreens.*;
 import com.max.prettyguardian.component.ModDataComponentTypes;
 import com.max.prettyguardian.effect.ModEffects;
 import com.max.prettyguardian.enchantment.ModEnchantmentEffects;
-import com.max.prettyguardian.enchantment.ModEnchantments;
 import com.max.prettyguardian.entity.ModEntities;
 import com.max.prettyguardian.entity.client.butterfly.ButterflyRenderer;
 import com.max.prettyguardian.entity.client.celestialrabbit.CelestialRabbitRenderer;
@@ -16,7 +15,6 @@ import com.max.prettyguardian.event.custom.JapChairEvent;
 import com.max.prettyguardian.item.PrettyGuardianItem;
 import com.max.prettyguardian.loot.ModLootModifiers;
 import com.max.prettyguardian.networking.ModMessages;
-import com.max.prettyguardian.painting.ModPaintings;
 import com.max.prettyguardian.particle.ModParticles;
 import com.max.prettyguardian.client.gui.sreens.inventory.ModMenuTypes;
 import com.max.prettyguardian.potion.ModPotions;
@@ -56,7 +54,6 @@ public class PrettyGuardian
         PrettyGuardianBlock.register(modEventBus);
         PrettyGuardianItem.register(modEventBus);
 
-        ModPaintings.register(modEventBus);
         ModPoiTypes.register(modEventBus);
 
         ModEntityType.register(modEventBus);
