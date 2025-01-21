@@ -14,9 +14,11 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pools.DimensionPadding;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.Optional;
 
 public class CorruptedCelestialTempleStructure extends Structure {
 
-    public static final MapCodec<CorruptedCelestialTempleStructure> CODEC = RecordCodecBuilder.<CorruptedCelestialTempleStructure>mapCodec(instance ->
+    public static final MapCodec<CorruptedCelestialTempleStructure> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(Structure.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
@@ -83,7 +85,8 @@ public class CorruptedCelestialTempleStructure extends Structure {
         }
 
         BlockPos blockpos = ModStructureUtils.getElevation(context, 34, ModStructureUtils.getScaledNetherHeight(72));
-        return JigsawPlacement.addPieces(context,
+        return JigsawPlacement.addPieces(
+                context,
                 this.startPool,
                 this.startJigsawName,
                 this.size,
@@ -91,7 +94,9 @@ public class CorruptedCelestialTempleStructure extends Structure {
                 false,
                 this.projectStartToHeightmap,
                 this.maxDistanceFromCenter,
-                PoolAliasLookup.create(List.of(), blockpos, this.size)
+                PoolAliasLookup.create(List.of(), blockpos, this.size),
+                DimensionPadding.ZERO,
+                LiquidSettings.IGNORE_WATERLOGGING
         );
     }
 
