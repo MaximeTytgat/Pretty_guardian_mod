@@ -11,7 +11,7 @@ public class ModMessages {
     private ModMessages() {}
 
     private static final int PROTOCOL_VERSION = 1004000;
-    public static final ResourceLocation MAIN_CHANNEL_LOCATION = ResourceLocation.withDefaultNamespace(MOD_ID, "main");
+    public static final ResourceLocation MAIN_CHANNEL_LOCATION = ResourceLocation.fromNamespaceAndPath(MOD_ID, "main");
     public static final SimpleChannel NETWORK = ChannelBuilder.named(MAIN_CHANNEL_LOCATION).networkProtocolVersion(PROTOCOL_VERSION).optional().simpleChannel();
     private static int packetId = 0;
 

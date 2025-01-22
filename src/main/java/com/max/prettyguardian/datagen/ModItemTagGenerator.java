@@ -68,14 +68,14 @@ public class ModItemTagGenerator extends ItemTagsProvider {
                         PrettyGuardianItem.SPIRAL_HEART_MOON_ROD.get()
                 );
 
-        this.tag(ItemTags.MUSIC_DISCS)
-                .add(
-                        PrettyGuardianItem.SAILORMOON_OST_MUSIC_DISC.get(),
-                        PrettyGuardianItem.FIREFLIES_MUSIC_DISC.get(),
-                        PrettyGuardianItem.LOFI_MUSIC_DISC.get(),
-                        PrettyGuardianItem.TAVERN_MUSIC_DISC.get(),
-                        PrettyGuardianItem.THE_LANTERN_FAIR_MUSIC_DISC.get()
-                );
+//        this.tag(ItemTags.MUSIC_DISCS)
+//                .add(
+//                        PrettyGuardianItem.SAILORMOON_OST_MUSIC_DISC.get(),
+//                        PrettyGuardianItem.FIREFLIES_MUSIC_DISC.get(),
+//                        PrettyGuardianItem.LOFI_MUSIC_DISC.get(),
+//                        PrettyGuardianItem.TAVERN_MUSIC_DISC.get(),
+//                        PrettyGuardianItem.THE_LANTERN_FAIR_MUSIC_DISC.get()
+//                );
 
         this.tag(ItemTags.CREEPER_DROP_MUSIC_DISCS)
                 .add(

@@ -18,8 +18,7 @@ public class CelestialRabbitCollarPearlLayer<T extends CelestialRabbitEntity, M 
 
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int i, T celestialRabbitEntity, float v, float v1, float v2, float v3, float v4, float v5) {
         if (celestialRabbitEntity.isTame() && !celestialRabbitEntity.isInvisible()) {
-            float[] afloat = celestialRabbitEntity.getCollarColor().getTextureDiffuseColors();
-            renderColoredCutoutModel(this.getParentModel(), CELESTIAL_RABBIT_COLLAR_LOCATION, poseStack, multiBufferSource, i, celestialRabbitEntity, afloat[0], afloat[1], afloat[2]);
+            renderColoredCutoutModel(this.getParentModel(), CELESTIAL_RABBIT_COLLAR_LOCATION, poseStack, multiBufferSource, i, celestialRabbitEntity, celestialRabbitEntity.getCollarColor().getTextureDiffuseColor());
         }
     }
 }

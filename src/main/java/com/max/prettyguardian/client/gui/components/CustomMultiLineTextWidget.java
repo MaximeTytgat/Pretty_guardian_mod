@@ -26,10 +26,11 @@ public class CustomMultiLineTextWidget extends AbstractStringWidget {
         this.maxWidth = OptionalInt.empty();
         this.maxRows = OptionalInt.empty();
         this.centered = false;
-        this.cache = Util.singleKeyCache(cacheKey ->
-                cacheKey.maxRows.isPresent() ?
-                        MultiLineLabel.create(font, cacheKey.message, cacheKey.maxWidth, cacheKey.maxRows.getAsInt()) :
-                        MultiLineLabel.create(font, cacheKey.message, cacheKey.maxWidth));
+        this.cache = Util.singleKeyCache(
+                cacheKey -> cacheKey.maxRows.isPresent() ?
+                        MultiLineLabel.create(font, cacheKey.maxWidth, cacheKey.maxRows.getAsInt(), cacheKey.message) :
+                        MultiLineLabel.create(font, cacheKey.message, cacheKey.maxWidth)
+        );
         this.active = false;
     }
 

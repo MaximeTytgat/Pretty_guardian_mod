@@ -7,8 +7,11 @@ import com.max.prettyguardian.blocks.custom.furniture.JapHugeLanternBlock;
 import com.max.prettyguardian.blocks.custom.furniture.JapScreenBlock;
 import com.max.prettyguardian.item.PrettyGuardianItem;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
@@ -29,10 +32,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
 public class ModBlockLootTables extends BlockLootSubProvider {
-
-
-    public ModBlockLootTables() {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+    public ModBlockLootTables(HolderLookup.Provider provider) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), provider);
     }
 
     @Override
@@ -157,11 +158,13 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 .hasBlockStateProperties(PrettyGuardianBlock.STRAWBERRY_CROP.get())
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(StrawberryCropBlock.AGE, 4));
 
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
         this.add(PrettyGuardianBlock.STRAWBERRY_CROP.get(),
                 this.applyExplosionDecay(PrettyGuardianBlock.STRAWBERRY_CROP.get(),
                         LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(PrettyGuardianItem.STRAWBERRY_SEEDS.get())))
                                 .withPool(LootPool.lootPool().when(builder).add(LootItem.lootTableItem(PrettyGuardianItem.STRAWBERRY.get())
-                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.FORTUNE, 0.5714286F, 2))))
+                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(registrylookup.getOrThrow(Enchantments.FORTUNE), 0.5714286F, 2))))
                                 .withPool(LootPool.lootPool().when(builder).add(LootItem.lootTableItem(PrettyGuardianItem.STRAWBERRY_SEEDS.get())
                                         .when(LootItemRandomChanceCondition.randomChance(0.1F))))));
 
@@ -224,11 +227,12 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
     @Override
     protected LootTable.@NotNull Builder createLapisOreDrops(@NotNull Block block) {
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         return createSilkTouchDispatchTable(block,
                 this.applyExplosionDecay(block,
                         LootItem.lootTableItem(PrettyGuardianItem.STRAWBERRY_SEEDS.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 9.0F)))
-                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.FORTUNE))));
+                                .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))));
     }
 
     @Override

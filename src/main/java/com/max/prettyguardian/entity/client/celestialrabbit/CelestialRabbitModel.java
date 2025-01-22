@@ -161,8 +161,8 @@ public class CelestialRabbitModel<T extends Entity> extends HierarchicalModel<T>
 	}
 
 	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		celestialRabbit.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int i, int i1, int i2) {
+		celestialRabbit.render(poseStack, vertexConsumer, i, i1, i2);
 	}
 
 	@Override

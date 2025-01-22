@@ -31,7 +31,7 @@ public class FairyGlowLayer<T extends FairyEntity, M extends FairyModel<T>> exte
     public void render(@NotNull PoseStack poseStack, MultiBufferSource multiBufferSource, int i, @NotNull T fairyEntity, float v, float v1, float v2, float v3, float v4, float v5) {
         VertexConsumer vertexconsumer = multiBufferSource.getBuffer(this.renderType(fairyEntity));
         if (fairyEntity.hasDust()) {
-            this.getParentModel().renderToBuffer(poseStack, vertexconsumer, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.getParentModel().renderToBuffer(poseStack, vertexconsumer, 15728640, OverlayTexture.NO_OVERLAY, 1);
         }
     }
 

@@ -36,19 +36,19 @@ public class ModItemModelProvider extends ItemModelProvider {
     private void simpleItem(RegistryObject<Item> item) {
         withExistingParent(item.getId().getPath(),
                 ResourceLocation.withDefaultNamespace(ITEM_GENERATED)).texture(LAYER0,
-                ResourceLocation.withDefaultNamespace(MOD_ID, ITEM_FOLDER + item.getId().getPath()));
+                ResourceLocation.fromNamespaceAndPath(MOD_ID, ITEM_FOLDER + item.getId().getPath()));
     }
 
     private void simpleItemForBlock(RegistryObject<Block> block) {
         withExistingParent(block.getId().getPath(),
                 ResourceLocation.withDefaultNamespace(ITEM_GENERATED)).texture(LAYER0,
-                ResourceLocation.withDefaultNamespace(MOD_ID, ITEM_FOLDER + block.getId().getPath()));
+                ResourceLocation.fromNamespaceAndPath(MOD_ID, ITEM_FOLDER + block.getId().getPath()));
     }
 
     private void handheldItem(RegistryObject<Item> item) {
         withExistingParent(item.getId().getPath(),
                 ResourceLocation.withDefaultNamespace(ITEM_HANDHELD)).texture(LAYER0,
-                ResourceLocation.withDefaultNamespace(MOD_ID, ITEM_FOLDER + item.getId().getPath()));
+                ResourceLocation.fromNamespaceAndPath(MOD_ID, ITEM_FOLDER + item.getId().getPath()));
     }
 
     @Override
@@ -217,7 +217,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     private void saplingItem(RegistryObject<Block> item) {
         withExistingParent(item.getId().getPath(),
                 ResourceLocation.withDefaultNamespace(ITEM_GENERATED)).texture(LAYER0,
-                ResourceLocation.withDefaultNamespace(MOD_ID, "block/" + item.getId().getPath()));
+                ResourceLocation.fromNamespaceAndPath(MOD_ID, "block/" + item.getId().getPath()));
     }
 
     private void trimmedArmorItem(RegistryObject<Item> itemRegistryObject) {
@@ -238,9 +238,9 @@ public class ModItemModelProvider extends ItemModelProvider {
                 String armorItemPath = ITEM_FOLDER + armorItem;
                 String trimPath = "trims/items/" + armorType + "_trim_" + trimMaterial.location().getPath();
                 String currentTrimName = armorItemPath + "_" + trimMaterial.location().getPath() + "_trim";
-                ResourceLocation armorItemResLoc = ResourceLocation.withDefaultNamespace(MOD_ID, armorItemPath);
-                ResourceLocation trimResLoc = ResourceLocation.withDefaultNamespace(MOD_ID, trimPath);
-                ResourceLocation trimNameResLoc = ResourceLocation.withDefaultNamespace(MOD_ID, currentTrimName);
+                ResourceLocation armorItemResLoc = ResourceLocation.fromNamespaceAndPath(MOD_ID, armorItemPath);
+                ResourceLocation trimResLoc = ResourceLocation.fromNamespaceAndPath(MOD_ID, trimPath);
+                ResourceLocation trimNameResLoc = ResourceLocation.fromNamespaceAndPath(MOD_ID, currentTrimName);
 
                 existingFileHelper.trackGenerated(trimResLoc, PackType.CLIENT_RESOURCES, ".png", "textures");
 
@@ -255,7 +255,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                         .model(new ModelFile.UncheckedModelFile(trimNameResLoc))
                         .predicate(mcLoc("trim_type"), trimValue).end()
                         .texture(LAYER0,
-                                ResourceLocation.withDefaultNamespace(MOD_ID,
+                                ResourceLocation.fromNamespaceAndPath(MOD_ID,
                                         ITEM_FOLDER + itemRegistryObject.getId().getPath()));
             });
         }
@@ -264,7 +264,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     private void simpleBlockItemBlockTexture() {
         withExistingParent(PrettyGuardianBlock.STRAWBERRY_CROP_FLOWER.getId().getPath(),
                 ResourceLocation.withDefaultNamespace(ITEM_GENERATED)).texture(LAYER0,
-                ResourceLocation.withDefaultNamespace(MOD_ID, "block/" + PrettyGuardianBlock.STRAWBERRY_CROP_FLOWER.getId().getPath()));
+                ResourceLocation.fromNamespaceAndPath(MOD_ID, "block/" + PrettyGuardianBlock.STRAWBERRY_CROP_FLOWER.getId().getPath()));
     }
 
     static {

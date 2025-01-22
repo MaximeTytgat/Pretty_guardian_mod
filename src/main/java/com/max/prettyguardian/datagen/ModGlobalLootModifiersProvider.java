@@ -10,6 +10,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.common.loot.LootTableIdCondition;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -19,7 +20,7 @@ public class ModGlobalLootModifiersProvider extends GlobalLootModifierProvider {
     }
 
     @Override
-    protected void start() {
+    protected void start(@NotNull HolderLookup.Provider provider) {
         add("raw_squid_from_squid", new AddItemModifier(new LootItemCondition[] {
                 new LootTableIdCondition.Builder(ResourceLocation.withDefaultNamespace("entities/squid")).build()
         }, PrettyGuardianItem.RAW_SQUID.get(), 1));

@@ -1,6 +1,5 @@
 package com.max.prettyguardian.item.custom.tool;
 
-import com.max.prettyguardian.util.BaseTeleporter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -12,6 +11,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.portal.DimensionTransition;
 import org.jetbrains.annotations.NotNull;
 
 public class PlutonsKey extends Item {
@@ -45,7 +45,8 @@ public class PlutonsKey extends Item {
                         BlockState blockAtRespawn = serverLevel.getBlockState(respawnPoint);
                         if (blockAtRespawn.getBlock() instanceof BedBlock) {
                             if (dimension != level.dimension()) {
-                                serverPlayer.changeDimension(serverLevel, new BaseTeleporter(respawnPoint.getX(), respawnPoint.getY() + 0.5, respawnPoint.getZ()));
+                                DimensionTransition dimensionTransition = new DimensionTransition(serverLevel, serverPlayer, entity -> entity.teleportTo(respawnPoint.getX(), respawnPoint.getY() + 0.5, respawnPoint.getZ()));
+                                serverPlayer.changeDimension(dimensionTransition);
                             } else {
                                 serverPlayer.teleportTo(respawnPoint.getX(), respawnPoint.getY() + 0.5, respawnPoint.getZ());
                             }
@@ -56,7 +57,8 @@ public class PlutonsKey extends Item {
                     BlockPos worldSpawn = serverLevel.getSharedSpawnPos();
 
                     if (dimension != level.dimension()) {
-                        serverPlayer.changeDimension(serverLevel, new BaseTeleporter(worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ()));
+                        DimensionTransition dimensionTransition = new DimensionTransition(serverLevel, serverPlayer, entity -> entity.teleportTo(worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ()));
+                        serverPlayer.changeDimension(dimensionTransition);
                     } else {
                         serverPlayer.teleportTo(worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ());
                     }

@@ -22,7 +22,7 @@ public class CelestialRabbitCollarLayer<T extends CelestialRabbitEntity, M exten
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int i, CelestialRabbitEntity celestialRabbitEntity, float v, float v1, float v2, float v3, float v4, float v5) {
         if (celestialRabbitEntity.isTame() && !celestialRabbitEntity.isInvisible()) {
             VertexConsumer vertexconsumer = multiBufferSource.getBuffer(this.renderType());
-            this.getParentModel().renderToBuffer(poseStack, vertexconsumer, i, LivingEntityRenderer.getOverlayCoords(celestialRabbitEntity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+            this.getParentModel().renderToBuffer(poseStack, vertexconsumer, i, LivingEntityRenderer.getOverlayCoords(celestialRabbitEntity, 0.0F), 1);
         }
     }
 

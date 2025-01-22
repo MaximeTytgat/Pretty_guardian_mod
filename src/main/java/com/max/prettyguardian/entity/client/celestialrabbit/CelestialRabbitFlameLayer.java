@@ -71,7 +71,7 @@ public class CelestialRabbitFlameLayer<T extends CelestialRabbitEntity, M extend
             poseStack.popPose();
 
             VertexConsumer vertexConsumer = multiBufferSource.getBuffer(ENTITY_TRANSLUCENT_EMISSIVE.apply(flameTexture, true));
-            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1F);
+            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1);
         }
     }
 

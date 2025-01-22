@@ -21,7 +21,7 @@ public class CuteArrowEntity extends AbstractArrow {
     }
 
     public CuteArrowEntity(EntityType<CuteArrowEntity> entityType, LivingEntity shooter, Level world) {
-        super(entityType, shooter, world, new ItemStack(PrettyGuardianItem.HEART_ARROW.get()));
+        super(entityType, shooter, world, new ItemStack(PrettyGuardianItem.HEART_ARROW.get()), new ItemStack(PrettyGuardianItem.CUPIDON_BOW.get()));
     }
     @Override
     protected @NotNull ItemStack getPickupItem() {
