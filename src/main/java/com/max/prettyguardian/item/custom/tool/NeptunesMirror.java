@@ -45,7 +45,7 @@ public class NeptunesMirror extends Item {
     }
 
     @Override
-    public int getUseDuration(@NotNull ItemStack stack) {
+    public int getUseDuration(@NotNull ItemStack stack, @NotNull LivingEntity livingEntity) {
         return 72000;
     }
 
@@ -132,7 +132,7 @@ public class NeptunesMirror extends Item {
                 poseStack.translate(i * 0.56F, -0.52F, -0.72F);
 
                 if (player.isUsingItem() && player.getUseItemRemainingTicks() > 0 && player.getUseItem() == itemInHand) {
-                    float timeLeft = itemInHand.getUseDuration() - (player.getUseItemRemainingTicks() - partialTick + 1.0F);
+                    float timeLeft = itemInHand.getUseDuration(player) - (player.getUseItemRemainingTicks() - partialTick + 1.0F);
                     float f12 = 1;
 
                     float f15 = Mth.sin((timeLeft - 0.1F) * 1.3F);

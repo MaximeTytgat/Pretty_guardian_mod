@@ -54,7 +54,7 @@ public class ReusableFoodContainerItem extends Item {
     }
 
     @Override
-    public int getUseDuration(@NotNull ItemStack itemStack) {
+    public int getUseDuration(@NotNull ItemStack itemStack, @NotNull LivingEntity livingEntity) {
         return this.drinkDuration;
     }
 

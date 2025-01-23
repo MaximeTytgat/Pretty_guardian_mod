@@ -47,7 +47,7 @@ public class MilkItem extends Item {
     }
 
     @Override
-    public int getUseDuration(@NotNull ItemStack itemStack) {
+    public int getUseDuration(@NotNull ItemStack itemStack, @NotNull LivingEntity livingEntity) {
         return DRINK_DURATION;
     }
 

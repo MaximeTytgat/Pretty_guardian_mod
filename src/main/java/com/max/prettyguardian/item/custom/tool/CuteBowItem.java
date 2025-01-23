@@ -3,8 +3,10 @@ package com.max.prettyguardian.item.custom.tool;
 
 import com.max.prettyguardian.item.PrettyGuardianItem;
 import com.max.prettyguardian.item.custom.projectiles.CuteArrowItem;
+import com.max.prettyguardian.util.EnchantmentUtils;
 import com.max.prettyguardian.util.ModTags;
 import com.max.prettyguardian.worldgen.entity.projectile.CuteArrowEntity;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -12,11 +14,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
 import java.util.function.Predicate;
 
 public class CuteBowItem extends BowItem  {
@@ -30,10 +34,11 @@ public class CuteBowItem extends BowItem  {
     @Override
     public void releaseUsing(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity livingEntity, int i1) {
         if (livingEntity instanceof Player player) {
-            boolean flag = player.getAbilities().instabuild || EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY, itemStack) > 0;
+            Map<ResourceKey<Enchantment>, Integer> itemEnchantments = EnchantmentUtils.getEnchantments(itemStack);
+            boolean flag = player.getAbilities().instabuild || itemEnchantments.getOrDefault(Enchantments.INFINITY, 0) > 0;
             ItemStack itemstack = player.getProjectile(itemStack);
 
-            int i = this.getUseDuration(itemStack) - i1;
+            int i = this.getUseDuration(itemStack, livingEntity) - i1;
             i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(itemStack, level, player, i, !itemstack.isEmpty() || flag);
             if (i < 0) return;
 
@@ -54,17 +59,17 @@ public class CuteBowItem extends BowItem  {
                             abstractarrow.setCritArrow(true);
                         }
 
-                        int j = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER, itemStack);
+                        int j = itemEnchantments.getOrDefault(Enchantments.POWER, 0);
                         if (j > 0) {
                             abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + j * 0.5D + 0.5D);
                         }
 
-                        int k = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PUNCH, itemStack);
-                        if (k > 0) {
-                            abstractarrow.setKnockback(k);
-                        }
+//                        int k = itemEnchantments.getOrDefault(Enchantments.PUNCH, 0);
+//                        if (k > 0) {
+//                            abstractarrow.setKnockback(k);
+//                        }
 
-                        if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FLAME, itemStack) > 0) {
+                        if (itemEnchantments.getOrDefault(Enchantments.FLAME, 0) > 0) {
                             abstractarrow.setRemainingFireTicks(100);
                         }
 

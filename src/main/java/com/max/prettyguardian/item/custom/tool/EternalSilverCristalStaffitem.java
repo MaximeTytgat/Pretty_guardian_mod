@@ -2,12 +2,14 @@ package com.max.prettyguardian.item.custom.tool;
 
 
 import com.max.prettyguardian.item.client.EternalSilverCristalStaffRenderer;
+import com.max.prettyguardian.util.EnchantmentUtils;
 import com.max.prettyguardian.util.ModTags;
 import com.max.prettyguardian.sound.ModSounds;
 import com.max.prettyguardian.item.PrettyGuardianItem;
 import com.max.prettyguardian.item.custom.projectiles.StarLightItem;
 import com.max.prettyguardian.worldgen.entity.projectile.StarLightEntity;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -18,6 +20,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -30,6 +33,7 @@ import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceC
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.RenderUtil;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -60,10 +64,11 @@ public class EternalSilverCristalStaffitem extends BowItem implements GeoItem {
     @Override
     public void releaseUsing(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity livingEntity, int i1) {
         if (livingEntity instanceof Player player) {
-            boolean flag = player.getAbilities().instabuild || EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY, itemStack) > 0;
+            Map<ResourceKey<Enchantment>, Integer> itemEnchantments = EnchantmentUtils.getEnchantments(itemStack);
+            boolean flag = player.getAbilities().instabuild || itemEnchantments.getOrDefault(Enchantments.INFINITY, 0) > 0;
             ItemStack itemstack = player.getProjectile(itemStack);
 
-            int i = this.getUseDuration(itemStack) - i1;
+            int i = this.getUseDuration(itemStack, livingEntity) - i1;
             i = ForgeEventFactory.onArrowLoose(itemStack, level, player, i, !itemstack.isEmpty() || flag);
             if (i < 0) return;
 
@@ -107,7 +112,7 @@ public class EternalSilverCristalStaffitem extends BowItem implements GeoItem {
     }
 
     @Override
-    public int getUseDuration(@NotNull ItemStack itemStack) {
+    public int getUseDuration(@NotNull ItemStack itemStack, @NotNull LivingEntity livingEntity) {
         return 72000;
     }
 
