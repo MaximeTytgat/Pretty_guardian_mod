@@ -51,6 +51,6 @@ public class StarLightRenderer extends EntityRenderer<StarLightEntity> {
     }
 
     private static void vertex(VertexConsumer vertexConsumer, Matrix4f matrix4f, PoseStack.Pose pose, int i, float v, int i1, int i2, int i3) {
-        vertexConsumer.vertex(matrix4f, v - 0.5F, i1 - 0.25F, 0.0F).color(255, 255, 255, 255).uv(i2, i3).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(i).normal(pose, 0.0F, 1.0F, 0.0F).endVertex();
+        vertexConsumer.addVertex(matrix4f, v - 0.5F, i1 - 0.25F, 0.0F).setColor(255, 255, 255, 255).setUv(i2, i3).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(i, 240).setNormal(pose, 0.0F, 1.0F, 0.0F);
     }
 }

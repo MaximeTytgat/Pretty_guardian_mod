@@ -1,6 +1,7 @@
 package com.max.prettyguardian.client.gui.sreens;
 
 import com.max.prettyguardian.effect.ModEffects;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
@@ -15,9 +16,9 @@ public class LoveEffectHubOverlay implements LayeredDraw.Layer {
         this.minecraft = minecraft;
     }
 
-
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, float v) {
+    public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
+
         if (minecraft.level == null || minecraft.player == null) {
             return;
         }

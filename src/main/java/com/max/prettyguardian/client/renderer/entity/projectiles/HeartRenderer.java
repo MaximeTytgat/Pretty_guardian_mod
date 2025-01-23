@@ -50,7 +50,7 @@ public class HeartRenderer extends EntityRenderer<HeartEntity> {
         super.render(heartEntity, v, v1, poseStack, multiBufferSource, i);
     }
 
-    private static void vertex(VertexConsumer consumer, Matrix4f f, PoseStack.Pose pose, int p253829, float v, int i, int i1, int i2) {
-        consumer.vertex(f, v - 0.5F, i - 0.25F, 0.0F).color(255, 255, 255, 255).uv(i1, i2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(p253829).normal(pose, 0.0F, 1.0F, 0.0F).endVertex();
+    private static void vertex(VertexConsumer consumer, Matrix4f f, PoseStack.Pose pose, int i3, float v, int i, int i1, int i2) {
+        consumer.addVertex(f, v - 0.5F, i - 0.25F, 0.0F).setColor(255, 255, 255, 255).setUv(i1, i2).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(i3, 240).setNormal(pose, 0.0F, 1.0F, 0.0F);
     }
 }

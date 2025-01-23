@@ -164,7 +164,7 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
         this.goalSelector.addGoal(4, new SonicAttackGoal());
 
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.25D));
-        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 2.0D, 8.0F, 5.0F, true));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 2.0D, 8.0F, 5.0F));
 
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.1D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -289,8 +289,8 @@ public class CelestialRabbitEntity extends TamableAnimal implements FlyingAnimal
     }
 
     @Override
-    public boolean canBeLeashed(@NotNull Player player) {
-        return !this.isAngry() && super.canBeLeashed(player);
+    public boolean canBeLeashed() {
+        return !this.isAngry() && super.canBeLeashed();
     }
 
     @Override
